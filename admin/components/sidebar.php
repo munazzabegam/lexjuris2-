@@ -35,6 +35,9 @@ $current_page = basename($_SERVER['PHP_SELF']);
         <a href="contact.php" class="<?php echo $current_page === 'contact.php' ? 'active' : ''; ?>">
             <i class="fas fa-envelope"></i> <span class="menu-text">Contact</span>
         </a>
+        <a href="visitor_records.php" class="<?php echo $current_page === 'visitor_records.php' ? 'active' : ''; ?>">
+            <i class="fas fa-chart-bar"></i> <span class="menu-text">Visitor Records</span>
+        </a>
     </div>
     <div class="sidebar-footer">
         <a href="logout.php" class="logout-btn">
