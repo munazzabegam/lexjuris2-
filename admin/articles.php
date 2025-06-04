@@ -7,12 +7,60 @@ if (!isset($_SESSION['admin_id'])) {
 
 require_once __DIR__ . '/../config/database.php';
 
-// Fetch articles with author info
+// Initialize variables for filters
+$status_filter = isset($_GET['status']) ? $_GET['status'] : '';
+$category_filter = isset($_GET['category']) ? $_GET['category'] : '';
+$search_query = isset($_GET['search']) ? $_GET['search'] : '';
+$date_filter = isset($_GET['date']) ? $_GET['date'] : '';
+
+// Build the query
 $query = "SELECT a.*, u.username as author_name 
           FROM articles a 
-          LEFT JOIN admin_users u ON a.author_id = u.id 
-          ORDER BY a.published_at DESC, a.updated_at DESC";
-$result = $conn->query($query);
+          LEFT JOIN admin_users u ON a.author_id = u.id
+          WHERE 1=1"; // Start with a true condition to easily append filters
+$params = [];
+$types = "";
+
+if (!empty($status_filter)) {
+    $query .= " AND status = ?";
+    $params[] = $status_filter;
+    $types .= "s";
+}
+
+if (!empty($category_filter)) {
+    $query .= " AND category = ?";
+    $params[] = $category_filter;
+    $types .= "s";
+}
+
+if (!empty($search_query)) {
+    $query .= " AND (title LIKE ? OR content LIKE ? OR tags LIKE ?)";
+    $search_param = "%$search_query%";
+    $params[] = $search_param;
+    $params[] = $search_param;
+    $params[] = $search_param;
+    $types .= "sss";
+}
+
+if (!empty($date_filter)) {
+    // Filter by published_at date
+    $query .= " AND DATE(published_at) = ?";
+    $params[] = $date_filter;
+    $types .= "s";
+}
+
+$query .= " ORDER BY a.published_at DESC, a.updated_at DESC";
+
+// Prepare and execute the query
+$stmt = $conn->prepare($query);
+
+if (!empty($params)) {
+    $stmt->bind_param($types, ...$params);
+}
+
+$stmt->execute();
+$result = $stmt->get_result();
+
 $articles = [];
 if ($result) {
     while ($row = $result->fetch_assoc()) {
@@ -20,6 +68,11 @@ if ($result) {
     }
     $result->free();
 }
+
+// Fetch categories for filter dropdown
+$categories_query = "SELECT DISTINCT category FROM articles WHERE category IS NOT NULL";
+$categories_result = $conn->query($categories_query);
+$categories = $categories_result->fetch_all(MYSQLI_ASSOC);
 
 // Read and clear session messages
 $article_success = $_SESSION['article_success'] ?? null;
@@ -70,6 +123,50 @@ unset($_SESSION['article_error']);
         .btn-action i {
             margin-right: 0.4em;
         }
+
+        .filters-section {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--card-shadow);
+            border: 1px solid rgba(188, 132, 20, 0.1);
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .filter-item {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .filter-item label {
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 0.25rem;
+        }
+
+        .filter-item select,
+        .filter-item input {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid rgba(188, 132, 20, 0.2);
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+
+        .filter-item select:focus,
+        .filter-item input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(188, 132, 20, 0.1);
+            outline: none;
+        }
+
     </style>
 </head>
 <body>
@@ -95,6 +192,39 @@ unset($_SESSION['article_error']);
                 <i class="fas fa-plus me-2"></i>Add New Article
             </a>
         </div>
+
+        <!-- Filters Section -->
+        <div class="filters-section">
+            <form method="GET" action="" class="filter-group">
+                <div class="filter-item">
+                    <label>Status</label>
+                    <select name="status" class="form-select" onchange="this.form.submit()">
+                        <option value="">All Status</option>
+                        <option value="draft" <?php echo $status_filter === 'draft' ? 'selected' : ''; ?>>Draft</option>
+                        <option value="published" <?php echo $status_filter === 'published' ? 'selected' : ''; ?>>Published</option>
+                    </select>
+                </div>
+                <div class="filter-item">
+                    <label>Category</label>
+                    <select name="category" class="form-select" onchange="this.form.submit()">
+                        <option value="">All Categories</option>
+                        <?php foreach ($categories as $cat): ?>
+                            <option value="<?php echo htmlspecialchars($cat['category']); ?>" <?php echo $category_filter === $cat['category'] ? 'selected' : ''; ?>><?php echo ucfirst(htmlspecialchars($cat['category'])); ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                 <div class="filter-item">
+                    <label>Published Date</label>
+                    <input type="date" name="date" class="form-control" value="<?php echo htmlspecialchars($date_filter); ?>" onchange="this.form.submit()">
+                </div>
+                <div class="filter-item">
+                    <label>Search</label>
+                    <input type="text" name="search" class="form-control" placeholder="Search articles..." value="<?php echo htmlspecialchars($search_query); ?>">
+                </div>
+            </form>
+        </div>
+
+        <!-- Articles List (Table) -->
         <div class="table-card">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h5>All Articles</h5>

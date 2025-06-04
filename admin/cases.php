@@ -73,117 +73,41 @@ unset($_SESSION['case_error']); // Clear case error
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="assets/css/dashboard.css" rel="stylesheet">
     <style>
-        .case-card {
+        .table-card {
             background: white;
-            border-radius: 12px;
+            border-radius: 8px;
             padding: 1.5rem;
-            margin-bottom: 1.5rem;
             box-shadow: var(--card-shadow);
             border: 1px solid rgba(188, 132, 20, 0.1);
-            transition: all 0.3s;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
         }
-
-        .case-card:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--hover-shadow);
+        .table-card .card-header {
+            background: none;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            padding: 0 0 0.75rem 0;
+            margin-bottom: 0.75rem;
         }
-
-        .case-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 1rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid rgba(188, 132, 20, 0.1);
-        }
-
-        .case-title {
-            font-size: 1.1rem;
+        .table th {
             font-weight: 600;
-            color: var(--dark-color);
-            margin: 0;
-            line-height: 1.4;
-        }
-
-        .case-meta {
-            display: flex;
-            gap: 1rem;
-            margin-top: 0.5rem;
-            flex-wrap: wrap;
-        }
-
-        .case-meta-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
             color: #666;
+            border-top: none;
+            padding: 0.75rem;
             font-size: 0.85rem;
-            white-space: nowrap;
         }
-
-        .case-meta-item i {
-            color: var(--primary-color);
+        .table td {
+            padding: 0.75rem;
+            vertical-align: middle;
+            font-size: 0.95rem;
         }
-
-        .case-description {
-            color: #666;
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-            line-height: 1.5;
-            flex-grow: 1;
-            overflow: hidden;
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-            min-height: 4.5em; /* 3 lines of text */
-        }
-
-        .case-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: auto;
-            padding-top: 1rem;
-            border-top: 1px solid rgba(188, 132, 20, 0.1);
-        }
-
-        .case-status {
+        .btn-action {
             padding: 0.4rem 0.8rem;
+            font-size: 0.85rem;
             border-radius: 6px;
-            font-size: 0.8rem;
-            font-weight: 500;
-            white-space: nowrap;
+        }
+        .btn-action i {
+            margin-right: 0.4em;
         }
 
-        .status-active {
-            background: rgba(40, 167, 69, 0.1);
-            color: #28a745;
-        }
-
-        .status-pending {
-            background: rgba(188, 132, 20, 0.1);
-            color: var(--primary-color);
-        }
-
-        .status-closed {
-            background: rgba(108, 117, 125, 0.1);
-            color: #6c757d;
-        }
-
-        .case-actions {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .case-actions .btn {
-            padding: 0.4rem 0.8rem;
-            font-size: 0.85rem;
-            white-space: nowrap;
-        }
-
+        /* Keep filters styling for now */
         .filters-section {
             background: white;
             border-radius: 12px;
@@ -226,6 +150,12 @@ unset($_SESSION['case_error']); // Clear case error
             box-shadow: 0 0 0 3px rgba(188, 132, 20, 0.1);
             outline: none;
         }
+
+        /* Remove old case card styles */
+        .case-card, .case-header, .case-meta, .case-description, .case-footer, .case-status, .status-active, .status-pending, .status-closed, .case-actions {
+             /* display: none; */ /* Or other removal/override */
+        }
+
     </style>
 </head>
 <body>
@@ -233,7 +163,7 @@ unset($_SESSION['case_error']); // Clear case error
     <?php include 'components/topnavbar.php'; ?>
 
     <div class="main-content">
-        <div class="container-fluid">
+        <div class="container-fluid p-3">
             <div class="row mb-4">
                 <div class="col-12">
                     <div class="d-flex justify-content-between align-items-center">
@@ -244,6 +174,19 @@ unset($_SESSION['case_error']); // Clear case error
                     </div>
                 </div>
             </div>
+
+            <?php if ($case_success): ?>
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <?php echo htmlspecialchars($case_success); ?>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            <?php endif; ?>
+            <?php if ($case_error): ?>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <?php echo htmlspecialchars($case_error); ?>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            <?php endif; ?>
 
             <!-- Filters Section -->
             <div class="filters-section">
@@ -282,58 +225,62 @@ unset($_SESSION['case_error']); // Clear case error
                 </form>
             </div>
 
-            <!-- Cases List -->
-            <div class="row">
-                <?php if (empty($cases)): ?>
-                    <div class="col-12">
-                        <div class="alert alert-info">
-                            No cases found matching your criteria.
-                        </div>
-                    </div>
-                <?php else: ?>
-                    <?php foreach ($cases as $case): ?>
-                        <div class="col-md-6 col-lg-4">
-                            <div class="case-card">
-                                <div class="case-header">
-                                    <div>
-                                        <h5 class="case-title"><?php echo htmlspecialchars($case['title']); ?></h5>
-                                        <div class="case-meta">
-                                            <span class="case-meta-item">
-                                                <i class="fas fa-gavel"></i><?php echo ucfirst(htmlspecialchars($case['category'])); ?>
+            <!-- Cases List (Table) -->
+            <div class="table-card">
+                <div class="card-header">
+                    <h5>All Cases</h5>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Case Number</th>
+                                <th>Title</th>
+                                <th>Category</th>
+                                <th>Status</th>
+                                <th>Created At</th>
+                                <th>Author</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php if (empty($cases)): ?>
+                                <tr>
+                                    <td colspan="8" class="text-center">No cases found matching your criteria.</td>
+                                </tr>
+                            <?php else: ?>
+                                <?php foreach ($cases as $case): ?>
+                                    <tr>
+                                        <td>#<?php echo htmlspecialchars($case['id']); ?></td>
+                                        <td><?php echo htmlspecialchars($case['case_number']); ?></td>
+                                        <td><?php echo htmlspecialchars($case['title']); ?></td>
+                                        <td><?php echo ucfirst(htmlspecialchars($case['category'])); ?></td>
+                                        <td>
+                                            <span class="badge bg-<?php 
+                                                if ($case['status'] === 'Open') echo 'success'; 
+                                                else if ($case['status'] === 'In Progress') echo 'warning';
+                                                else if ($case['status'] === 'Closed') echo 'secondary';
+                                            ?>">
+                                                <?php echo htmlspecialchars($case['status']); ?>
                                             </span>
-                                            <span class="case-meta-item">
-                                                <i class="fas fa-hashtag"></i><?php echo htmlspecialchars($case['case_number']); ?>
-                                            </span>
-                                            <span class="case-meta-item">
-                                                <i class="fas fa-calendar"></i><?php echo date('M d, Y', strtotime($case['created_at'])); ?>
-                                            </span>
-                                            <span class="case-meta-item">
-                                                <i class="fas fa-user"></i>
-                                                <?php echo htmlspecialchars($case['author_name'] ?? 'N/A'); ?>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="case-description">
-                                    <?php echo htmlspecialchars($case['description']); ?>
-                                </div>
-                                <div class="case-footer">
-                                    <span class="case-status status-<?php echo strtolower(str_replace(' ', '-', $case['status'])); ?>">
-                                        <?php echo htmlspecialchars($case['status']); ?>
-                                    </span>
-                                    <div class="case-actions">
-                                        <a href="case_details.php?id=<?php echo $case['id']; ?>" class="btn btn-sm btn-outline-primary">
-                                            <i class="fas fa-eye me-1"></i>View
-                                        </a>
-                                        <a href="edit_case.php?id=<?php echo $case['id']; ?>" class="btn btn-sm btn-outline-secondary">
-                                            <i class="fas fa-edit me-1"></i>Edit
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    <?php endforeach; ?>
-                <?php endif; ?>
+                                        </td>
+                                        <td><?php echo date('Y-m-d', strtotime($case['created_at'])); ?></td>
+                                        <td><?php echo htmlspecialchars($case['author_name'] ?? 'N/A'); ?></td>
+                                        <td>
+                                            <a href="case_details.php?id=<?php echo $case['id']; ?>" class="btn btn-sm btn-outline-primary btn-action"><i class="fas fa-eye"></i>View</a>
+                                            <a href="edit_case.php?id=<?php echo $case['id']; ?>" class="btn btn-sm btn-outline-secondary btn-action"><i class="fas fa-edit"></i>Edit</a>
+                                            <form action="actions/delete_case.php" method="POST" onsubmit="return confirm('Are you sure you want to delete this case?');" style="display: inline;">
+                                                <input type="hidden" name="case_id" value="<?php echo $case['id']; ?>">
+                                                <button type="submit" class="btn btn-sm btn-outline-danger btn-action"><i class="fas fa-trash"></i>Delete</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
