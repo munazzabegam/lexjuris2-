@@ -98,10 +98,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                      content = ?, 
                      status = ?, 
                      tags = ?, 
-                     external_link = ?";
+                     external_link = ?,
+                     updated_at = ?";
             
-            $params = [$title, $category, $summary, $content, $status, $tags, $external_link];
-            $types = "sssssss";
+            $params = [$title, $category, $summary, $content, $status, $tags, $external_link, date('Y-m-d H:i:s')];
+            $types = "ssssssss";
+
+            // Handle published_at based on status change
+            if ($status === 'published') {
+                // Check if article was previously unpublished
+                $check_query = "SELECT published_at FROM articles WHERE id = ?";
+                $check_stmt = $conn->prepare($check_query);
+                $check_stmt->bind_param("i", $article_id);
+                $check_stmt->execute();
+                $check_result = $check_stmt->get_result();
+                $article = $check_result->fetch_assoc();
+                
+                if (!$article['published_at']) {
+                    $query .= ", published_at = ?";
+                    $params[] = date('Y-m-d H:i:s');
+                    $types .= "s";
+                }
+            }
 
             if ($cover_image) {
                 $query .= ", cover_image = ?";

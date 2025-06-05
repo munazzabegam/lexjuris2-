@@ -9,9 +9,8 @@ CREATE TABLE admin_users (
     username VARCHAR(100) NOT NULL UNIQUE,
     email VARCHAR(255) NOT NULL UNIQUE,
     password_hash TEXT NOT NULL,
-    full_name VARCHAR(255),
     profile_image VARCHAR(500),
-    is_active BOOLEAN NOT NULL DEFAULT TRUE,
+    is_active BOOLEAN NOT NULL DEFAULT FALSE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     last_login TIMESTAMP NULL
 );
@@ -70,11 +69,14 @@ CREATE TABLE faq (
     id INT AUTO_INCREMENT PRIMARY KEY,
     question TEXT NOT NULL,
     answer TEXT NOT NULL,
-    category VARCHAR(100),
     order_index INT DEFAULT 0,
     is_active BOOLEAN NOT NULL DEFAULT TRUE,
+    author_id INT,
+    author_name VARCHAR(100),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (author_id) REFERENCES admin_users(id),
+    FOREIGN KEY (author_name) REFERENCES admin_users(username)
 );
 
 -- testimonials table

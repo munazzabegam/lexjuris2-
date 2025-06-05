@@ -1,0 +1,113 @@
+/* FAQ Card Styles */
+.faq-card {
+    background: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: var(--card-shadow);
+    border: 1px solid rgba(188, 132, 20, 0.1);
+    margin-bottom: 1.5rem;
+}
+
+/* FAQ View Styles */
+.faq-view .card-title {
+    color: #666;
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.faq-view .card-text {
+    color: #333;
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+/* FAQ Edit Styles */
+.faq-edit .form-label {
+    color: #666;
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.faq-edit .form-control,
+.faq-edit .form-select {
+    border-radius: 6px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 0.6rem 0.8rem;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+}
+
+.faq-edit .form-control:focus,
+.faq-edit .form-select:focus {
+    border-color: rgba(188, 132, 20, 0.3);
+    box-shadow: 0 0 0 0.2rem rgba(188, 132, 20, 0.1);
+}
+
+.faq-edit .form-text {
+    color: #666;
+    font-size: 0.85rem;
+    margin-top: 0.25rem;
+}
+
+/* Common Elements */
+.badge-active {
+    background-color: #28a745;
+    color: white;
+    padding: 0.5em 1em;
+    border-radius: 4px;
+    font-size: 0.85rem;
+}
+
+.badge-inactive {
+    background-color: #dc3545;
+    color: white;
+    padding: 0.5em 1em;
+    border-radius: 4px;
+    font-size: 0.85rem;
+}
+
+.btn-action {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.btn-action i {
+    margin-right: 0.4em;
+}
+
+.btn-action:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Alert Styles */
+.alert {
+    border-radius: 6px;
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Section Headers */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.section-header h4 {
+    margin: 0;
+    color: #333;
+    font-weight: 600;
+}
+
+/* Action Buttons Container */
+.action-buttons {
+    display: flex;
+    gap: 0.5rem;
+} 

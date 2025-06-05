@@ -207,6 +207,10 @@ $social_links = $social_result->fetch_all(MYSQLI_ASSOC);
                         <i class="fas fa-tag"></i>
                         <?php echo htmlspecialchars($article['status']); ?>
                     </span>
+                    <span class="article-meta-item">
+                        <i class="fas fa-edit"></i>
+                        Last Updated: <?php echo date('F d, Y h:i A', strtotime($article['updated_at'])); ?>
+                    </span>
                 </div>
             </div>
 

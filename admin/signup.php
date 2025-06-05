@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Debug: Log the hashed password
             error_log("Hashed password for user {$username}: " . $hashed_password);
             
-            $stmt = $conn->prepare("INSERT INTO admin_users (username, email, password_hash, is_active) VALUES (?, ?, ?, TRUE)");
+            $stmt = $conn->prepare("INSERT INTO admin_users (username, email, password_hash, is_active) VALUES (?, ?, ?, FALSE)");
             $stmt->bind_param("sss", $username, $email, $hashed_password);
             $result = $stmt->execute();
             

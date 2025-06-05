@@ -1,6 +1,19 @@
 <?php
-// Get current username from session
+// Get current user data from database
+$user_id = $_SESSION['admin_id'] ?? null;
 $username = $_SESSION['admin_username'] ?? 'Admin';
+$profile_image = null;
+
+if ($user_id) {
+    $stmt = $conn->prepare("SELECT profile_image FROM admin_users WHERE id = ?");
+    $stmt->bind_param("i", $user_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if ($user = $result->fetch_assoc()) {
+        $profile_image = $user['profile_image'];
+    }
+    $stmt->close();
+}
 ?>
 <!-- Top Navbar -->
 <div class="top-navbar">
@@ -24,12 +37,20 @@ $username = $_SESSION['admin_username'] ?? 'Admin';
         <!-- Nav Icons -->
         <div class="nav-icons d-flex align-items-center">
             <div class="dropdown">
-                <img src="https://ui-avatars.com/api/?name=<?php echo urlencode($username); ?>&background=bc8414&color=fff" 
-                     class="rounded-circle" width="32" height="32" 
-                     style="cursor: pointer;" data-bs-toggle="dropdown">
+                <?php if ($profile_image): ?>
+                    <img src="/lexjuris/<?php echo htmlspecialchars($profile_image); ?>" 
+                         class="rounded-circle" width="32" height="32" 
+                         style="cursor: pointer; object-fit: cover;" data-bs-toggle="dropdown">
+                <?php else: ?>
+                    <img src="https://ui-avatars.com/api/?name=<?php echo urlencode($username); ?>&background=bc8414&color=fff" 
+                         class="rounded-circle" width="32" height="32" 
+                         style="cursor: pointer;" data-bs-toggle="dropdown">
+                <?php endif; ?>
                 <ul class="dropdown-menu dropdown-menu-end">
                     <li><a class="dropdown-item" href="profile.php"><i class="fas fa-user me-2"></i> Profile</a></li>
                     <li><a class="dropdown-item" href="settings.php"><i class="fas fa-cog me-2"></i> Settings</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item text-danger" href="logout.php"><i class="fas fa-sign-out-alt me-2"></i> Logout</a></li>
                 </ul>
             </div>
         </div>

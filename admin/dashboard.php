@@ -72,6 +72,67 @@ try {
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- css-link -->
     <link rel="stylesheet" href="assets/css/dashboard.css">
+    <style>
+        /* Table column width fixes */
+        .table th:nth-child(2), /* Title column */
+        .table td:nth-child(2) {
+            max-width: 300px;
+            width: 300px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Status badge styling */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.35rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .status-badge i {
+            font-size: 0.6rem;
+            margin-right: 0.5rem;
+        }
+
+        .status-pending {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .status-active {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .status-completed {
+            background-color: #cce5ff;
+            color: #004085;
+        }
+
+        .status-closed {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        /* Table header styling */
+        .table th {
+            font-weight: 600;
+            color: #666;
+            border-top: none;
+            padding: 0.75rem;
+            font-size: 0.85rem;
+        }
+
+        .table td {
+            padding: 0.75rem;
+            vertical-align: middle;
+            font-size: 0.95rem;
+        }
+    </style>
 </head>
 <body>
     <?php include 'components/sidebar.php'; ?>

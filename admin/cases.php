@@ -72,6 +72,7 @@ unset($_SESSION['case_error']); // Clear case error
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="assets/css/dashboard.css" rel="stylesheet">
+    <link href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css" rel="stylesheet">
     <style>
         .table-card {
             background: white;
@@ -105,6 +106,16 @@ unset($_SESSION['case_error']); // Clear case error
         }
         .btn-action i {
             margin-right: 0.4em;
+        }
+
+        /* Column width fixes */
+        .table th:nth-child(3), /* Title column */
+        .table td:nth-child(3) {
+            max-width: 120px;
+            width: 120px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         /* Keep filters styling for now */
@@ -156,6 +167,28 @@ unset($_SESSION['case_error']); // Clear case error
              /* display: none; */ /* Or other removal/override */
         }
 
+        /* Drag handle styling */
+        .drag-handle {
+            cursor: move;
+            color: #999;
+            padding: 0 10px;
+        }
+        .drag-handle:hover {
+            color: #666;
+        }
+        .ui-sortable-helper {
+            display: table;
+            background: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .ui-sortable-placeholder {
+            visibility: visible !important;
+            background: #f8f9fa;
+            height: 60px;
+        }
+        .table tbody tr {
+            cursor: move;
+        }
     </style>
 </head>
 <body>
@@ -234,24 +267,26 @@ unset($_SESSION['case_error']); // Clear case error
                     <table class="table table-hover">
                         <thead>
                             <tr>
+                                <th style="width: 50px;"></th>
                                 <th>ID</th>
                                 <th>Case Number</th>
                                 <th>Title</th>
                                 <th>Category</th>
                                 <th>Status</th>
-                                <th>Created At</th>
                                 <th>Author</th>
+                                <th>Created</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="sortable-cases">
                             <?php if (empty($cases)): ?>
                                 <tr>
                                     <td colspan="8" class="text-center">No cases found matching your criteria.</td>
                                 </tr>
                             <?php else: ?>
                                 <?php foreach ($cases as $case): ?>
-                                    <tr>
+                                    <tr data-case-id="<?php echo $case['id']; ?>">
+                                        <td><i class="fas fa-grip-vertical drag-handle"></i></td>
                                         <td>#<?php echo htmlspecialchars($case['id']); ?></td>
                                         <td><?php echo htmlspecialchars($case['case_number']); ?></td>
                                         <td><?php echo htmlspecialchars($case['title']); ?></td>
@@ -265,8 +300,8 @@ unset($_SESSION['case_error']); // Clear case error
                                                 <?php echo htmlspecialchars($case['status']); ?>
                                             </span>
                                         </td>
-                                        <td><?php echo date('Y-m-d', strtotime($case['created_at'])); ?></td>
                                         <td><?php echo htmlspecialchars($case['author_name'] ?? 'N/A'); ?></td>
+                                        <td><?php echo date('Y-m-d', strtotime($case['created_at'])); ?></td>
                                         <td>
                                             <a href="case_details.php?id=<?php echo $case['id']; ?>" class="btn btn-sm btn-outline-primary btn-action"><i class="fas fa-eye"></i>View</a>
                                             <a href="edit_case.php?id=<?php echo $case['id']; ?>" class="btn btn-sm btn-outline-secondary btn-action"><i class="fas fa-edit"></i>Edit</a>
@@ -362,6 +397,9 @@ unset($_SESSION['case_error']); // Clear case error
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+    <script src="assets/js/common.js"></script>
     <script>
         // Mobile menu toggle
         document.addEventListener('DOMContentLoaded', function() {
@@ -384,6 +422,49 @@ unset($_SESSION['case_error']); // Clear case error
         function editCase(id) {
             window.location.href = `edit_case.php?id=${id}`;
         }
+
+        $(document).ready(function() {
+            $("#sortable-cases").sortable({
+                handle: ".drag-handle",
+                placeholder: "ui-sortable-placeholder",
+                helper: function(e, tr) {
+                    var $originals = tr.children();
+                    var $helper = tr.clone();
+                    $helper.children().each(function(index) {
+                        $(this).width($originals.eq(index).width());
+                    });
+                    return $helper;
+                },
+                update: function(event, ui) {
+                    var newOrder = [];
+                    $("#sortable-cases tr").each(function(index) {
+                        newOrder.push({
+                            id: $(this).data('case-id'),
+                            order: index
+                        });
+                    });
+
+                    // Send the new order to the server
+                    $.ajax({
+                        url: 'actions/update_case_order.php',
+                        method: 'POST',
+                        data: {
+                            order: newOrder
+                        },
+                        success: function(response) {
+                            if (response.success) {
+                                showAlert('Case order updated successfully.');
+                            } else {
+                                showAlert('Error updating case order.', 'danger');
+                            }
+                        },
+                        error: function() {
+                            showAlert('Error updating case order.', 'danger');
+                        }
+                    });
+                }
+            });
+        });
     </script>
 </body>
 </html>

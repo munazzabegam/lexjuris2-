@@ -3,71 +3,47 @@ session_start();
 require_once __DIR__ . '/../config/database.php';
 
 // Redirect if already logged in
-if (isset($_SESSION['admin_logged_in'])) {
+if (isset($_SESSION['admin_id'])) {
     header('Location: dashboard.php');
     exit();
 }
 
-$errors = [];
+$error = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username'] ?? '');
     $password = $_POST['password'] ?? '';
 
     if (empty($username) || empty($password)) {
-        $errors[] = "Both username and password are required";
+        $error = "Please enter both username and password";
     } else {
-        try {
-            // Debug: Log login attempt
-            error_log("Login attempt for username: " . $username);
-            
-            $stmt = $conn->prepare("SELECT id, username, password_hash, is_active FROM admin_users WHERE username = ?");
-            $stmt->bind_param("s", $username);
-            $stmt->execute();
-            $result = $stmt->get_result();
-            $user = $result->fetch_assoc();
-
-            if ($user) {
-                // Debug: Log user found
-                error_log("User found in database. ID: " . $user['id']);
+        $stmt = $conn->prepare("SELECT id, username, password_hash, is_active FROM admin_users WHERE username = ?");
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        if ($user = $result->fetch_assoc()) {
+            if (!$user['is_active']) {
+                $error = "Your account is inactive. Please contact the administrator.";
+            } else if (password_verify($password, $user['password_hash'])) {
+                $_SESSION['admin_id'] = $user['id'];
+                $_SESSION['admin_username'] = $user['username'];
+                $_SESSION['admin_logged_in'] = true;
                 
-                if (password_verify($password, $user['password_hash'])) {
-                    // Debug: Log password verification
-                    error_log("Password verified successfully for user: " . $username);
-                    
-                    if ($user['is_active']) {
-                        // Update last login timestamp
-                        $updateStmt = $conn->prepare("UPDATE admin_users SET last_login = CURRENT_TIMESTAMP WHERE id = ?");
-                        $updateStmt->bind_param("i", $user['id']);
-                        $updateStmt->execute();
-
-                        // Set session variables
-                        $_SESSION['admin_logged_in'] = true;
-                        $_SESSION['admin_id'] = $user['id'];
-                        $_SESSION['admin_username'] = $user['username'];
-
-                        // Debug: Log successful login
-                        error_log("User {$username} logged in successfully");
-                        
-                        // Redirect to dashboard
-                        header('Location: dashboard.php');
-                        exit();
-                    } else {
-                        $errors[] = "Your account is inactive. Please contact the administrator.";
-                        error_log("Inactive account login attempt: " . $username);
-                    }
-                } else {
-                    $errors[] = "Invalid username or password";
-                    error_log("Password verification failed for user: " . $username);
-                }
+                // Update last login timestamp
+                $update_stmt = $conn->prepare("UPDATE admin_users SET last_login = NOW() WHERE id = ?");
+                $update_stmt->bind_param("i", $user['id']);
+                $update_stmt->execute();
+                
+                header("Location: dashboard.php");
+                exit();
             } else {
-                $errors[] = "Invalid username or password";
-                error_log("User not found: " . $username);
+                $error = "Invalid username or password";
             }
-        } catch (mysqli_sql_exception $e) {
-            $errors[] = "Login failed. Please try again later.";
-            error_log("Login error for user {$username}: " . $e->getMessage());
+        } else {
+            $error = "Invalid username or password";
         }
+        $stmt->close();
     }
 }
 ?>
@@ -76,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Lex Guris Admin</title>
+    <title>Login - Lex Juris Admin</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -177,11 +153,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <p class="text-muted">Admin Login</p>
         </div>
 
-        <?php if (!empty($errors)): ?>
+        <?php if ($error): ?>
             <div class="alert alert-danger">
-                <?php foreach ($errors as $error): ?>
-                    <div><?php echo htmlspecialchars($error); ?></div>
-                <?php endforeach; ?>
+                <?php echo htmlspecialchars($error); ?>
             </div>
         <?php endif; ?>
 

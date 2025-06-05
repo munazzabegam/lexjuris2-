@@ -133,15 +133,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Insert article into database
-    $query = "INSERT INTO articles (title, slug, summary, content, category, status, tags, external_link, author_id, cover_image, published_at) 
-              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $query = "INSERT INTO articles (title, slug, summary, content, category, status, tags, external_link, author_id, cover_image, published_at, updated_at) 
+              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     $stmt = $conn->prepare($query);
 
     // Set published_at based on status
     $published_at = ($status === 'published') ? date('Y-m-d H:i:s') : null;
+    $updated_at = date('Y-m-d H:i:s'); // Always set updated_at to current time
 
-    $stmt->bind_param("ssssssssiss", 
+    $stmt->bind_param("ssssssssisss", 
         $title,
         $slug,
         $summary,
@@ -152,7 +153,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $external_link,
         $author_id,
         $cover_image_path,
-        $published_at
+        $published_at,
+        $updated_at
     );
 
     if ($stmt->execute()) {

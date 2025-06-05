@@ -89,6 +89,7 @@ unset($_SESSION['article_error']);
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="assets/css/dashboard.css" rel="stylesheet">
+    <link href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css" rel="stylesheet">
     <style>
         .table-card {
             background: white;
@@ -122,6 +123,16 @@ unset($_SESSION['article_error']);
         }
         .btn-action i {
             margin-right: 0.4em;
+        }
+
+        /* Column width fixes */
+        .table th:nth-child(2), /* Title column */
+        .table td:nth-child(2) {
+            max-width: 100px;
+            width: 100px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .filters-section {
@@ -167,6 +178,28 @@ unset($_SESSION['article_error']);
             outline: none;
         }
 
+        /* Drag handle styling */
+        .drag-handle {
+            cursor: move;
+            color: #999;
+            padding: 0 10px;
+        }
+        .drag-handle:hover {
+            color: #666;
+        }
+        .ui-sortable-helper {
+            display: table;
+            background: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .ui-sortable-placeholder {
+            visibility: visible !important;
+            background: #f8f9fa;
+            height: 60px;
+        }
+        .table tbody tr {
+            cursor: move;
+        }
     </style>
 </head>
 <body>
@@ -233,40 +266,58 @@ unset($_SESSION['article_error']);
                 <table class="table table-hover">
                     <thead>
                         <tr>
+                            <th style="width: 50px;"></th>
                             <th>ID</th>
                             <th>Title</th>
                             <th>Author</th>
                             <th>Status</th>
                             <th>Published</th>
+                            <th>Updated</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="sortable-articles">
                         <?php if (!empty($articles)): ?>
                             <?php foreach ($articles as $article): ?>
-                                <tr>
+                                <tr data-article-id="<?php echo $article['id']; ?>">
+                                    <td><i class="fas fa-grip-vertical drag-handle"></i></td>
                                     <td>#<?php echo htmlspecialchars($article['id']); ?></td>
                                     <td><?php echo htmlspecialchars($article['title']); ?></td>
                                     <td><?php echo htmlspecialchars($article['author_name'] ?? 'N/A'); ?></td>
                                     <td>
-                                        <span class="badge bg-<?php echo $article['status'] === 'published' ? 'success' : 'secondary'; ?>">
-                                            <?php echo ucfirst($article['status']); ?>
+                                        <span class="badge <?php echo $article['status'] === 'published' ? 'bg-success' : 'bg-warning'; ?>">
+                                            <?php echo ucfirst(htmlspecialchars($article['status'])); ?>
                                         </span>
                                     </td>
-                                    <td><?php echo $article['published_at'] ? date('Y-m-d', strtotime($article['published_at'])) : '-'; ?></td>
+                                    <td><?php echo date('Y-m-d H:i', strtotime($article['published_at'])); ?></td>
                                     <td>
-                                        <a href="article_details.php?id=<?php echo $article['id']; ?>" class="btn btn-sm btn-outline-primary btn-action"><i class="fas fa-eye"></i>View</a>
-                                        <a href="edit_article.php?id=<?php echo $article['id']; ?>" class="btn btn-sm btn-outline-secondary btn-action"><i class="fas fa-edit"></i>Edit</a>
+                                        <?php 
+                                        if ($article['updated_at'] && $article['updated_at'] !== $article['published_at']) {
+                                            echo date('Y-m-d H:i', strtotime($article['updated_at']));
+                                        } else {
+                                            echo '-';
+                                        }
+                                        ?>
+                                    </td>
+                                    <td>
+                                        <a href="view_article.php?id=<?php echo $article['id']; ?>" class="btn btn-sm btn-outline-primary btn-action">
+                                            <i class="fas fa-eye"></i>View
+                                        </a>
+                                        <a href="edit_article.php?id=<?php echo $article['id']; ?>" class="btn btn-sm btn-outline-secondary btn-action">
+                                            <i class="fas fa-edit"></i>Edit
+                                        </a>
                                         <form action="actions/delete_article.php" method="POST" onsubmit="return confirm('Are you sure you want to delete this article?');" style="display: inline;">
                                             <input type="hidden" name="article_id" value="<?php echo $article['id']; ?>">
-                                            <button type="submit" class="btn btn-sm btn-outline-danger btn-action"><i class="fas fa-trash"></i>Delete</button>
+                                            <button type="submit" class="btn btn-sm btn-outline-danger btn-action">
+                                                <i class="fas fa-trash"></i>Delete
+                                            </button>
                                         </form>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
                         <?php else: ?>
                             <tr>
-                                <td colspan="6" class="text-center">No articles found.</td>
+                                <td colspan="7" class="text-center">No articles found.</td>
                             </tr>
                         <?php endif; ?>
                     </tbody>
@@ -276,5 +327,52 @@ unset($_SESSION['article_error']);
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+<script src="assets/js/common.js"></script>
+<script>
+    $(document).ready(function() {
+        $("#sortable-articles").sortable({
+            handle: ".drag-handle",
+            placeholder: "ui-sortable-placeholder",
+            helper: function(e, tr) {
+                var $originals = tr.children();
+                var $helper = tr.clone();
+                $helper.children().each(function(index) {
+                    $(this).width($originals.eq(index).width());
+                });
+                return $helper;
+            },
+            update: function(event, ui) {
+                var newOrder = [];
+                $("#sortable-articles tr").each(function(index) {
+                    newOrder.push({
+                        id: $(this).data('article-id'),
+                        order: index
+                    });
+                });
+
+                // Send the new order to the server
+                $.ajax({
+                    url: 'actions/update_article_order.php',
+                    method: 'POST',
+                    data: {
+                        order: newOrder
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            showAlert('Article order updated successfully.');
+                        } else {
+                            showAlert('Error updating article order.', 'danger');
+                        }
+                    },
+                    error: function() {
+                        showAlert('Error updating article order.', 'danger');
+                    }
+                });
+            }
+        });
+    });
+</script>
 </body>
 </html> 
