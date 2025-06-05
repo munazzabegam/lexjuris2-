@@ -148,7 +148,6 @@ unset($_SESSION['faq_error']);
                     <thead>
                         <tr>
                             <th style="width: 50px;"></th>
-                            <th>ID</th>
                             <th>Question</th>
                             <th>Order</th>
                             <th>Active</th>
@@ -159,11 +158,14 @@ unset($_SESSION['faq_error']);
                         </tr>
                     </thead>
                     <tbody id="sortable-faqs">
-                        <?php if (!empty($faqs)): ?>
+                        <?php if (empty($faqs)): ?>
+                            <tr>
+                                <td colspan="8" class="text-center">No FAQs found.</td>
+                            </tr>
+                        <?php else: ?>
                             <?php foreach ($faqs as $faq): ?>
                                 <tr data-faq-id="<?php echo $faq['id']; ?>">
                                     <td><i class="fas fa-grip-vertical drag-handle"></i></td>
-                                    <td>#<?php echo htmlspecialchars($faq['id']); ?></td>
                                     <td><?php echo htmlspecialchars(mb_strimwidth($faq['question'], 0, 100, '...')); ?></td>
                                     <td><?php echo htmlspecialchars($faq['order_index']); ?></td>
                                     <td>
@@ -192,10 +194,6 @@ unset($_SESSION['faq_error']);
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
-                        <?php else: ?>
-                            <tr>
-                                <td colspan="8" class="text-center">No FAQs found.</td>
-                            </tr>
                         <?php endif; ?>
                     </tbody>
                 </table>
@@ -284,6 +282,10 @@ unset($_SESSION['faq_error']);
                     },
                     success: function(response) {
                         if (response.success) {
+                            // Update the displayed order_index values
+                            $("#sortable-faqs tr").each(function(index) {
+                                $(this).find('td:eq(2)').text(index);
+                            });
                             showAlert('FAQ order updated successfully.');
                         } else {
                             showAlert('Error updating FAQ order.', 'danger');

@@ -49,7 +49,7 @@ if (!empty($date_filter)) {
     $types .= "s";
 }
 
-$query .= " ORDER BY a.published_at DESC, a.updated_at DESC";
+$query .= " ORDER BY a.order_index ASC, a.published_at DESC, a.updated_at DESC";
 
 // Prepare and execute the query
 $stmt = $conn->prepare($query);
@@ -267,7 +267,7 @@ unset($_SESSION['article_error']);
                     <thead>
                         <tr>
                             <th style="width: 50px;"></th>
-                            <th>ID</th>
+                            <th>Order</th>
                             <th>Title</th>
                             <th>Author</th>
                             <th>Status</th>
@@ -277,11 +277,15 @@ unset($_SESSION['article_error']);
                         </tr>
                     </thead>
                     <tbody id="sortable-articles">
-                        <?php if (!empty($articles)): ?>
+                        <?php if (empty($articles)): ?>
+                            <tr>
+                                <td colspan="8" class="text-center">No articles found.</td>
+                            </tr>
+                        <?php else: ?>
                             <?php foreach ($articles as $article): ?>
                                 <tr data-article-id="<?php echo $article['id']; ?>">
                                     <td><i class="fas fa-grip-vertical drag-handle"></i></td>
-                                    <td>#<?php echo htmlspecialchars($article['id']); ?></td>
+                                    <td><?php echo htmlspecialchars($article['order_index'] ?? 0); ?></td>
                                     <td><?php echo htmlspecialchars($article['title']); ?></td>
                                     <td><?php echo htmlspecialchars($article['author_name'] ?? 'N/A'); ?></td>
                                     <td>
@@ -315,10 +319,6 @@ unset($_SESSION['article_error']);
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
-                        <?php else: ?>
-                            <tr>
-                                <td colspan="7" class="text-center">No articles found.</td>
-                            </tr>
                         <?php endif; ?>
                     </tbody>
                 </table>
@@ -361,6 +361,10 @@ unset($_SESSION['article_error']);
                     },
                     success: function(response) {
                         if (response.success) {
+                            // Update the displayed order_index values
+                            $("#sortable-articles tr").each(function(index) {
+                                $(this).find('td:eq(1)').text(index);
+                            });
                             showAlert('Article order updated successfully.');
                         } else {
                             showAlert('Error updating article order.', 'danger');

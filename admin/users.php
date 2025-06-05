@@ -206,7 +206,6 @@ unset($_SESSION['user_error']);
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th>ID</th>
                             <th>Profile</th>
                             <th>Username</th>
                             <th>Email</th>
@@ -219,12 +218,11 @@ unset($_SESSION['user_error']);
                     <tbody>
                         <?php if (empty($users)): ?>
                             <tr>
-                                <td colspan="8" class="text-center">No users found matching your criteria.</td>
+                                <td colspan="7" class="text-center">No users found matching your criteria.</td>
                             </tr>
                         <?php else: ?>
                             <?php foreach ($users as $user): ?>
                                 <tr>
-                                    <td>#<?php echo htmlspecialchars($user['id']); ?></td>
                                     <td>
                                         <?php if (!empty($user['profile_image'])): ?>
                                             <img src="<?php echo htmlspecialchars('/lexjuris/' . $user['profile_image']); ?>" alt="Profile" class="profile-image">

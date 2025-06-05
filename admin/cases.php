@@ -41,7 +41,7 @@ if (!empty($date_filter)) {
     $params[] = $date_filter;
 }
 
-$query .= " ORDER BY created_at DESC";
+$query .= " ORDER BY order_index ASC, created_at DESC";
 
 // Prepare and execute the query
 $stmt = $conn->prepare($query);
@@ -268,7 +268,7 @@ unset($_SESSION['case_error']); // Clear case error
                         <thead>
                             <tr>
                                 <th style="width: 50px;"></th>
-                                <th>ID</th>
+                                <th>Order</th>
                                 <th>Case Number</th>
                                 <th>Title</th>
                                 <th>Category</th>
@@ -281,13 +281,13 @@ unset($_SESSION['case_error']); // Clear case error
                         <tbody id="sortable-cases">
                             <?php if (empty($cases)): ?>
                                 <tr>
-                                    <td colspan="8" class="text-center">No cases found matching your criteria.</td>
+                                    <td colspan="9" class="text-center">No cases found matching your criteria.</td>
                                 </tr>
                             <?php else: ?>
                                 <?php foreach ($cases as $case): ?>
                                     <tr data-case-id="<?php echo $case['id']; ?>">
                                         <td><i class="fas fa-grip-vertical drag-handle"></i></td>
-                                        <td>#<?php echo htmlspecialchars($case['id']); ?></td>
+                                        <td><?php echo htmlspecialchars($case['order_index'] ?? 0); ?></td>
                                         <td><?php echo htmlspecialchars($case['case_number']); ?></td>
                                         <td><?php echo htmlspecialchars($case['title']); ?></td>
                                         <td><?php echo ucfirst(htmlspecialchars($case['category'])); ?></td>
@@ -453,6 +453,10 @@ unset($_SESSION['case_error']); // Clear case error
                         },
                         success: function(response) {
                             if (response.success) {
+                                // Update the displayed order_index values
+                                $("#sortable-cases tr").each(function(index) {
+                                    $(this).find('td:eq(1)').text(index);
+                                });
                                 showAlert('Case order updated successfully.');
                             } else {
                                 showAlert('Error updating case order.', 'danger');
