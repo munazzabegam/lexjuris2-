@@ -197,6 +197,20 @@ unset($_SESSION['case_error']); // Clear case error
 
     <div class="main-content">
         <div class="container-fluid p-3">
+            <?php if ($case_success): ?>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <?php echo htmlspecialchars($case_success); ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <?php endif; ?>
+
+            <?php if ($case_error): ?>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <?php echo htmlspecialchars($case_error); ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <?php endif; ?>
+
             <div class="row mb-4">
                 <div class="col-12">
                     <div class="d-flex justify-content-between align-items-center">
@@ -207,19 +221,6 @@ unset($_SESSION['case_error']); // Clear case error
                     </div>
                 </div>
             </div>
-
-            <?php if ($case_success): ?>
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <?php echo htmlspecialchars($case_success); ?>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            <?php endif; ?>
-            <?php if ($case_error): ?>
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <?php echo htmlspecialchars($case_error); ?>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            <?php endif; ?>
 
             <!-- Filters Section -->
             <div class="filters-section">
@@ -457,7 +458,7 @@ unset($_SESSION['case_error']); // Clear case error
                                 $("#sortable-cases tr").each(function(index) {
                                     $(this).find('td:eq(1)').text(index);
                                 });
-                                showAlert('Case order updated successfully.');
+                                showAlert('Cases order updated successfully.');
                             } else {
                                 showAlert('Error updating case order.', 'danger');
                             }

@@ -40,12 +40,14 @@ try {
     // Commit transaction
     $conn->commit();
 
+    $_SESSION['case_success'] = "Case order updated successfully";
     header('Content-Type: application/json');
     echo json_encode(['success' => true]);
 } catch (Exception $e) {
     // Rollback transaction on error
     $conn->rollback();
     
+    $_SESSION['case_error'] = "Error updating case order: " . $e->getMessage();
     header('Content-Type: application/json');
     echo json_encode(['success' => false, 'message' => 'Error updating order: ' . $e->getMessage()]);
 } 
