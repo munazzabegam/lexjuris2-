@@ -1,7 +1,7 @@
 <?php
 // Get current user data from database
-$user_id = $_SESSION['admin_id'] ?? null;
-$username = $_SESSION['admin_username'] ?? 'Admin';
+$user_id = $_SESSION['user_id'] ?? null;
+$username = $_SESSION['username'] ?? 'Admin';
 $profile_image = null;
 
 if ($user_id) {
@@ -26,7 +26,7 @@ if ($user_id) {
             <!-- Logo and Name -->
             <div class="navbar-brand-top d-flex align-items-center">
                  <div class="logo me-2">
-                    <img src="../image/logo.png" alt="Lex Juris Logo" width="30" height="30">
+                    <img src="../../image/logo.png" alt="Lex Juris Logo" width="30" height="30">
                 </div>
                 <div class="logo-name">
                     <h4>Lex<span>Juris</span></h4>
@@ -37,20 +37,18 @@ if ($user_id) {
         <!-- Nav Icons -->
         <div class="nav-icons d-flex align-items-center">
             <div class="dropdown">
-                <?php if ($profile_image): ?>
-                    <img src="/lexjuris/<?php echo htmlspecialchars($profile_image); ?>" 
-                         class="rounded-circle" width="32" height="32" 
-                         style="cursor: pointer; object-fit: cover;" data-bs-toggle="dropdown">
-                <?php else: ?>
-                    <img src="https://ui-avatars.com/api/?name=<?php echo urlencode($username); ?>&background=bc8414&color=fff" 
-                         class="rounded-circle" width="32" height="32" 
-                         style="cursor: pointer;" data-bs-toggle="dropdown">
-                <?php endif; ?>
+                <?php 
+                if ($profile_image && file_exists(__DIR__ . '/../../' . $profile_image)) {
+                    echo '<img src="../../' . htmlspecialchars($profile_image) . '" class="rounded-circle" width="32" height="32" style="cursor: pointer; object-fit: cover;" data-bs-toggle="dropdown">';
+                } else {
+                    echo '<img src="https://ui-avatars.com/api/?name=' . urlencode($username) . '&background=bc8414&color=fff" class="rounded-circle" width="32" height="32" style="cursor: pointer;" data-bs-toggle="dropdown">';
+                }
+                ?>
                 <ul class="dropdown-menu dropdown-menu-end">
-                    <li><a class="dropdown-item" href="profile.php"><i class="fas fa-user me-2"></i> Profile</a></li>
-                    <li><a class="dropdown-item" href="settings.php"><i class="fas fa-cog me-2"></i> Settings</a></li>
+                    <li><a class="dropdown-item" href="../profile.php"><i class="fas fa-user me-2"></i> Profile</a></li>
+                    <li><a class="dropdown-item" href="../settings.php"><i class="fas fa-cog me-2"></i> Settings</a></li>
                     <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item text-danger" href="logout.php"><i class="fas fa-sign-out-alt me-2"></i> Logout</a></li>
+                    <li><a class="dropdown-item text-danger" href="../logout.php"><i class="fas fa-sign-out-alt me-2"></i> Logout</a></li>
                 </ul>
             </div>
         </div>

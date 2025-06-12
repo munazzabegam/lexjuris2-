@@ -1,46 +1,47 @@
 <?php
 // Get current page for active menu highlighting
 $current_page = basename($_SERVER['PHP_SELF']);
+$current_full_path = $_SERVER['PHP_SELF'];
 ?>
 <!-- Sidebar -->
 <div class="sidebar">
     <div class="sidebar-menu">
-        <a href="dashboard.php" class="<?php echo $current_page === 'dashboard.php' ? 'active' : ''; ?>">
+        <a href="../dashboard/index.php" class="<?php echo strpos($current_full_path, '/admin/dashboard/') !== false ? 'active' : ''; ?>">
             <i class="fas fa-tachometer-alt"></i> <span class="menu-text">Dashboard</span>
         </a>
-        <a href="cases.php" class="<?php echo $current_page === 'cases.php' ? 'active' : ''; ?>">
+        <a href="../cases/index.php" class="<?php echo strpos($current_full_path, '/admin/cases/') !== false ? 'active' : ''; ?>">
             <i class="fas fa-gavel"></i> <span class="menu-text">Cases</span>
         </a>
-        <a href="articles.php" class="<?php echo $current_page === 'articles.php' ? 'active' : ''; ?>">
+        <a href="../articles/index.php" class="<?php echo strpos($current_full_path, '/admin/articles/') !== false ? 'active' : ''; ?>">
             <i class="fas fa-newspaper"></i> <span class="menu-text">Articles</span>
         </a>
-        <a href="faqs.php" class="<?php echo $current_page === 'faqs.php' ? 'active' : ''; ?>">
+        <a href="../faqs/index.php" class="<?php echo strpos($current_full_path, '/admin/faqs/') !== false ? 'active' : ''; ?>">
             <i class="fas fa-question-circle"></i> <span class="menu-text">FAQs</span>
         </a>
-        <a href="users.php" class="<?php echo $current_page === 'users.php' ? 'active' : ''; ?>">
+        <a href="../users/index.php" class="<?php echo strpos($current_full_path, '/admin/users/') !== false ? 'active' : ''; ?>">
             <i class="fas fa-users"></i> <span class="menu-text">Users</span>
         </a>
-        <a href="testimonials.php" class="<?php echo $current_page === 'testimonials.php' ? 'active' : ''; ?>">
+        <a href="../testimonials.php" class="<?php echo strpos($current_full_path, '/admin/testimonials.php') !== false ? 'active' : ''; ?>">
             <i class="fas fa-star"></i> <span class="menu-text">Testimonials</span>
         </a>
-        <a href="social-media.php" class="<?php echo $current_page === 'social-media.php' ? 'active' : ''; ?>">
+        <a href="../social-media.php" class="<?php echo strpos($current_full_path, '/admin/social-media.php') !== false ? 'active' : ''; ?>">
             <i class="fas fa-share-alt"></i> <span class="menu-text">Social Media</span>
         </a>
-        <a href="team.php" class="<?php echo $current_page === 'team.php' ? 'active' : ''; ?>">
+        <a href="../team.php" class="<?php echo strpos($current_full_path, '/admin/team.php') !== false ? 'active' : ''; ?>">
             <i class="fas fa-user-tie"></i> <span class="menu-text">Team</span>
         </a>
-        <a href="gallery.php" class="<?php echo $current_page === 'gallery.php' ? 'active' : ''; ?>">
+        <a href="../gallery.php" class="<?php echo strpos($current_full_path, '/admin/gallery.php') !== false ? 'active' : ''; ?>">
             <i class="fas fa-images"></i> <span class="menu-text">Gallery</span>
         </a>
-        <a href="contact.php" class="<?php echo $current_page === 'contact.php' ? 'active' : ''; ?>">
+        <a href="../contact.php" class="<?php echo strpos($current_full_path, '/admin/contact.php') !== false ? 'active' : ''; ?>">
             <i class="fas fa-envelope"></i> <span class="menu-text">Contact</span>
         </a>
-        <a href="visitor_records.php" class="<?php echo $current_page === 'visitor_records.php' ? 'active' : ''; ?>">
+        <a href="../visitor_records.php" class="<?php echo strpos($current_full_path, '/admin/visitor_records.php') !== false ? 'active' : ''; ?>">
             <i class="fas fa-chart-bar"></i> <span class="menu-text">Visitor Records</span>
         </a>
     </div>
     <div class="sidebar-footer">
-        <a href="logout.php" class="logout-btn">
+        <a href="../logout.php" class="logout-btn">
             <i class="fas fa-sign-out-alt"></i>
             <span class="menu-text">Logout</span>
         </a>
