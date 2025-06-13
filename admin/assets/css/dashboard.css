@@ -25,16 +25,16 @@ body {
 /* Sidebar Styles */
 .sidebar {
     width: var(--sidebar-width);
-    height: 100vh;
+    height: calc(100vh - var(--top-navbar-height));
     position: fixed;
     left: 0;
-    top: 0;
+    top: var(--top-navbar-height);
     background: white;
     color: var(--text-color);
     padding: 0;
     transition: all 0.3s;
     box-shadow: var(--card-shadow);
-    z-index: 1000;
+    z-index: 1001;
     display: flex;
     flex-direction: column;
     border-right: 1px solid rgba(188, 132, 20, 0.1);
@@ -146,7 +146,7 @@ body {
     min-height: 100vh;
     transition: margin-left 0.3s ease;
     position: relative;
-    padding-top: 70px; /* Increased padding for fixed navbar */
+    padding-top: var(--top-navbar-height);
 }
 
 /* Top Navbar */
@@ -154,9 +154,11 @@ body {
     background: white;
     padding: 0.75rem 1.5rem;
     box-shadow: var(--card-shadow);
-    position: sticky;
+    position: fixed;
     top: 0;
-    z-index: 999;
+    left: 0;
+    right: 0;
+    z-index: 1002;
     border-bottom: 1px solid rgba(188, 132, 20, 0.1);
 }
 

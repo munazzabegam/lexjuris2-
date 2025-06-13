@@ -112,7 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="section-header d-flex justify-content-between align-items-center mb-3">
             <h4 class="mb-0">Edit FAQ</h4>
             <a href="index.php" class="btn btn-secondary btn-action">
-                <i class="fas fa-arrow-left"></i>Back to FAQs
+                <i class="fas fa-arrow-left"></i>Back to FAQ
             </a>
         </div>
 

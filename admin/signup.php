@@ -10,11 +10,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
     $password = $_POST['password'];
     $confirm_password = $_POST['confirm_password'];
-    $full_name = filter_input(INPUT_POST, 'full_name', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-    $role = 'admin'; // Default role for new signups
-    $status = 'active'; // Default status for new signups
 
-    if (empty($username) || empty($email) || empty($password) || empty($confirm_password) || empty($full_name)) {
+    if (empty($username) || empty($email) || empty($password) || empty($confirm_password)) {
         $error_message = "All fields are required.";
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $error_message = "Invalid email format.";
@@ -50,9 +47,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
 
             if (empty($error_message)) { // Proceed only if no image upload error
-                $stmt = $conn->prepare("INSERT INTO admin_users (username, email, password_hash, full_name, role, status, profile_image) VALUES (?, ?, ?, ?, ?, ?, ?)");
+                $stmt = $conn->prepare("INSERT INTO admin_users (username, email, password_hash, profile_image, is_active) VALUES (?, ?, ?, ?, FALSE)");
                 if ($stmt) {
-                    $stmt->bind_param("sssssss", $username, $email, $password_hash, $full_name, $role, $status, $profile_image);
+                    $stmt->bind_param("ssss", $username, $email, $password_hash, $profile_image);
                     if ($stmt->execute()) {
                         $_SESSION['success_message'] = "Registration successful! Please login.";
                         header("Location: login.php");
@@ -156,10 +153,6 @@ $conn->close();
                 </div>
             <?php endif; ?>
             <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST" enctype="multipart/form-data">
-                <div class="mb-3">
-                    <label for="full_name" class="form-label">Full Name</label>
-                    <input type="text" class="form-control" id="full_name" name="full_name" required value="<?php echo htmlspecialchars($_POST['full_name'] ?? ''); ?>">
-                </div>
                 <div class="mb-3">
                     <label for="username" class="form-label">Username</label>
                     <input type="text" class="form-control" id="username" name="username" required value="<?php echo htmlspecialchars($_POST['username'] ?? ''); ?>">

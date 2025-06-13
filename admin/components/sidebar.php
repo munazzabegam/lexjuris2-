@@ -15,25 +15,25 @@ $current_full_path = $_SERVER['PHP_SELF'];
         <a href="../articles/index.php" class="<?php echo strpos($current_full_path, '/admin/articles/') !== false ? 'active' : ''; ?>">
             <i class="fas fa-newspaper"></i> <span class="menu-text">Articles</span>
         </a>
-        <a href="../faqs/index.php" class="<?php echo strpos($current_full_path, '/admin/faqs/') !== false ? 'active' : ''; ?>">
-            <i class="fas fa-question-circle"></i> <span class="menu-text">FAQs</span>
+        <a href="../faq/index.php" class="<?php echo strpos($current_full_path, '/admin/faq/') !== false ? 'active' : ''; ?>">
+            <i class="fas fa-question-circle"></i> <span class="menu-text">FAQ</span>
+        </a>
+        <a href="../testimonials/index.php" class="<?php echo strpos($current_full_path, '/admin/testimonials/') !== false ? 'active' : ''; ?>">
+            <i class="fas fa-quote-right"></i> <span class="menu-text">Testimonials</span>
         </a>
         <a href="../users/index.php" class="<?php echo strpos($current_full_path, '/admin/users/') !== false ? 'active' : ''; ?>">
             <i class="fas fa-users"></i> <span class="menu-text">Users</span>
         </a>
-        <a href="../testimonials.php" class="<?php echo strpos($current_full_path, '/admin/testimonials.php') !== false ? 'active' : ''; ?>">
-            <i class="fas fa-star"></i> <span class="menu-text">Testimonials</span>
-        </a>
-        <a href="../social-media.php" class="<?php echo strpos($current_full_path, '/admin/social-media.php') !== false ? 'active' : ''; ?>">
+        <a href="../social_links/index.php" class="<?php echo strpos($current_full_path, '/admin/social_links/') !== false ? 'active' : ''; ?>">
             <i class="fas fa-share-alt"></i> <span class="menu-text">Social Media</span>
         </a>
-        <a href="../team.php" class="<?php echo strpos($current_full_path, '/admin/team.php') !== false ? 'active' : ''; ?>">
-            <i class="fas fa-user-tie"></i> <span class="menu-text">Team</span>
+        <a href="../team_members/index.php" class="<?php echo strpos($current_full_path, '/admin/team_members/') !== false ? 'active' : ''; ?>">
+            <i class="fas fa-user-tie"></i> <span class="menu-text">Team Members</span>
         </a>
-        <a href="../gallery.php" class="<?php echo strpos($current_full_path, '/admin/gallery.php') !== false ? 'active' : ''; ?>">
+        <a href="../gallery/index.php" class="<?php echo strpos($current_full_path, '/admin/gallery/') !== false ? 'active' : ''; ?>">
             <i class="fas fa-images"></i> <span class="menu-text">Gallery</span>
         </a>
-        <a href="../contact.php" class="<?php echo strpos($current_full_path, '/admin/contact.php') !== false ? 'active' : ''; ?>">
+        <a href="../contact/index.php" class="<?php echo strpos($current_full_path, '/admin/contact/') !== false ? 'active' : ''; ?>">
             <i class="fas fa-envelope"></i> <span class="menu-text">Contact</span>
         </a>
         <a href="../visitor_records.php" class="<?php echo strpos($current_full_path, '/admin/visitor_records.php') !== false ? 'active' : ''; ?>">
@@ -57,21 +57,19 @@ $current_full_path = $_SERVER['PHP_SELF'];
 /* Sidebar Styles */
 .sidebar {
     width: var(--sidebar-width);
-    height: calc(100vh - var(--top-navbar-height)); 
-    position: fixed;
+    height: calc(100vh - var(--top-navbar-height)); /* Makes sidebar take remaining height below top navbar */
+    position: fixed; /* Keeps sidebar in place while scrolling */
     left: 0;
-    top: var(--top-navbar-height); 
+    top: var(--top-navbar-height); /* Positions sidebar directly below the top navbar */
     background: white;
     color: var(--text-color);
     padding: 0;
     transition: all 0.3s;
-    box-shadow: var(--card-shadow); 
-    z-index: 1001;
+    box-shadow: var(--card-shadow);
+    z-index: 1001; /* Ensures sidebar is below the top navbar (which is 1002) */
     display: flex;
     flex-direction: column;
-    border-top-right-radius: 10px; 
-    border-bottom-right-radius: 10px; 
-    overflow-y: auto; 
+    border-right: 1px solid rgba(188, 132, 20, 0.1);
 }
 
 .sidebar-header {

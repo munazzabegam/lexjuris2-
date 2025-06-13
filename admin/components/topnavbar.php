@@ -1,19 +1,6 @@
 <?php
-// Get current user data from database
-$user_id = $_SESSION['user_id'] ?? null;
+// Get current user data from session
 $username = $_SESSION['username'] ?? 'Admin';
-$profile_image = null;
-
-if ($user_id) {
-    $stmt = $conn->prepare("SELECT profile_image FROM admin_users WHERE id = ?");
-    $stmt->bind_param("i", $user_id);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    if ($user = $result->fetch_assoc()) {
-        $profile_image = $user['profile_image'];
-    }
-    $stmt->close();
-}
 ?>
 <!-- Top Navbar -->
 <div class="top-navbar">
@@ -25,7 +12,7 @@ if ($user_id) {
             </button>
             <!-- Logo and Name -->
             <div class="navbar-brand-top d-flex align-items-center">
-                 <div class="logo me-2">
+                <div class="logo me-2">
                     <img src="../../image/logo.png" alt="Lex Juris Logo" width="30" height="30">
                 </div>
                 <div class="logo-name">
@@ -36,20 +23,9 @@ if ($user_id) {
 
         <!-- Nav Icons -->
         <div class="nav-icons d-flex align-items-center">
-            <div class="dropdown">
-                <?php 
-                if ($profile_image && file_exists(__DIR__ . '/../../' . $profile_image)) {
-                    echo '<img src="../../' . htmlspecialchars($profile_image) . '" class="rounded-circle" width="32" height="32" style="cursor: pointer; object-fit: cover;" data-bs-toggle="dropdown">';
-                } else {
-                    echo '<img src="https://ui-avatars.com/api/?name=' . urlencode($username) . '&background=bc8414&color=fff" class="rounded-circle" width="32" height="32" style="cursor: pointer;" data-bs-toggle="dropdown">';
-                }
-                ?>
-                <ul class="dropdown-menu dropdown-menu-end">
-                    <li><a class="dropdown-item" href="../profile.php"><i class="fas fa-user me-2"></i> Profile</a></li>
-                    <li><a class="dropdown-item" href="../settings.php"><i class="fas fa-cog me-2"></i> Settings</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item text-danger" href="../logout.php"><i class="fas fa-sign-out-alt me-2"></i> Logout</a></li>
-                </ul>
+            <div class="user-avatar">
+                <img src="https://ui-avatars.com/api/?name=<?php echo urlencode($username); ?>&background=bc8414&color=fff" 
+                     class="rounded-circle" width="32" height="32" alt="User Avatar">
             </div>
         </div>
     </div>
@@ -111,36 +87,10 @@ if ($user_id) {
     gap: 1rem;
 }
 
-.top-navbar .nav-icons .icon {
-    position: relative;
-    cursor: pointer;
+.top-navbar .user-avatar img {
     width: 32px;
     height: 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 6px;
-    transition: all 0.2s;
-}
-
-.top-navbar .nav-icons .icon:hover {
-    background: rgba(67, 97, 238, 0.1);
-}
-
-.top-navbar .nav-icons .icon i {
-    font-size: 1rem;
-    color: #666;
-}
-
-.top-navbar .nav-icons .badge {
-    position: absolute;
-    top: -4px;
-    right: -4px;
-    padding: 0.15rem 0.35rem;
-    border-radius: 10px;
-    background: var(--warning-color);
-    color: white;
-    font-size: 0.7rem;
+    object-fit: cover;
 }
 
 /* Mobile styles */
@@ -163,20 +113,18 @@ if ($user_id) {
         gap: 0.5rem; 
     }
 
-     /* Adjust display for logo/name on mobile */
     .top-navbar .navbar-brand-top {
         display: flex !important;
         align-items: center;
-        /* gap: 0.75rem; */
     }
 
     .top-navbar .navbar-brand-top .logo img {
-        width: 30px; /* Adjust size for mobile */
+        width: 30px;
         height: 30px;
     }
 
     .top-navbar .navbar-brand-top .logo-name h4 {
-        font-size: 1.4rem; /* Adjust size for mobile */
+        font-size: 1.4rem;
     }
 
     .top-navbar .mobile-menu-toggle {
@@ -202,11 +150,6 @@ if ($user_id) {
         gap: 0.75rem;
         position: relative;
         z-index: 1003;
-    }
-
-    .top-navbar .nav-icons .dropdown img {
-        width: 32px;
-        height: 32px;
     }
 }
 </style>

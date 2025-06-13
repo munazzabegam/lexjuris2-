@@ -29,6 +29,7 @@ CREATE TABLE cases (
     author_id INT,
     author_name VARCHAR(100),
     tags TEXT,
+    order_index INT DEFAULT 0,
     
     FOREIGN KEY (author_id) REFERENCES admin_users(id),
     FOREIGN KEY (author_name) REFERENCES admin_users(username)
@@ -50,6 +51,7 @@ CREATE TABLE articles (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     status ENUM('draft', 'published') NOT NULL DEFAULT 'draft',
     external_link VARCHAR(2083) DEFAULT NULL,
+    order_index INT DEFAULT 0,
 
     FOREIGN KEY (author_id) REFERENCES admin_users(id)
 );
@@ -115,7 +117,8 @@ CREATE TABLE team_members (
     portfolio VARCHAR(255),
     is_active BOOLEAN NOT NULL DEFAULT TRUE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    order_index INT DEFAULT 0
 );
 
 CREATE TABLE team_social_links (

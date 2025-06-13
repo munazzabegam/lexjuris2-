@@ -7,9 +7,12 @@ if (!isset($_SESSION['user_id'])) {
 
 require_once __DIR__ . '/../../config/database.php';
 
-// Get all FAQs ordered by order_index
-$result = $conn->query("SELECT * FROM faq ORDER BY order_index ASC");
-$faqs = $result->fetch_all(MYSQLI_ASSOC);
+// Get all team members ordered by order_index (if exists, otherwise by id)
+$check_column = $conn->query("SHOW COLUMNS FROM team_members LIKE 'order_index'");
+$order_by = $check_column->num_rows > 0 ? "order_index ASC" : "id DESC";
+
+$result = $conn->query("SELECT * FROM team_members ORDER BY $order_by");
+$team_members = $result->fetch_all(MYSQLI_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -17,13 +20,12 @@ $faqs = $result->fetch_all(MYSQLI_ASSOC);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage FAQs - Admin Panel</title>
+    <title>Manage Team Members - Admin Panel</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.css" rel="stylesheet">
     <link href="../assets/css/dashboard.css" rel="stylesheet">
     <style>
-        /* Additional styles for FAQ table to match articles page */
+        /* Additional styles for team table to match other pages */
         .table-card {
             background: white;
             border-radius: 8px;
@@ -78,6 +80,13 @@ $faqs = $result->fetch_all(MYSQLI_ASSOC);
         .table tbody tr {
             cursor: move;
         }
+        .team-photo {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid rgba(0,0,0,0.1);
+        }
     </style>
 </head>
 <body>
@@ -86,21 +95,21 @@ $faqs = $result->fetch_all(MYSQLI_ASSOC);
 
     <div class="main-content">
         <div class="container-fluid p-3">
-            <?php if (isset($_SESSION['faq_success'])): ?>
+            <?php if (isset($_SESSION['team_member_success'])): ?>
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     <?php 
-                    echo $_SESSION['faq_success'];
-                    unset($_SESSION['faq_success']);
+                    echo $_SESSION['team_member_success'];
+                    unset($_SESSION['team_member_success']);
                     ?>
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             <?php endif; ?>
 
-            <?php if (isset($_SESSION['faq_error'])): ?>
+            <?php if (isset($_SESSION['team_member_error'])): ?>
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     <?php 
-                    echo $_SESSION['faq_error'];
-                    unset($_SESSION['faq_error']);
+                    echo $_SESSION['team_member_error'];
+                    unset($_SESSION['team_member_error']);
                     ?>
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
@@ -109,9 +118,9 @@ $faqs = $result->fetch_all(MYSQLI_ASSOC);
             <div class="row mb-4">
                 <div class="col-12">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h4 class="mb-0">Manage FAQs</h4>
+                        <h4 class="mb-0">Manage Team Members</h4>
                         <a href="create.php" class="btn btn-primary">
-                            <i class="fas fa-plus me-2"></i> Add New FAQ
+                            <i class="fas fa-plus me-2"></i> Add New Team Member
                         </a>
                     </div>
                 </div>
@@ -119,7 +128,7 @@ $faqs = $result->fetch_all(MYSQLI_ASSOC);
 
             <div class="table-card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5>All FAQs</h5>
+                    <h5>All Team Members</h5>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-hover">
@@ -127,40 +136,50 @@ $faqs = $result->fetch_all(MYSQLI_ASSOC);
                             <tr>
                                 <th style="width: 50px;"></th>
                                 <th>Order</th>
-                                <th>Question</th>
+                                <th>Photo</th>
+                                <th>Full Name</th>
+                                <th>Position</th>
                                 <th>Status</th>
                                 <th>Created At</th>
                                 <th>Updated At</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
-                        <tbody id="faqs-list">
-                            <?php if (empty($faqs)): ?>
+                        <tbody id="team-members-list">
+                            <?php if (empty($team_members)): ?>
                                 <tr>
-                                    <td colspan="7" class="text-center">No FAQs found.</td>
+                                    <td colspan="9" class="text-center">No team members found.</td>
                                 </tr>
                             <?php else: ?>
-                                <?php foreach ($faqs as $faq): ?>
-                                    <tr data-id="<?php echo $faq['id']; ?>">
+                                <?php foreach ($team_members as $member): ?>
+                                    <tr data-id="<?php echo $member['id']; ?>">
                                         <td><i class="fas fa-grip-vertical drag-handle"></i></td>
-                                        <td><?php echo htmlspecialchars($faq['order_index']); ?></td>
-                                        <td><?php echo htmlspecialchars(substr($faq['question'], 0, 100)) . (strlen($faq['question']) > 100 ? '...' : ''); ?></td>
+                                        <td><?php echo htmlspecialchars($member['order_index'] ?? 'N/A'); ?></td>
                                         <td>
-                                            <span class="badge <?php echo $faq['is_active'] ? 'bg-success' : 'bg-warning'; ?>">
-                                                <?php echo $faq['is_active'] ? 'Active' : 'Inactive'; ?>
+                                            <?php if ($member['photo']): ?>
+                                                <img src="../../<?php echo htmlspecialchars($member['photo']); ?>" alt="Team Photo" class="team-photo">
+                                            <?php else: ?>
+                                                <img src="https://via.placeholder.com/50" alt="Default Photo" class="team-photo">
+                                            <?php endif; ?>
+                                        </td>
+                                        <td><?php echo htmlspecialchars($member['full_name']); ?></td>
+                                        <td><?php echo htmlspecialchars($member['position']); ?></td>
+                                        <td>
+                                            <span class="badge <?php echo $member['is_active'] ? 'bg-success' : 'bg-warning'; ?>">
+                                                <?php echo $member['is_active'] ? 'Active' : 'Inactive'; ?>
                                             </span>
                                         </td>
-                                        <td><?php echo date('Y-m-d H:i', strtotime($faq['created_at'])); ?></td>
-                                        <td><?php echo $faq['updated_at'] ? date('Y-m-d H:i', strtotime($faq['updated_at'])) : 'N/A'; ?></td>
+                                        <td><?php echo date('Y-m-d H:i', strtotime($member['created_at'])); ?></td>
+                                        <td><?php echo $member['updated_at'] ? date('Y-m-d H:i', strtotime($member['updated_at'])) : 'N/A'; ?></td>
                                         <td>
-                                            <a href="view.php?id=<?php echo $faq['id']; ?>" class="btn btn-sm btn-outline-info btn-action">
+                                            <a href="view.php?id=<?php echo $member['id']; ?>" class="btn btn-sm btn-outline-info btn-action">
                                                 <i class="fas fa-eye"></i> View
                                             </a>
-                                            <a href="edit.php?id=<?php echo $faq['id']; ?>" class="btn btn-sm btn-outline-primary btn-action">
+                                            <a href="edit.php?id=<?php echo $member['id']; ?>" class="btn btn-sm btn-outline-primary btn-action">
                                                 <i class="fas fa-edit"></i> Edit
                                             </a>
-                                            <form action="actions/delete.php" method="POST" onsubmit="return confirm('Are you sure you want to delete this FAQ?');" style="display: inline;">
-                                                <input type="hidden" name="faq_id" value="<?php echo $faq['id']; ?>">
+                                            <form action="actions/delete.php" method="POST" onsubmit="return confirm('Are you sure you want to delete this team member?');" style="display: inline;">
+                                                <input type="hidden" name="team_member_id" value="<?php echo $member['id']; ?>">
                                                 <button type="submit" class="btn btn-sm btn-outline-danger btn-action">
                                                     <i class="fas fa-trash"></i> Delete
                                                 </button>
@@ -183,7 +202,7 @@ $faqs = $result->fetch_all(MYSQLI_ASSOC);
     <script src="../assets/js/common.js"></script>
     <script>
         $(document).ready(function() {
-            $("#faqs-list").sortable({
+            $("#team-members-list").sortable({
                 handle: ".drag-handle",
                 placeholder: "ui-sortable-placeholder",
                 helper: function(e, tr) {
@@ -196,7 +215,7 @@ $faqs = $result->fetch_all(MYSQLI_ASSOC);
                 },
                 update: function(event, ui) {
                     var newOrder = [];
-                    $("#faqs-list tr").each(function(index) {
+                    $("#team-members-list tr").each(function(index) {
                         if ($(this).data('id')) {  // Only include rows that have an ID
                             newOrder.push({
                                 id: $(this).data('id'),
@@ -215,41 +234,24 @@ $faqs = $result->fetch_all(MYSQLI_ASSOC);
                         success: function(response) {
                             if (response.success) {
                                 // Update the displayed order_index values
-                                $("#faqs-list tr").each(function(index) {
+                                $("#team-members-list tr").each(function(index) {
                                     if ($(this).data('id')) {  // Only update rows that have an ID
                                         $(this).find('td:eq(1)').text(index + 1);
                                     }
                                 });
-                                showAlert('FAQs order updated successfully.');
+                                showAlert('Team member order updated successfully.');
                             } else {
-                                showAlert('Error updating FAQ order: ' + (response.message || 'Unknown error'), 'danger');
+                                showAlert('Error updating team member order: ' + (response.message || 'Unknown error'), 'danger');
                             }
                         },
                         error: function(xhr, status, error) {
                             console.error('Error:', error);
-                            showAlert('Error updating FAQ order. Please try again.', 'danger');
+                            showAlert('Error updating team member order. Please try again.', 'danger');
                         }
                     });
                 }
             });
         });
-
-        function deleteFAQ(id) {
-            if (confirm('Are you sure you want to delete this FAQ?')) {
-                const form = document.createElement('form');
-                form.method = 'POST';
-                form.action = './actions/delete.php';
-                
-                const input = document.createElement('input');
-                input.type = 'hidden';
-                input.name = 'faq_id';
-                input.value = id;
-                
-                form.appendChild(input);
-                document.body.appendChild(form);
-                form.submit();
-            }
-        }
     </script>
 </body>
 </html> 
