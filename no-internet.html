@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offline - Lawyex</title>
+    <!-- Font Awesome for icons (Ensure this CDN is accessible) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts - consistent with main site's branding -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1a1a2e;
+            --secondary-color: #dc9210;
+            --text-color-dark: #2c3e50;
+            --text-color-light: #7f8c8d;
+            --bg-color-subtle: #f0f2f5;
+            --card-bg: #ffffff;
+            --border-color: #e6ebf0;
+            --shadow-subtle: 0 8px 30px rgba(0, 0, 0, 0.06);
+            --shadow-hover: 0 12px 45px rgba(0, 0, 0, 0.12);
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: var(--bg-color-subtle);
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-color-dark);
+            text-align: center;
+            padding: 20px;
+            margin: 0;
+            overflow: hidden;
+            line-height: 1.6;
+        }
+
+        .container {
+            background: var(--card-bg);
+            border-radius: 18px;
+            box-shadow: var(--shadow-subtle);
+            border: 1px solid var(--border-color);
+            padding: 70px 60px;
+            max-width: 600px; /* Slightly narrower for more focus */
+            width: 100%;
+            transition: all 0.4s ease-in-out;
+        }
+
+        .container:hover {
+            box-shadow: var(--shadow-hover);
+            transform: translateY(-5px); /* Subtle lift on hover */
+        }
+
+        .logo-placeholder {
+            margin-bottom: 30px; /* Reduced space slightly */
+        }
+
+        .logo-placeholder img {
+            max-width: 100px; /* Slightly smaller logo placeholder */
+            height: auto;
+            border-radius: 8px;
+            opacity: 0.9;
+        }
+
+        .icon-status {
+            font-size: 5rem; /* Maintain large size */
+            color: var(--secondary-color);
+            margin-bottom: 30px; /* Reduced space slightly */
+            display: inline-block;
+            animation: fadeInScale 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+            opacity: 0;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem; /* Slightly smaller, but still impactful */
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+
+        p {
+            font-size: 1.05rem; /* Slightly smaller body text */
+            line-height: 1.7;
+            color: var(--text-color-light);
+            margin-bottom: 30px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn-action {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 14px 40px; /* Slightly smaller button */
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            letter-spacing: 0.8px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            text-transform: uppercase;
+        }
+
+        .btn-action:hover {
+            background-color: var(--secondary-color);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            transform: translateY(-3px);
+        }
+
+        .btn-action i {
+            margin-right: 10px; /* Reduced space for icon */
+            font-size: 1.1em;
+        }
+
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* Responsive adjustments - simplified */
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px 30px;
+            }
+            h1 {
+                font-size: 2.2rem;
+            }
+            .icon-status {
+                font-size: 4rem;
+            }
+            p {
+                font-size: 0.95rem;
+            }
+            .btn-action {
+                padding: 12px 30px;
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo-placeholder">
+            <!-- Add your firm's logo here, e.g.: -->
+            <!-- <img src="assets/images/your-logo.png" alt="Law Firm Logo"> -->
+        </div>
+        <img src="assets/images/offline.gif" alt="Offline animation" class="icon-status-gif"> <!-- Placeholder for your GIF -->
+        <h1>Offline</h1>
+        <p>Please check your internet connection.</p>
+        <a href="index.php" class="btn btn-action"><i class="fas fa-sync-alt"></i>Reload Page</a>
+    </div>
+</body>
+</html> 

@@ -36,8 +36,8 @@ $current_full_path = $_SERVER['PHP_SELF'];
         <a href="../contact/index.php" class="<?php echo strpos($current_full_path, '/admin/contact/') !== false ? 'active' : ''; ?>">
             <i class="fas fa-envelope"></i> <span class="menu-text">Contact</span>
         </a>
-        <a href="../visitor_records.php" class="<?php echo strpos($current_full_path, '/admin/visitor_records.php') !== false ? 'active' : ''; ?>">
-            <i class="fas fa-chart-bar"></i> <span class="menu-text">Visitor Records</span>
+        <a href="../visitor_logs/index.php" class="<?php echo strpos($current_full_path, '/admin/visitor_logs/') !== false ? 'active' : ''; ?>">
+            <i class="fas fa-chart-bar"></i> <span class="menu-text">Visitor Logs</span>
         </a>
     </div>
     <div class="sidebar-footer">

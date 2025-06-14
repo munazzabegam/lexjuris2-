@@ -213,6 +213,29 @@ document.addEventListener('DOMContentLoaded', function() {
             card.style.animation = '';
         });
     });
+
+    // Detect internet connection status
+    function checkInternetStatus() {
+        if (!navigator.onLine) {
+            // If offline, redirect to the no-internet page
+            // Ensure we don't redirect if we are already on the no-internet page
+            if (window.location.pathname.indexOf('no-internet.html') === -1) {
+                window.location.href = 'no-internet.html';
+            }
+        } else {
+            // If online and currently on the no-internet page, redirect back to index.php
+            if (window.location.pathname.indexOf('no-internet.html') !== -1) {
+                window.location.href = 'index.php'; // Or window.history.back()
+            }
+        }
+    }
+
+    // Check on page load
+    checkInternetStatus();
+
+    // Listen for online/offline events
+    window.addEventListener('online', checkInternetStatus);
+    window.addEventListener('offline', checkInternetStatus);
 });
 
 // Parallax Effect
