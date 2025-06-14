@@ -135,6 +135,33 @@ CREATE TABLE team_social_links (
       ON DELETE CASCADE
 );
 
+CREATE TABLE sub_junior_team_members (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    full_name VARCHAR(255) NOT NULL,
+    position VARCHAR(255) NOT NULL,
+    bio TEXT,
+    photo VARCHAR(255) NOT NULL,
+    portfolio VARCHAR(255),
+    is_active BOOLEAN NOT NULL DEFAULT TRUE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    order_index INT DEFAULT 0
+);
+
+CREATE TABLE sub_junior_social_links (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    sub_junior_id INT NOT NULL,
+    platform ENUM('LinkedIn', 'Twitter', 'Email', 'Facebook', 'Instagram', 'GitHub', 'Other') NOT NULL,
+    url VARCHAR(255) NOT NULL,
+    is_active BOOLEAN NOT NULL DEFAULT TRUE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    CONSTRAINT fk_sub_junior
+      FOREIGN KEY (sub_junior_id)
+      REFERENCES sub_junior_team_members(id)
+      ON DELETE CASCADE
+);
+
 -- gallery table
 CREATE TABLE gallery (
     id INT AUTO_INCREMENT PRIMARY KEY,

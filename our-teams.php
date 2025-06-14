@@ -42,7 +42,7 @@ require_once 'config/database.php';
                     $index = 0;
                     while ($member = $main_team_result->fetch_assoc()) {
                         // Fetch social links for this team member
-                        $social_query = "SELECT * FROM team_social_links WHERE team_id = ? AND is_active = 1";
+                        $social_query = "SELECT * FROM team_social_links WHERE team_id = ? AND is_active = 1 ORDER BY FIELD(platform, 'LinkedIn', 'Twitter', 'Email', 'Facebook', 'Instagram', 'GitHub', 'Other')";
                         $social_stmt = $conn->prepare($social_query);
                         $social_stmt->bind_param("i", $member['id']);
                         $social_stmt->execute();
@@ -52,7 +52,11 @@ require_once 'config/database.php';
                             <div class="main-team-card">
                                 <img src="' . htmlspecialchars($member['photo']) . '" alt="' . htmlspecialchars($member['full_name']) . '" class="team-img">
                                 <div class="team-info-overlay">
-                                    <h3>' . htmlspecialchars($member['full_name']) . '</h3>
+                                    <h3>
+                                        <a href="' . (!empty($member['portfolio']) ? htmlspecialchars($member['portfolio']) : '#') . '" target="_blank" class="text-white text-decoration-none">
+                                            ' . htmlspecialchars($member['full_name']) . '
+                                        </a>
+                                    </h3>
                                     <p>' . htmlspecialchars($member['position']) . '</p>';
                         
                         // Add social links if they exist
@@ -60,7 +64,9 @@ require_once 'config/database.php';
                             echo '<div class="team-social-links">';
                             while ($social = $social_result->fetch_assoc()) {
                                 $icon_class = '';
-                                switch ($social['platform']) {
+                                $platform = $social['platform'];
+                                
+                                switch ($platform) {
                                     case 'LinkedIn':
                                         $icon_class = 'fab fa-linkedin';
                                         break;
@@ -79,10 +85,18 @@ require_once 'config/database.php';
                                     case 'GitHub':
                                         $icon_class = 'fab fa-github';
                                         break;
-                                    default:
+                                    case 'Other':
                                         $icon_class = 'fas fa-link';
+                                        break;
                                 }
-                                echo '<a href="' . htmlspecialchars($social['url']) . '" target="_blank" class="social-link">
+                                
+                                // Format URL based on platform
+                                $url = $social['url'];
+                                if ($platform === 'Email' && !str_starts_with($url, 'mailto:')) {
+                                    $url = 'mailto:' . $url;
+                                }
+                                
+                                echo '<a href="' . htmlspecialchars($url) . '" target="_blank" class="social-link" title="' . htmlspecialchars($platform) . '">
                                     <i class="' . $icon_class . '"></i>
                                 </a>';
                             }
@@ -122,7 +136,7 @@ require_once 'config/database.php';
                     $index = 0;
                     while ($member = $sub_junior_result->fetch_assoc()) {
                         // Fetch social links for this team member
-                        $social_query = "SELECT * FROM team_social_links WHERE team_id = ? AND is_active = 1";
+                        $social_query = "SELECT * FROM team_social_links WHERE team_id = ? AND is_active = 1 ORDER BY FIELD(platform, 'LinkedIn', 'Twitter', 'Email', 'Facebook', 'Instagram', 'GitHub', 'Other')";
                         $social_stmt = $conn->prepare($social_query);
                         $social_stmt->bind_param("i", $member['id']);
                         $social_stmt->execute();
@@ -140,7 +154,9 @@ require_once 'config/database.php';
                             echo '<div class="team-social-links">';
                             while ($social = $social_result->fetch_assoc()) {
                                 $icon_class = '';
-                                switch ($social['platform']) {
+                                $platform = $social['platform'];
+                                
+                                switch ($platform) {
                                     case 'LinkedIn':
                                         $icon_class = 'fab fa-linkedin';
                                         break;
@@ -159,10 +175,18 @@ require_once 'config/database.php';
                                     case 'GitHub':
                                         $icon_class = 'fab fa-github';
                                         break;
-                                    default:
+                                    case 'Other':
                                         $icon_class = 'fas fa-link';
+                                        break;
                                 }
-                                echo '<a href="' . htmlspecialchars($social['url']) . '" target="_blank" class="social-link">
+                                
+                                // Format URL based on platform
+                                $url = $social['url'];
+                                if ($platform === 'Email' && !str_starts_with($url, 'mailto:')) {
+                                    $url = 'mailto:' . $url;
+                                }
+                                
+                                echo '<a href="' . htmlspecialchars($url) . '" target="_blank" class="social-link" title="' . htmlspecialchars($platform) . '">
                                     <i class="' . $icon_class . '"></i>
                                 </a>';
                             }
@@ -220,37 +244,68 @@ require_once 'config/database.php';
             bottom: 0;
             left: 0;
             right: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.4));
             padding: 20px;
             color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .main-team-card:hover .team-info-overlay,
+        .team-card:hover .team-info {
+            background: linear-gradient(to top, rgba(0,0,0,0.95), rgba(0,0,0,0.6));
         }
         
         .team-info-overlay h3, .team-info h3 {
             margin: 0;
             font-size: 1.25rem;
             font-weight: 600;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
         }
         
         .team-info-overlay p, .team-info p {
             margin: 5px 0 0;
             font-size: 0.9rem;
             opacity: 0.9;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
         }
         
         .team-social-links {
-            margin-top: 10px;
+            margin-top: 12px;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
         }
         
         .social-link {
             color: white;
-            margin-right: 10px;
-            font-size: 1.1rem;
-            transition: color 0.3s ease;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(5px);
+            text-decoration: none;
         }
         
         .social-link:hover {
-            color: #bc841c;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         }
+        
+        /* Platform-specific colors on hover */
+        .social-link[title="LinkedIn"]:hover { background: #0077b5; }
+        .social-link[title="Twitter"]:hover { background: #1da1f2; }
+        .social-link[title="Facebook"]:hover { background: #4267B2; }
+        .social-link[title="Instagram"]:hover { background: #E1306C; }
+        .social-link[title="GitHub"]:hover { background: #333; }
+        .social-link[title="Email"]:hover { background: #EA4335; }
+        .social-link[title="Other"]:hover { background: #bc841c; }
     </style>
 </body>
 </html> 

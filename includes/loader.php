@@ -19,6 +19,7 @@ $loader_styles = "
         margin: 0;
         padding: 0;
     }
+    
 
     .loader-content {
         text-align: center;
