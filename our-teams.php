@@ -129,24 +129,28 @@ require_once 'config/database.php';
             <div class="row g-4 justify-content-center">
                 <?php
                 // Fetch sub junior team members (assuming they have order_index >= 10)
-                $sub_junior_query = "SELECT * FROM team_members WHERE is_active = 1 AND order_index >= 10 ORDER BY order_index ASC";
+                $sub_junior_query = "SELECT * FROM sub_junior_team_members WHERE is_active = 1 ORDER BY order_index ASC";
                 $sub_junior_result = $conn->query($sub_junior_query);
                 
                 if ($sub_junior_result && $sub_junior_result->num_rows > 0) {
                     $index = 0;
                     while ($member = $sub_junior_result->fetch_assoc()) {
                         // Fetch social links for this team member
-                        $social_query = "SELECT * FROM team_social_links WHERE team_id = ? AND is_active = 1 ORDER BY FIELD(platform, 'LinkedIn', 'Twitter', 'Email', 'Facebook', 'Instagram', 'GitHub', 'Other')";
+                        $social_query = "SELECT * FROM sub_junior_social_links WHERE sub_junior_id = ? AND is_active = 1 ORDER BY FIELD(platform, 'LinkedIn', 'Twitter', 'Email', 'Facebook', 'Instagram', 'GitHub', 'Other')";
                         $social_stmt = $conn->prepare($social_query);
                         $social_stmt->bind_param("i", $member['id']);
                         $social_stmt->execute();
                         $social_result = $social_stmt->get_result();
                         
                         echo '<div class="col-md-4 mb-4" data-aos="zoom-in" data-aos-delay="' . ($index * 100) . '">
-                            <div class="team-card">
-                                <img src="' . htmlspecialchars($member['photo']) . '" alt="' . htmlspecialchars($member['full_name']) . '" class="img-fluid">
-                                <div class="team-info">
-                                    <h3>' . htmlspecialchars($member['full_name']) . '</h3>
+                            <div class="main-team-card">
+                                <img src="' . htmlspecialchars($member['photo']) . '" alt="' . htmlspecialchars($member['full_name']) . '" class="team-img">
+                                <div class="team-info-overlay">
+                                    <h3>
+                                        <a href="' . (!empty($member['portfolio']) ? htmlspecialchars($member['portfolio']) : '#') . '" target="_blank" class="text-white text-decoration-none">
+                                            ' . htmlspecialchars($member['full_name']) . '
+                                        </a>
+                                    </h3>
                                     <p>' . htmlspecialchars($member['position']) . '</p>';
                         
                         // Add social links if they exist
@@ -178,12 +182,29 @@ require_once 'config/database.php';
                                     case 'Other':
                                         $icon_class = 'fas fa-link';
                                         break;
+                                    case 'WhatsApp':
+                                        $icon_class = 'fab fa-whatsapp';
+                                        break;
+                                    case 'YouTube':
+                                        $icon_class = 'fab fa-youtube';
+                                        break;
+                                    case 'Website':
+                                        $icon_class = 'fas fa-globe';
+                                        break;
+                                    case 'Phone':
+                                        $icon_class = 'fas fa-phone';
+                                        break;
                                 }
                                 
                                 // Format URL based on platform
                                 $url = $social['url'];
                                 if ($platform === 'Email' && !str_starts_with($url, 'mailto:')) {
                                     $url = 'mailto:' . $url;
+                                } else if ($platform === 'Phone' && !str_starts_with($url, 'tel:')) {
+                                    $url = 'tel:' . $url;
+                                } else if ($platform === 'WhatsApp' && !str_starts_with($url, 'https://wa.me/')) {
+                                    // Assuming WhatsApp numbers are stored without the full URL
+                                    $url = 'https://wa.me/' . preg_replace('/^\+/', '', $url); // Remove leading + if exists
                                 }
                                 
                                 echo '<a href="' . htmlspecialchars($url) . '" target="_blank" class="social-link" title="' . htmlspecialchars($platform) . '">
