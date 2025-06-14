@@ -5,6 +5,7 @@ $nav_items = [
     'home' => ['url' => 'index.php', 'text' => 'Home'],
     'about' => ['url' => 'about.php', 'text' => 'About'],
     'services' => ['url' => 'services.php', 'text' => 'Services'],
+    'cases' => ['url' => 'cases.php', 'text' => 'Cases'],
     'blog' => ['url' => 'blog.php', 'text' => 'Blog'],
     'contact' => ['url' => 'contact.php', 'text' => 'Contact'],
     'our-teams' => ['url' => 'our-teams.php', 'text' => 'Our Teams']

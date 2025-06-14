@@ -1,6 +1,9 @@
 <?php
 $page_title = "Our Teams - Lawyex";
 $current_page = "our-teams";
+
+// Include database connection
+require_once 'config/database.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,53 +34,68 @@ $current_page = "our-teams";
             </div>
             <div class="row g-4 justify-content-center">
                 <?php
-                $main_team = [
-                    [
-                        'image' => 'https://images.unsplash.com/photo-1521737852567-6949f3f9f2b5?auto=format&fit=crop&w=400&q=80',
-                        'name' => 'Omer Farooq Mulki',
-                        'position' => 'B.A. (Law), LL.B',
-                        'portfolio' => 'portfolio1.html'
-                    ],
-                    [
-                        'image' => 'https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=400&q=80',
-                        'name' => 'Asif Baikady',
-                        'position' => 'B.Com, LL.B',
-                        'portfolio' => 'portfolio2.html'
-                    ],
-                    [
-                        'image' => 'https://images.unsplash.com/photo-1503676382389-4809596d5290?auto=format&fit=crop&w=400&q=80',
-                        'name' => 'Mahammad Asgar',
-                        'position' => 'B.A. (Law), LL.B',
-                        'portfolio' => 'portfolio3.html'
-                    ],
-                    [
-                        'image' => 'https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=400&q=80',
-                        'name' => 'Abu Harish',
-                        'position' => 'B.A. (Law), LL.B',
-                        'portfolio' => 'portfolio4.html'
-                    ],
-                    [
-                        'image' => 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=400&q=80',
-                        'name' => 'Umarul Farook',
-                        'position' => 'B.A., LL.B',
-                        'portfolio' => 'portfolio5.html'
-                    ],
-                    [
-                        'image' => 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=400&q=80',
-                        'name' => 'I.M. Ijaz Ahmed Ullal',
-                        'position' => 'B.A. (Law), LL.B',
-                        'portfolio' => 'portfolio6.html'
-                    ]
-                ];
-                foreach ($main_team as $index => $member) {
-                    echo '<div class="col-md-4 mb-4" data-aos="zoom-in" data-aos-delay="' . ($index * 100) . '">
-                        <div class="main-team-card">
-                            <img src="' . $member['image'] . '" alt="' . $member['name'] . '">
-                            <div class="team-info-overlay">
-                                <h3>' . $member['name'] . '</h3>
-                                <p>' . $member['position'] . '</p>
-                            </div>
-                        </div>
+                // Fetch main team members (assuming they have order_index < 10)
+                $main_team_query = "SELECT * FROM team_members WHERE is_active = 1 AND order_index < 10 ORDER BY order_index ASC";
+                $main_team_result = $conn->query($main_team_query);
+                
+                if ($main_team_result && $main_team_result->num_rows > 0) {
+                    $index = 0;
+                    while ($member = $main_team_result->fetch_assoc()) {
+                        // Fetch social links for this team member
+                        $social_query = "SELECT * FROM team_social_links WHERE team_id = ? AND is_active = 1";
+                        $social_stmt = $conn->prepare($social_query);
+                        $social_stmt->bind_param("i", $member['id']);
+                        $social_stmt->execute();
+                        $social_result = $social_stmt->get_result();
+                        
+                        echo '<div class="col-md-4 mb-4" data-aos="zoom-in" data-aos-delay="' . ($index * 100) . '">
+                            <div class="main-team-card">
+                                <img src="' . htmlspecialchars($member['photo']) . '" alt="' . htmlspecialchars($member['full_name']) . '" class="team-img">
+                                <div class="team-info-overlay">
+                                    <h3>' . htmlspecialchars($member['full_name']) . '</h3>
+                                    <p>' . htmlspecialchars($member['position']) . '</p>';
+                        
+                        // Add social links if they exist
+                        if ($social_result && $social_result->num_rows > 0) {
+                            echo '<div class="team-social-links">';
+                            while ($social = $social_result->fetch_assoc()) {
+                                $icon_class = '';
+                                switch ($social['platform']) {
+                                    case 'LinkedIn':
+                                        $icon_class = 'fab fa-linkedin';
+                                        break;
+                                    case 'Twitter':
+                                        $icon_class = 'fab fa-twitter';
+                                        break;
+                                    case 'Email':
+                                        $icon_class = 'fas fa-envelope';
+                                        break;
+                                    case 'Facebook':
+                                        $icon_class = 'fab fa-facebook';
+                                        break;
+                                    case 'Instagram':
+                                        $icon_class = 'fab fa-instagram';
+                                        break;
+                                    case 'GitHub':
+                                        $icon_class = 'fab fa-github';
+                                        break;
+                                    default:
+                                        $icon_class = 'fas fa-link';
+                                }
+                                echo '<a href="' . htmlspecialchars($social['url']) . '" target="_blank" class="social-link">
+                                    <i class="' . $icon_class . '"></i>
+                                </a>';
+                            }
+                            echo '</div>';
+                        }
+                        
+                        echo '</div></div></div>';
+                        $index++;
+                    }
+                } else {
+                    // Fallback if no team members found
+                    echo '<div class="col-12 text-center">
+                        <p class="text-muted">No team members found.</p>
                     </div>';
                 }
                 ?>
@@ -96,112 +114,68 @@ $current_page = "our-teams";
             </div>
             <div class="row g-4 justify-content-center">
                 <?php
-                $sub_junior_team = [
-                    [
-                        'image' => 'https://images.unsplash.com/photo-1521737852567-6949f3f9f2b5?auto=format&fit=crop&w=400&q=80',
-                        'name' => 'Abubakkar Sidiq M',
-                        'position' => 'B.A. (Law), LL.B'
-                    ],
-                    [
-                        'image' => 'https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=400&q=80',
-                        'name' => 'Ritesh Bangera',
-                        'position' => 'B.A., LL.B'
-                    ],
-                    [
-                        'image' => 'https://images.unsplash.com/photo-1503676382389-4809596d5290?auto=format&fit=crop&w=400&q=80',
-                        'name' => 'Mohammed A. R.',
-                        'position' => 'B.Com, LL.B'
-                    ],
-                    [
-                        'image' => 'https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=400&q=80',
-                        'name' => 'K. Mufeedha Rahman',
-                        'position' => 'B.A. (Law), LL.B'
-                    ],
-                    [
-                        'image' => 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=400&q=80',
-                        'name' => 'Alisha Zulka',
-                        'position' => 'B.A. (Law), LL.B'
-                    ],
-                    [
-                        'image' => 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=400&q=80',
-                        'name' => 'Haidarali M. H.',
-                        'position' => 'B.A., LL.B'
-                    ],
-                    [
-                        'image' => 'https://images.unsplash.com/photo-1521737852567-6949f3f9f2b5?auto=format&fit=crop&w=400&q=80',
-                        'name' => 'Niriksha',
-                        'position' => 'B.A. (Law), LL.B'
-                    ],
-                    [
-                        'image' => 'https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=400&q=80',
-                        'name' => 'Ashika Hussain',
-                        'position' => 'B.A. (Law), LL.B'
-                    ],
-                    [
-                        'image' => 'https://images.unsplash.com/photo-1503676382389-4809596d5290?auto=format&fit=crop&w=400&q=80',
-                        'name' => 'Lloyd D Mello',
-                        'position' => 'B.Com, LL.B'
-                    ],
-                     [
-                        'image' => 'https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=400&q=80',
-                        'name' => 'Irshad Himami Saqafi Montepadav',
-                        'position' => 'B.A., LL.B'
-                    ],
-                     [
-                        'image' => 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=400&q=80',
-                        'name' => 'Mohammed Adil',
-                        'position' => 'B.A., LL.B'
-                    ],
-                     [
-                        'image' => 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=400&q=80',
-                        'name' => 'Mansoor Ali',
-                        'position' => 'B.A., LL.B'
-                    ],
-                     [
-                        'image' => 'https://images.unsplash.com/photo-1521737852567-6949f3f9f2b5?auto=format&fit=crop&w=400&q=80',
-                        'name' => 'Rubeena K. P',
-                        'position' => 'B.A., LL.B'
-                    ],
-                     [
-                        'image' => 'https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=400&q=80',
-                        'name' => 'Mahammad Sadiq',
-                        'position' => 'B.A., LL.B'
-                    ],
-                     [
-                        'image' => 'https://images.unsplash.com/photo-1503676382389-4809596d5290?auto=format&fit=crop&w=400&q=80',
-                        'name' => 'Sanjana Latha',
-                        'position' => 'B.A., LL.B'
-                    ],
-                    [
-                        'image' => 'https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=400&q=80',
-                        'name' => 'Ayaz Charmady',
-                        'position' => 'B.Sc., LL.B'
-                    ],
-                     [
-                        'image' => 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=400&q=80',
-                        'name' => 'Shounak Rai',
-                        'position' => 'B.A. (Law), LL.B'
-                    ],
-                    [
-                        'image' => 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=400&q=80',
-                        'name' => 'Afeeza',
-                        'position' => 'B.A.(LAW), LL.B'
-                    ],
-                     [
-                        'image' => 'https://images.unsplash.com/photo-1521737852567-6949f3f9f2b5?auto=format&fit=crop&w=400&q=80',
-                        'name' => 'Mahammad Nishan M K',
-                        'position' => 'BBA.,LL.B'
-                    ]
-                ];
-                foreach ($sub_junior_team as $index => $member) {
-                    echo '<div class="col-md-4 mb-4" data-aos="zoom-in" data-aos-delay="' . ($index * 100) . '">
-                        <div class="team-card">
-                            <img src="' . $member['image'] . '" alt="' . $member['name'] . '" class="img-fluid">
-                            <div class="team-info">
-                                <h3>' . $member['name'] . '</h3>
-                                <p>' . $member['position'] . '</p>
-                            </div>
-                        </div>
+                // Fetch sub junior team members (assuming they have order_index >= 10)
+                $sub_junior_query = "SELECT * FROM team_members WHERE is_active = 1 AND order_index >= 10 ORDER BY order_index ASC";
+                $sub_junior_result = $conn->query($sub_junior_query);
+                
+                if ($sub_junior_result && $sub_junior_result->num_rows > 0) {
+                    $index = 0;
+                    while ($member = $sub_junior_result->fetch_assoc()) {
+                        // Fetch social links for this team member
+                        $social_query = "SELECT * FROM team_social_links WHERE team_id = ? AND is_active = 1";
+                        $social_stmt = $conn->prepare($social_query);
+                        $social_stmt->bind_param("i", $member['id']);
+                        $social_stmt->execute();
+                        $social_result = $social_stmt->get_result();
+                        
+                        echo '<div class="col-md-4 mb-4" data-aos="zoom-in" data-aos-delay="' . ($index * 100) . '">
+                            <div class="team-card">
+                                <img src="' . htmlspecialchars($member['photo']) . '" alt="' . htmlspecialchars($member['full_name']) . '" class="img-fluid">
+                                <div class="team-info">
+                                    <h3>' . htmlspecialchars($member['full_name']) . '</h3>
+                                    <p>' . htmlspecialchars($member['position']) . '</p>';
+                        
+                        // Add social links if they exist
+                        if ($social_result && $social_result->num_rows > 0) {
+                            echo '<div class="team-social-links">';
+                            while ($social = $social_result->fetch_assoc()) {
+                                $icon_class = '';
+                                switch ($social['platform']) {
+                                    case 'LinkedIn':
+                                        $icon_class = 'fab fa-linkedin';
+                                        break;
+                                    case 'Twitter':
+                                        $icon_class = 'fab fa-twitter';
+                                        break;
+                                    case 'Email':
+                                        $icon_class = 'fas fa-envelope';
+                                        break;
+                                    case 'Facebook':
+                                        $icon_class = 'fab fa-facebook';
+                                        break;
+                                    case 'Instagram':
+                                        $icon_class = 'fab fa-instagram';
+                                        break;
+                                    case 'GitHub':
+                                        $icon_class = 'fab fa-github';
+                                        break;
+                                    default:
+                                        $icon_class = 'fas fa-link';
+                                }
+                                echo '<a href="' . htmlspecialchars($social['url']) . '" target="_blank" class="social-link">
+                                    <i class="' . $icon_class . '"></i>
+                                </a>';
+                            }
+                            echo '</div>';
+                        }
+                        
+                        echo '</div></div></div>';
+                        $index++;
+                    }
+                } else {
+                    // Fallback if no team members found
+                    echo '<div class="col-12 text-center">
+                        <p class="text-muted">No sub junior team members found.</p>
                     </div>';
                 }
                 ?>
@@ -215,5 +189,68 @@ $current_page = "our-teams";
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Custom JS -->
     <script src="assets/js/main.js"></script>
+
+    <style>
+        .main-team-card, .team-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            margin-bottom: 20px;
+        }
+        
+        .main-team-card:hover, .team-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .team-img, .team-card img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .main-team-card:hover .team-img, .team-card:hover img {
+            transform: scale(1.05);
+        }
+        
+        .team-info-overlay, .team-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            padding: 20px;
+            color: white;
+        }
+        
+        .team-info-overlay h3, .team-info h3 {
+            margin: 0;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+        
+        .team-info-overlay p, .team-info p {
+            margin: 5px 0 0;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        .team-social-links {
+            margin-top: 10px;
+        }
+        
+        .social-link {
+            color: white;
+            margin-right: 10px;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+        }
+        
+        .social-link:hover {
+            color: #bc841c;
+        }
+    </style>
 </body>
 </html> 

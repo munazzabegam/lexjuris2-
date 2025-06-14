@@ -1,6 +1,9 @@
 <?php
 $page_title = "Lawyex - Legal Services";
 $current_page = "home";
+
+// Include database connection
+require_once 'config/database.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -35,7 +38,22 @@ $current_page = "home";
                     </div>
                     <h1 class="display-4 fw-bold text-white mb-4">Professional Legal Services</h1>
                     <p class="lead text-white mb-4">We provide expert legal solutions for individuals and businesses. Our experienced team is dedicated to protecting your rights and interests.</p>
-                    <a href="tel:9742964416" class="btn btn-warning btn-lg">Contact Us</a>
+                    <?php
+                    // Fetch active contact number from database
+                    $query = "SELECT phone FROM contact WHERE is_active = 1 ORDER BY id DESC LIMIT 1";
+                    $result = $conn->query($query);
+                    $phone = "9742964416"; // Default fallback number
+                    
+                    if ($result && $result->num_rows > 0) {
+                        $contact = $result->fetch_assoc();
+                        if (!empty($contact['phone'])) {
+                            $phone = $contact['phone'];
+                        }
+                    }
+                    ?>
+                    <a href="tel:<?php echo htmlspecialchars($phone); ?>" class="btn btn-warning btn-lg">
+                        Contact Us
+                    </a>
                 </div>
             </div>
         </div>
@@ -163,43 +181,161 @@ $current_page = "home";
             </div>
             <div class="row g-4">
                 <?php
-                $recent_cases = [
-                    [
-                        'title' => 'Corporate Merger Success',
-                        'category' => 'Corporate Law',
-                        'description' => 'Successfully facilitated a $50M merger between two major tech companies.',
-                        'result' => 'Successful Merger'
-                    ],
-                    [
-                        'title' => 'Landmark Property Dispute',
-                        'category' => 'Property Law',
-                        'description' => 'Resolved complex property dispute involving multiple stakeholders.',
-                        'result' => 'Favorable Settlement'
-                    ],
-                    [
-                        'title' => 'High-Profile Divorce Case',
-                        'category' => 'Family Law',
-                        'description' => 'Handled sensitive divorce proceedings with amicable resolution.',
-                        'result' => 'Mutual Agreement'
-                    ]
-                ];
+                // Fetch recent cases from database
+                $cases_query = "SELECT * FROM cases ORDER BY created_at DESC LIMIT 3";
+                $cases_result = $conn->query($cases_query);
+                
+                if ($cases_result && $cases_result->num_rows > 0) {
+                    $index = 0;
+                    while ($case = $cases_result->fetch_assoc()) {
+                        // Format category for display
+                        $category = ucwords(str_replace('_', ' ', $case['category']));
+                        
+                        // Get status badge color
+                        $status_color = 'bg-success';
+                        if ($case['status'] == 'Open') {
+                            $status_color = 'bg-warning';
+                        } elseif ($case['status'] == 'In Progress') {
+                            $status_color = 'bg-info';
+                        }
+                        
+                        echo '<div class="col-md-4" data-aos="fade-up" data-aos-delay="' . ($index * 200) . '">
+                            <div class="case-card">
+                                <div class="case-category">' . htmlspecialchars($category) . '</div>
+                                <h3>' . htmlspecialchars($case['title']) . '</h3>
+                                <p class="case-description">' . htmlspecialchars(substr($case['description'], 0, 100)) . '...</p>
+                                <div class="case-result">
+                                    <span class="badge ' . $status_color . '">' . htmlspecialchars($case['status']) . '</span>
+                                    <span class="badge bg-secondary ms-2">Case #' . htmlspecialchars($case['case_number']) . '</span>
+                                </div>';
+                        
+                        // Add tags if they exist
+                        if (!empty($case['tags'])) {
+                            echo '<div class="case-tags mt-2">';
+                            $tags = explode(',', $case['tags']);
+                            foreach ($tags as $tag) {
+                                echo '<span class="badge bg-light text-dark me-1">' . htmlspecialchars(trim($tag)) . '</span>';
+                            }
+                            echo '</div>';
+                        }
+                        
+                        // Add view details button
+                        echo '<div class="case-footer mt-3">
+                            <a href="case-details.php?id=' . $case['id'] . '" class="btn btn-outline-warning btn-sm">View Details</a>
+                        </div>';
+                        
+                        echo '</div></div>';
+                        $index++;
+                    }
+                } else {
+                    // Fallback if no cases found in database
+                    $recent_cases = [
+                        [
+                            'title' => 'Corporate Merger Success',
+                            'category' => 'Corporate Law',
+                            'description' => 'Successfully facilitated a $50M merger between two major tech companies.',
+                            'result' => 'Successful Merger'
+                        ],
+                        [
+                            'title' => 'Landmark Property Dispute',
+                            'category' => 'Property Law',
+                            'description' => 'Resolved complex property dispute involving multiple stakeholders.',
+                            'result' => 'Favorable Settlement'
+                        ],
+                        [
+                            'title' => 'High-Profile Divorce Case',
+                            'category' => 'Family Law',
+                            'description' => 'Handled sensitive divorce proceedings with amicable resolution.',
+                            'result' => 'Mutual Agreement'
+                        ]
+                    ];
 
-                foreach ($recent_cases as $index => $case) {
-                    echo '<div class="col-md-4" data-aos="fade-up" data-aos-delay="' . ($index * 200) . '">
-                        <div class="case-card">
-                            <div class="case-category">' . $case['category'] . '</div>
-                            <h3>' . $case['title'] . '</h3>
-                            <p>' . $case['description'] . '</p>
-                            <div class="case-result">
-                                <span class="badge bg-success">' . $case['result'] . '</span>
+                    foreach ($recent_cases as $index => $case) {
+                        echo '<div class="col-md-4" data-aos="fade-up" data-aos-delay="' . ($index * 200) . '">
+                            <div class="case-card">
+                                <div class="case-category">' . $case['category'] . '</div>
+                                <h3>' . $case['title'] . '</h3>
+                                <p class="case-description">' . substr($case['description'], 0, 100) . '...</p>
+                                <div class="case-result">
+                                    <span class="badge bg-success">' . $case['result'] . '</span>
+                                </div>
+                                <div class="case-footer mt-3">
+                                    <a href="#" class="btn btn-outline-warning btn-sm">View Details</a>
+                                </div>
                             </div>
-                        </div>
-                    </div>';
+                        </div>';
+                    }
                 }
                 ?>
             </div>
         </div>
     </section>
+
+    <style>
+        .case-card {
+            background: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            height: 100%;
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .case-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .case-category {
+            color: #bc841c;
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+        
+        .case-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: #333;
+            line-height: 1.4;
+        }
+        
+        .case-description {
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.5;
+            font-size: 0.9rem;
+            flex-grow: 1;
+        }
+        
+        .case-result {
+            margin-top: auto;
+        }
+        
+        .case-tags {
+            margin-top: 10px;
+        }
+        
+        .case-tags .badge {
+            font-size: 0.75rem;
+            padding: 4px 8px;
+            margin-right: 5px;
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+        }
+
+        .case-footer {
+            margin-top: auto;
+            padding-top: 10px;
+        }
+
+        .case-footer .btn {
+            font-size: 0.85rem;
+            padding: 5px 15px;
+        }
+    </style>
 
     <!-- Team Section -->
     <section class="team-section py-5">
@@ -212,54 +348,98 @@ $current_page = "home";
             </div>
             <div class="row g-4 justify-content-center">
                 <?php
-                $team_members = [
-                    [
-                        'image' => 'https://images.unsplash.com/photo-1521737852567-6949f3f9f2b5?auto=format&fit=crop&w=400&q=80',
-                        'name' => 'Omer Farooq Mulki',
-                        'position' => 'B.A. (Law), LL.B',
-                        'portfolio' => 'portfolio1.html'
-                    ],
-                    [
-                        'image' => 'https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=400&q=80',
-                        'name' => 'Asif Baikady',
-                        'position' => 'B.Com, LL.B',
-                        'portfolio' => 'portfolio2.html'
-                    ],
-                    [
-                        'image' => 'https://images.unsplash.com/photo-1503676382389-4809596d5290?auto=format&fit=crop&q=80',
-                        'name' => 'Mahammad Asgar',
-                        'position' => 'B.A. (Law), LL.B',
-                        'portfolio' => 'portfolio3.html'
-                    ],
-                    [
-                        'image' => 'https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=400&q=80',
-                        'name' => 'Abu Harish',
-                        'position' => 'B.A. (Law), LL.B',
-                        'portfolio' => 'portfolio4.html'
-                    ],
-                    [
-                        'image' => 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=400&q=80',
-                        'name' => 'Umarul Farook',
-                        'position' => 'B.A., LL.B',
-                        'portfolio' => 'portfolio5.html'
-                    ],
-                    [
-                        'image' => 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=400&q=80',
-                        'name' => 'I.M. Ijaz Ahmed Ullal',
-                        'position' => 'B.A. (Law), LL.B',
-                        'portfolio' => 'portfolio6.html'
-                    ]
-                ];
-                foreach ($team_members as $index => $member) {
-                    echo '<div class="col-md-4 mb-4" data-aos="zoom-in" data-aos-delay="' . ($index * 100) . '">
-                        <div class="main-team-card">
-                            <img src="' . $member['image'] . '" alt="' . $member['name'] . '">
-                            <div class="team-info-overlay">
-                                <h3>' . $member['name'] . '</h3>
-                                <p>' . $member['position'] . '</p>
+                // Fetch active team members ordered by order_index
+                $team_query = "SELECT * FROM team_members WHERE is_active = 1 ORDER BY order_index ASC LIMIT 6";
+                $team_result = $conn->query($team_query);
+                
+                if ($team_result && $team_result->num_rows > 0) {
+                    $index = 0;
+                    while ($member = $team_result->fetch_assoc()) {
+                        // Fetch social links for this team member
+                        $social_query = "SELECT * FROM team_social_links WHERE team_id = ? AND is_active = 1";
+                        $social_stmt = $conn->prepare($social_query);
+                        $social_stmt->bind_param("i", $member['id']);
+                        $social_stmt->execute();
+                        $social_result = $social_stmt->get_result();
+                        
+                        echo '<div class="col-md-4 mb-4" data-aos="zoom-in" data-aos-delay="' . ($index * 100) . '">
+                            <div class="main-team-card">
+                                <img src="' . htmlspecialchars($member['photo']) . '" alt="' . htmlspecialchars($member['full_name']) . '" class="team-img">
+                                <div class="team-info-overlay">
+                                    <h3>' . htmlspecialchars($member['full_name']) . '</h3>
+                                    <p>' . htmlspecialchars($member['position']) . '</p>';
+                        
+                        // Add social links if they exist
+                        if ($social_result && $social_result->num_rows > 0) {
+                            echo '<div class="team-social-links">';
+                            while ($social = $social_result->fetch_assoc()) {
+                                $icon_class = '';
+                                switch ($social['platform']) {
+                                    case 'LinkedIn':
+                                        $icon_class = 'fab fa-linkedin';
+                                        break;
+                                    case 'Twitter':
+                                        $icon_class = 'fab fa-twitter';
+                                        break;
+                                    case 'Email':
+                                        $icon_class = 'fas fa-envelope';
+                                        break;
+                                    case 'Facebook':
+                                        $icon_class = 'fab fa-facebook';
+                                        break;
+                                    case 'Instagram':
+                                        $icon_class = 'fab fa-instagram';
+                                        break;
+                                    case 'GitHub':
+                                        $icon_class = 'fab fa-github';
+                                        break;
+                                    default:
+                                        $icon_class = 'fas fa-link';
+                                }
+                                echo '<a href="' . htmlspecialchars($social['url']) . '" target="_blank" class="social-link">
+                                    <i class="' . $icon_class . '"></i>
+                                </a>';
+                            }
+                            echo '</div>';
+                        }
+                        
+                        echo '</div></div></div>';
+                        $index++;
+                    }
+                } else {
+                    // Fallback if no team members found
+                    $team_members = [
+                        [
+                            'image' => 'https://images.unsplash.com/photo-1521737852567-6949f3f9f2b5?auto=format&fit=crop&w=400&q=80',
+                            'name' => 'Omer Farooq Mulki',
+                            'position' => 'B.A. (Law), LL.B',
+                            'portfolio' => 'portfolio1.html'
+                        ],
+                        [
+                            'image' => 'https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=400&q=80',
+                            'name' => 'Asif Baikady',
+                            'position' => 'B.Com, LL.B',
+                            'portfolio' => 'portfolio2.html'
+                        ],
+                        [
+                            'image' => 'https://images.unsplash.com/photo-1503676382389-4809596d5290?auto=format&fit=crop&q=80',
+                            'name' => 'Mahammad Asgar',
+                            'position' => 'B.A. (Law), LL.B',
+                            'portfolio' => 'portfolio3.html'
+                        ]
+                    ];
+
+                    foreach ($team_members as $index => $member) {
+                        echo '<div class="col-md-4 mb-4" data-aos="zoom-in" data-aos-delay="' . ($index * 100) . '">
+                            <div class="main-team-card">
+                                <img src="' . $member['image'] . '" alt="' . $member['name'] . '">
+                                <div class="team-info-overlay">
+                                    <h3>' . $member['name'] . '</h3>
+                                    <p>' . $member['position'] . '</p>
+                                </div>
                             </div>
-                        </div>
-                    </div>';
+                        </div>';
+                    }
                 }
                 ?>
             </div>
@@ -270,6 +450,68 @@ $current_page = "home";
             </div>
         </div>
     </section>
+
+    <style>
+        .main-team-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .main-team-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .team-img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .main-team-card:hover .team-img {
+            transform: scale(1.05);
+        }
+        
+        .team-info-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            padding: 20px;
+            color: white;
+        }
+        
+        .team-info-overlay h3 {
+            margin: 0;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+        
+        .team-info-overlay p {
+            margin: 5px 0 0;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        .team-social-links {
+            margin-top: 10px;
+        }
+        
+        .social-link {
+            color: white;
+            margin-right: 10px;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+        }
+        
+        .social-link:hover {
+            color: #bc841c;
+        }
+    </style>
 
     <!-- Practice Areas Section -->
     <section class="practice-area py-5 bg-light">
@@ -321,23 +563,107 @@ $current_page = "home";
         <div class="container">
             <div class="row text-center mb-5">
                 <div class="col-12">
+                    <i class="fas fa-quote-right display-4 text-warning mb-3"></i>
                     <h2 class="section-title">Client Testimonials</h2>
                     <p class="section-subtitle">What our clients say about us</p>
                 </div>
             </div>
             <div class="row">
                 <div class="col-12">
-                    <div class="testimonial-slider">
-                        <div class="testimonial-item text-center">
-                            <p class="testimonial-text">"Excellent service and professional team. They helped me through a difficult divorce with compassion and expertise."</p>
-                            <h4>Jane Doe</h4>
-                            <p class="testimonial-role">Family Law Client</p>
+                    <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000">
+                        <div class="carousel-inner">
+                            <?php
+                            // Fetch active testimonials from database
+                            $query = "SELECT * FROM testimonials WHERE is_active = 1 ORDER BY order_index ASC";
+                            $result = $conn->query($query);
+                            
+                            if ($result && $result->num_rows > 0) {
+                                $index = 0;
+                                while ($testimonial = $result->fetch_assoc()) {
+                                    $active_class = ($index === 0) ? 'active' : '';
+                                    echo '<div class="carousel-item ' . $active_class . '">';
+                                    echo '<div class="testimonial-item text-center">';
+                                    if (!empty($testimonial['photo'])) {
+                                        echo '<img src="' . htmlspecialchars($testimonial['photo']) . '" alt="' . htmlspecialchars($testimonial['name']) . '" class="testimonial-image rounded-circle mb-3" style="width: 100px; height: 100px; object-fit: cover;">';
+                                    }
+                                    echo '<p class="testimonial-text">"' . htmlspecialchars($testimonial['testimonial']) . '"</p>';
+                                    echo '<h4>' . htmlspecialchars($testimonial['name']) . '</h4>';
+                                    if (!empty($testimonial['position'])) {
+                                        echo '<p class="testimonial-role">' . htmlspecialchars($testimonial['position']);
+                                        if (!empty($testimonial['company'])) {
+                                            echo ' at ' . htmlspecialchars($testimonial['company']);
+                                        }
+                                        echo '</p>';
+                                    }
+                                    echo '</div>';
+                                    echo '</div>';
+                                    $index++;
+                                }
+                            } else {
+                                // Fallback if no testimonials found
+                                echo '<div class="carousel-item active">';
+                                echo '<div class="testimonial-item text-center">';
+                                echo '<p class="testimonial-text">"Excellent service and professional team. They helped me through a difficult divorce with compassion and expertise."</p>';
+                                echo '<h4>Jane Doe</h4>';
+                                echo '<p class="testimonial-role">Family Law Client</p>';
+                                echo '</div>';
+                                echo '</div>';
+                            }
+                            ?>
                         </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
+    <style>
+        .testimonial-item {
+            padding: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .testimonial-text {
+            font-size: 1.2rem;
+            font-style: italic;
+            color: #666;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        .testimonial-image {
+            border: 3px solid #bc841c;
+            padding: 3px;
+        }
+        .testimonial-item h4 {
+            color: #333;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        .testimonial-role {
+            color: #bc841c;
+            font-size: 0.9rem;
+            margin-bottom: 0;
+        }
+        .carousel-control-prev,
+        .carousel-control-next {
+            width: 5%;
+            opacity: 0.8;
+        }
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+            background-color: #bc841c;
+            border-radius: 50%;
+            padding: 1.5rem;
+        }
+    </style>
 
     <!-- Team Carousel Gallery -->
     <section class="team-carousel py-5 bg-light">
@@ -345,26 +671,29 @@ $current_page = "home";
             <div class="row">
                 <div class="col-12">
                     <h2 class="section-title text-center mb-5">Our Teams Gallery</h2>
-                    <div id="teamCarousel" class="carousel slide" data-bs-ride="carousel">
+                    <div id="teamCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
                         <div class="carousel-inner">
                             <?php
-                            $team_gallery_images = [
-                                // 'assets/images/teampic1.jpeg',
-                                // 'assets/images/teampic2.jpeg',
-                                // 'assets/images/teampic3.jpeg',
-                                'assets/images/teampic4.jpeg',
-                                // 'assets/images/teampic5.jpeg',
-                                'assets/images/teampic6.jpeg',
-                                'assets/images/teampic7.jpeg',
-                                'assets/images/teampic8.jpeg',
-                            ];
-
-                            foreach ($team_gallery_images as $index => $image) {
-                                $active_class = ($index === 0) ? 'active' : '';
-                                echo '<div class="carousel-item ' . $active_class . '">';
-                                echo '<img src="' . $image . '" class="d-block w-100" alt="Team Image ' . ($index + 1) . '">';
+                            // Fetch active gallery images from database
+                            $query = "SELECT * FROM gallery WHERE is_active = 1 ORDER BY order_index ASC";
+                            $result = $conn->query($query);
+                            
+                            if ($result && $result->num_rows > 0) {
+                                $index = 0;
+                                while ($image = $result->fetch_assoc()) {
+                                    $active_class = ($index === 0) ? 'active' : '';
+                                    echo '<div class="carousel-item ' . $active_class . '">';
+                                    echo '<img src="' . htmlspecialchars($image['image']) . '" class="d-block w-100" alt="Team Image ' . ($index + 1) . '">';
+                                    echo '<div class="carousel-caption d-none d-md-block">';
+                                    echo '</div>';
+                                    echo '</div>';
+                                    $index++;
+                                }
+                            } else {
+                                // Fallback if no images found in database
+                                echo '<div class="carousel-item active">';
+                                echo '<img src="assets/images/teampic4.jpeg" class="d-block w-100" alt="Team Image">';
                                 echo '<div class="carousel-caption d-none d-md-block">';
-                                // echo '<h5>Our Teams</h5>';
                                 echo '</div>';
                                 echo '</div>';
                             }
@@ -390,5 +719,16 @@ $current_page = "home";
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Custom JS -->
     <script src="assets/js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize the testimonial carousel
+            var testimonialCarousel = new bootstrap.Carousel(document.getElementById('testimonialCarousel'), {
+                interval: 4000,  // Change slide every 4 seconds
+                wrap: true,      // Continuous loop
+                keyboard: true,  // Enable keyboard controls
+                pause: 'hover'   // Pause on mouse hover
+            });
+        });
+    </script>
 </body>
 </html> 

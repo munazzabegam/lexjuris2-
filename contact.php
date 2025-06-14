@@ -2,6 +2,9 @@
 $page_title = "Contact Us - Lawyex";
 $current_page = "contact";
 
+// Include database connection
+require_once 'config/database.php';
+
 // Handle form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST['name'] ?? '';
@@ -165,18 +168,97 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </section>
 
+    <!-- Faqs Section -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center mb-5">
+                    <h1 class="display-6 mb-3">Frequently Asked Questions</h1>
+                    <p class="text-muted">Find answers to common questions about our legal services</p>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="accordion custom-accordion" id="accordionFaq">
+                        <?php
+                        // Fetch active FAQs ordered by order_index
+                        $faq_query = "SELECT * FROM faq WHERE is_active = 1 ORDER BY order_index ASC";
+                        $faq_result = $conn->query($faq_query);
+                        
+                        if ($faq_result && $faq_result->num_rows > 0) {
+                            $faq_count = 0;
+                            while ($faq = $faq_result->fetch_assoc()) {
+                                $faq_count++;
+                                $expanded = $faq_count === 1 ? 'true' : 'false';
+                                $show = $faq_count === 1 ? 'show' : '';
+                        ?>
+                        <div class="accordion-item border-0 mb-3">
+                            <h2 class="accordion-header" id="heading<?php echo $faq['id']; ?>">
+                                <button class="accordion-button <?php echo $faq_count === 1 ? '' : 'collapsed'; ?> shadow-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<?php echo $faq['id']; ?>" aria-expanded="<?php echo $expanded; ?>" aria-controls="collapse<?php echo $faq['id']; ?>">
+                                    <i class="fas fa-question-circle text-warning me-3"></i>
+                                    <?php echo htmlspecialchars($faq['question']); ?>
+                                </button>
+                            </h2>
+                            <div id="collapse<?php echo $faq['id']; ?>" class="accordion-collapse collapse <?php echo $show; ?>" aria-labelledby="heading<?php echo $faq['id']; ?>" data-bs-parent="#accordionFaq">
+                                <div class="accordion-body bg-light">
+                                    <i class="fas fa-info-circle text-warning me-2"></i>
+                                    <?php echo nl2br(htmlspecialchars($faq['answer'])); ?>
+                                </div>
+                            </div>
+                        </div>
+                        <?php
+                            }
+                        } else {
+                            echo '<div class="alert alert-info">No FAQs available at the moment.</div>';
+                        }
+                        ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .custom-accordion .accordion-button {
+            background-color: #fff;
+            color: #333;
+            font-weight: 500;
+            padding: 1.25rem;
+            border-radius: 8px !important;
+            transition: all 0.3s ease;
+        }
+        
+        .custom-accordion .accordion-button:not(.collapsed) {
+            background-color: #fff;
+            color: #bc841c;
+            box-shadow: 0 0 15px rgba(188, 132, 28, 0.1);
+        }
+        
+        .custom-accordion .accordion-button:focus {
+            box-shadow: none;
+            border-color: rgba(188, 132, 28, 0.2);
+        }
+        
+        .custom-accordion .accordion-body {
+            padding: 1.5rem;
+            border-radius: 0 0 8px 8px;
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+        
+        .custom-accordion .accordion-button::after {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23bc841c'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+            transition: all 0.3s ease;
+        }
+    </style>
+    <!-- Faqs End -->
+
     <!-- Map Section -->
     <section class="map-section" data-aos="fade-up" data-aos-delay="100">
         <div class="container-fluid p-0">
             <div class="row g-0">
                 <div class="col-12">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d387193.30591910525!2d-74.25986432970718!3d40.697149422113014!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2s!4v1645564757463!5m2!1sen!2s" 
-                            width="100%" 
-                            height="450" 
-                            style="border:0;" 
-                            allowfullscreen="" 
-                            loading="lazy">
-                    </iframe>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d62226.65583043104!2d74.83284582179004!3d12.897045950382683!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xaca9ff5b4f31f2cd%3A0xca2c5cd617d9d383!2sGD%20EDU%20TECH!5e0!3m2!1sen!2sin!4v1749813277807!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
             </div>
         </div>
