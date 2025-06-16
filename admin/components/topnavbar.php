@@ -1,6 +1,7 @@
 <?php
 // Get current user data from session
 $username = $_SESSION['username'] ?? 'Admin';
+$profileImage = $_SESSION['profile_image'] ?? null;
 ?>
 <!-- Top Navbar -->
 <div class="top-navbar">
@@ -24,8 +25,13 @@ $username = $_SESSION['username'] ?? 'Admin';
         <!-- Nav Icons -->
         <div class="nav-icons d-flex align-items-center">
             <div class="user-avatar">
-                <img src="https://ui-avatars.com/api/?name=<?php echo urlencode($username); ?>&background=bc8414&color=fff" 
-                     class="rounded-circle" width="32" height="32" alt="User Avatar">
+                <?php if ($profileImage): ?>
+                    <img src="../../<?php echo htmlspecialchars($profileImage); ?>" 
+                         class="rounded-circle" width="32" height="32" alt="User Profile Image">
+                <?php else: ?>
+                    <img src="https://ui-avatars.com/api/?name=<?php echo urlencode($username); ?>&background=bc8414&color=fff" 
+                         class="rounded-circle" width="32" height="32" alt="User Avatar">
+                <?php endif; ?>
             </div>
         </div>
     </div>

@@ -8,7 +8,7 @@ if (!isset($_SESSION['user_id'])) {
 require_once __DIR__ . '/../../config/database.php';
 
 // Fetch all visitor logs
-$result = $conn->query("SELECT * FROM disclaimer_agreements ORDER BY agreed_at DESC");
+$result = $conn->query("SELECT * FROM disclaimer_agreements ORDER BY created_at DESC");
 $visitor_logs = $result->fetch_all(MYSQLI_ASSOC);
 
 ?>
@@ -101,7 +101,7 @@ $visitor_logs = $result->fetch_all(MYSQLI_ASSOC);
                             <?php else: ?>
                                 <?php foreach ($visitor_logs as $log): ?>
                                     <tr>
-                                        <td><?php echo date('Y-m-d H:i:s', strtotime($log['agreed_at'])); ?></td>
+                                        <td><?php echo date('Y-m-d H:i:s', strtotime($log['created_at'])); ?></td>
                                         <td><?php echo htmlspecialchars($log['ip_address']); ?></td>
                                         <td><span class="long-text"><?php echo htmlspecialchars($log['session_id']); ?></span></td>
                                         <td><span class="long-text"><?php echo htmlspecialchars($log['user_agent'] ?? 'N/A'); ?></span></td>

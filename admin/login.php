@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($username) || empty($password)) {
         $error_message = "Username and password are required.";
     } else {
-        $stmt = $conn->prepare("SELECT id, username, password_hash FROM admin_users WHERE username = ? OR email = ?");
+        $stmt = $conn->prepare("SELECT id, username, password_hash, profile_image FROM admin_users WHERE username = ? OR email = ?");
         $stmt->bind_param("ss", $username, $username); // Check both username and email
         $stmt->execute();
         $result = $stmt->get_result();
@@ -27,6 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (password_verify($password, $user['password_hash'])) {
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['username'] = $user['username'];
+                $_SESSION['profile_image'] = $user['profile_image'] ?? null;
                 header("Location: dashboard/index.php");
                 exit();
             } else {

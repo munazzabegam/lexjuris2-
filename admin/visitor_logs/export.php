@@ -20,7 +20,7 @@ header('Pragma: public');
 echo "\xEF\xBB\xBF";
 
 // Fetch all visitor logs
-$result = $conn->query("SELECT * FROM disclaimer_agreements ORDER BY agreed_at DESC");
+$result = $conn->query("SELECT * FROM disclaimer_agreements ORDER BY created_at DESC");
 $visitor_logs = $result->fetch_all(MYSQLI_ASSOC);
 
 // Create Excel content with proper formatting
@@ -34,7 +34,7 @@ echo '</tr>';
 
 foreach ($visitor_logs as $log) {
     echo '<tr>';
-    echo '<td>' . date('Y-m-d H:i:s', strtotime($log['agreed_at'])) . '</td>';
+    echo '<td>' . date('Y-m-d H:i:s', strtotime($log['created_at'])) . '</td>';
     echo '<td>' . htmlspecialchars($log['ip_address']) . '</td>';
     echo '<td>' . htmlspecialchars($log['session_id']) . '</td>';
     echo '<td>' . htmlspecialchars($log['user_agent'] ?? 'N/A') . '</td>';
