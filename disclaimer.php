@@ -3,13 +3,39 @@ session_start();
 
 // Function to get client IP address
 function getClientIP() {
-    if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
-        return $_SERVER['HTTP_CLIENT_IP'];
-    } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-        return $_SERVER['HTTP_X_FORWARDED_FOR'];
-    } else {
-        return $_SERVER['REMOTE_ADDR'];
+    $ip = 'unknown';
+    if (isset($_SERVER['HTTP_CLIENT_IP']) && filter_var($_SERVER['HTTP_CLIENT_IP'], FILTER_VALIDATE_IP)) {
+        $ip = $_SERVER['HTTP_CLIENT_IP'];
+    } elseif (isset($_SERVER['HTTP_X_FORWARDED_FOR']) && filter_var($_SERVER['HTTP_X_FORWARDED_FOR'], FILTER_VALIDATE_IP)) {
+        // Handle multiple IPs in X-Forwarded-For if they exist
+        $ip_list = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
+        foreach ($ip_list as $single_ip) {
+            $single_ip = trim($single_ip);
+            if (filter_var($single_ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE)) {
+                $ip = $single_ip;
+                break;
+            }
+        }
+    } elseif (isset($_SERVER['REMOTE_ADDR']) && filter_var($_SERVER['REMOTE_ADDR'], FILTER_VALIDATE_IP)) {
+        $ip = $_SERVER['REMOTE_ADDR'];
     }
+    return $ip;
+}
+
+// Function to get location from IP using a public API
+function getLocationFromIP($ip) {
+    if ($ip === 'unknown' || $ip === '::1' || $ip === '127.0.0.1') {
+        return 'Localhost';
+    }
+    $url = "http://ip-api.com/json/" . $ip;
+    $response = @file_get_contents($url);
+    if ($response) {
+        $data = json_decode($response, true);
+        if ($data && $data['status'] === 'success') {
+            return ($data['city'] ? $data['city'] . ', ' : '') . ($data['regionName'] ? $data['regionName'] . ', ' : '') . ($data['country'] ?? '');
+        }
+    }
+    return 'Unknown';
 }
 
 // Include database connection
@@ -21,9 +47,17 @@ if (isset($_POST['accept_disclaimer'])) {
     $session_id = session_id();
     $user_agent = $_SERVER['HTTP_USER_AGENT'] ?? null;
     
+    // Get location from client-side (if available and accurate)
+    $location = $_POST['user_location'] ?? null;
+
+    // If client-side location is not provided or is generic, use IP-based fallback
+    if (empty($location) || $location === 'N/A' || $location === ',,') { // Added ',,' to catch empty coordinates
+        $location = getLocationFromIP($ip);
+    }
+    
     // Insert agreement into database
-    $stmt = $conn->prepare("INSERT INTO disclaimer_agreements (ip_address, session_id, user_agent) VALUES (?, ?, ?)");
-    $stmt->bind_param("sss", $ip, $session_id, $user_agent);
+    $stmt = $conn->prepare("INSERT INTO disclaimer_agreements (ip_address, session_id, user_agent, location) VALUES (?, ?, ?, ?)");
+    $stmt->bind_param("ssss", $ip, $session_id, $user_agent, $location);
     $stmt->execute();
     $stmt->close();
 
@@ -169,22 +203,54 @@ if (isset($_POST['accept_disclaimer'])) {
                     I have read and understood the above disclaimer and agree to all terms and conditions
                 </label>
             </div>
+            <input type="hidden" name="user_location" id="userLocationInput">
             <button type="submit" name="accept_disclaimer" class="btn btn-accept" id="acceptButton" disabled>I AGREE</button>
             <button type="button" onclick="window.location.href='https://www.google.com'" class="btn btn-decline">I DECLINE</button>
         </form>
     </div>
 
     <script>
-        document.getElementById('agreeCheckbox').addEventListener('change', function() {
-            document.getElementById('acceptButton').disabled = !this.checked;
-        });
+        const agreeCheckbox = document.getElementById('agreeCheckbox');
+        const acceptButton = document.getElementById('acceptButton');
+        const userLocationInput = document.getElementById('userLocationInput');
+
+        // Function to update button state
+        function updateButtonState() {
+            acceptButton.disabled = !agreeCheckbox.checked;
+        }
+
+        // Initial call to set button state based on checkbox
+        updateButtonState();
+
+        agreeCheckbox.addEventListener('change', updateButtonState);
 
         document.getElementById('disclaimerForm').addEventListener('submit', function(e) {
-            if (!document.getElementById('agreeCheckbox').checked) {
+            if (!agreeCheckbox.checked) {
                 e.preventDefault();
                 alert('Please check the box to indicate that you have read and agree to the disclaimer.');
             }
+            // Get location from sessionStorage and set it to the hidden input
+            const userLocation = sessionStorage.getItem('userLocation');
+            if (userLocation) {
+                userLocationInput.value = userLocation;
+            }
         });
+
+        // Geolocation tracking - attempt to get location and store in sessionStorage
+        if ("geolocation" in navigator) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
+                sessionStorage.setItem('userLocation', `${latitude},${longitude}`);
+                console.log('Location obtained and stored: ', `${latitude},${longitude}`);
+            }, function(error) {
+                console.warn('Location permission denied or unavailable:', error.message);
+                sessionStorage.removeItem('userLocation'); // Clear any previous location
+            });
+        } else {
+            console.log("Geolocation is not supported by this browser.");
+            sessionStorage.removeItem('userLocation'); // Clear any previous location
+        }
     </script>
 </body>
 </html> 

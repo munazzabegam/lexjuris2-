@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 $page_title = "Our Cases - Lex Juris";
 $current_page = "cases";
 
@@ -244,4 +244,4 @@ $tags = $tags_result->fetch_all(MYSQLI_ASSOC);
 <!-- Custom JS -->
 <script src="assets/js/main.js"></script>
 </body>
-</html> 
+</html>  -->

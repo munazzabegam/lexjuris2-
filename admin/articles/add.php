@@ -141,10 +141,14 @@ unset($_SESSION['old_data']);
                                 </select>
                             </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="cover_image" class="form-label">Cover Image</label>
-                            <input type="file" class="form-control" id="cover_image" name="cover_image">
-                            <div class="form-text">Upload a cover image for the article (optional).</div>
+                        <div class="form-group mb-3">
+                            <label for="cover_image">Cover Image</label>
+                            <input type="file" class="form-control" id="cover_image" name="cover_image" accept="image/*">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="video">Video (MP4 format)</label>
+                            <input type="file" class="form-control" id="video" name="video" accept="video/mp4">
+                            <small class="text-muted">Maximum file size: 100MB. Supported format: MP4</small>
                         </div>
                         <div class="mb-3">
                             <label for="tags" class="form-label">Tags</label>

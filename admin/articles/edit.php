@@ -291,15 +291,28 @@ $form_data['social_links'] = $social_links;
                                 </select>
                             </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="cover_image" class="form-label">Cover Image</label>
+                        <div class="form-group mb-3">
+                            <label for="cover_image">Cover Image</label>
                             <?php if (!empty($form_data['cover_image'])): ?>
                                 <div class="mb-2">
-                                    <img src="../../<?php echo htmlspecialchars($form_data['cover_image']); ?>" alt="Current cover image" style="max-width: 200px; height: auto;">
+                                    <img src="../../<?php echo htmlspecialchars($form_data['cover_image']); ?>" alt="Current cover image" class="img-thumbnail" style="max-height: 200px;">
                                 </div>
                             <?php endif; ?>
-                            <input type="file" class="form-control" id="cover_image" name="cover_image">
-                            <div class="form-text">Upload a new cover image (optional). Leave empty to keep the current image.</div>
+                            <input type="file" class="form-control" id="cover_image" name="cover_image" accept="image/*">
+                            <small class="text-muted">Leave empty to keep current image</small>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="video">Video (MP4 format)</label>
+                            <?php if (!empty($form_data['video_url'])): ?>
+                                <div class="mb-2">
+                                    <video controls class="img-thumbnail" style="max-height: 200px;">
+                                        <source src="../../<?php echo htmlspecialchars($form_data['video_url']); ?>" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                </div>
+                            <?php endif; ?>
+                            <input type="file" class="form-control" id="video" name="video" accept="video/mp4">
+                            <small class="text-muted">Leave empty to keep current video. Maximum file size: 100MB</small>
                         </div>
                         <div class="mb-3">
                             <label for="tags" class="form-label">Tags</label>

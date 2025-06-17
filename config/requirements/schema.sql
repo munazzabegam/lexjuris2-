@@ -188,5 +188,16 @@ CREATE TABLE disclaimer_agreements (
     ip_address VARCHAR(45) NOT NULL,
     session_id VARCHAR(255) NOT NULL,
     user_agent TEXT,
+    location VARCHAR(255),
+    
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE `achievements` (
+    `id` INT AUTO_INCREMENT PRIMARY KEY,
+    `number_value` INT NOT NULL,
+    `label` VARCHAR(255) NOT NULL,
+    `order_index` INT DEFAULT 0,
+    `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );

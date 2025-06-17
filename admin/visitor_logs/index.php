@@ -91,12 +91,13 @@ $visitor_logs = $result->fetch_all(MYSQLI_ASSOC);
                                 <th>IP Address</th>
                                 <th>Session ID</th>
                                 <th>User Agent</th>
+                                <th>Location</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php if (empty($visitor_logs)): ?>
                                 <tr>
-                                    <td colspan="4" class="text-center">No visitor logs found.</td>
+                                    <td colspan="5" class="text-center">No visitor logs found.</td>
                                 </tr>
                             <?php else: ?>
                                 <?php foreach ($visitor_logs as $log): ?>
@@ -105,6 +106,7 @@ $visitor_logs = $result->fetch_all(MYSQLI_ASSOC);
                                         <td><?php echo htmlspecialchars($log['ip_address']); ?></td>
                                         <td><span class="long-text"><?php echo htmlspecialchars($log['session_id']); ?></span></td>
                                         <td><span class="long-text"><?php echo htmlspecialchars($log['user_agent'] ?? 'N/A'); ?></span></td>
+                                        <td><?php echo htmlspecialchars($log['location'] ?? 'N/A'); ?></td>
                                     </tr>
                                 <?php endforeach; ?>
                             <?php endif; ?>

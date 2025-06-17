@@ -35,6 +35,8 @@ require_once 'config/database.php';
         <div class="video-background">
             <video autoplay muted loop id="myVideo">
                 <source src="videos/bgvideo.mp4" type="video/mp4">
+                <source src="videos/bgvideo2.mp4" type="video/mp4">
+                <source src="videos/bgvideo3.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
         </div>
@@ -158,20 +160,36 @@ require_once 'config/database.php';
         <div class="container">
             <div class="row text-center">
                 <?php
-                $stats = [
-                    ['number' => 1500, 'label' => 'Happy Clients'],
-                    ['number' => 98, 'label' => 'Success Rate'],
-                    ['number' => 25, 'label' => 'Years Experience'],
-                    ['number' => 500, 'label' => 'Cases Won']
-                ];
+                $stats_query = "SELECT number_value, label FROM achievements ORDER BY order_index ASC";
+                $stats_result = $conn->query($stats_query);
+                
+                if ($stats_result && $stats_result->num_rows > 0) {
+                    while ($stat = $stats_result->fetch_assoc()) {
+                        echo '<div class="col-md-3" data-aos="fade-up" data-aos-delay="' . ($index * 200) . '">
+                            <div class="stat-item">
+                                <h2 class="counter" data-target="' . $stat['number_value'] . '">0</h2>
+                                <p>' . htmlspecialchars($stat['label']) . '</p>
+                            </div>
+                        </div>';
+                        $index++;
+                    }
+                } else {
+                    // Fallback to hardcoded stats if no data in DB
+                    $stats = [
+                        ['number' => 1500, 'label' => 'Happy Clients'],
+                        ['number' => 98, 'label' => 'Success Rate'],
+                        ['number' => 25, 'label' => 'Years Experience'],
+                        ['number' => 500, 'label' => 'Cases Won']
+                    ];
 
-                foreach ($stats as $index => $stat) {
-                    echo '<div class="col-md-3" data-aos="fade-up" data-aos-delay="' . ($index * 200) . '">
-                        <div class="stat-item">
-                            <h2 class="counter" data-target="' . $stat['number'] . '">0</h2>
-                            <p>' . $stat['label'] . '</p>
-                        </div>
-                    </div>';
+                    foreach ($stats as $index => $stat) {
+                        echo '<div class="col-md-3" data-aos="fade-up" data-aos-delay="' . ($index * 200) . '">
+                            <div class="stat-item">
+                                <h2 class="counter" data-target="' . $stat['number'] . '">0</h2>
+                                <p>' . $stat['label'] . '</p>
+                            </div>
+                        </div>';
+                    }
                 }
                 ?>
             </div>

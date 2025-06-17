@@ -30,6 +30,7 @@ echo '<th>Agreed At</th>';
 echo '<th>IP Address</th>';
 echo '<th>Session ID</th>';
 echo '<th>User Agent</th>';
+echo '<th>Location</th>';
 echo '</tr>';
 
 foreach ($visitor_logs as $log) {
@@ -38,6 +39,7 @@ foreach ($visitor_logs as $log) {
     echo '<td>' . htmlspecialchars($log['ip_address']) . '</td>';
     echo '<td>' . htmlspecialchars($log['session_id']) . '</td>';
     echo '<td>' . htmlspecialchars($log['user_agent'] ?? 'N/A') . '</td>';
+    echo '<td>' . htmlspecialchars($log['location'] ?? 'N/A') . '</td>';
     echo '</tr>';
 }
 

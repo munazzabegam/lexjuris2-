@@ -33,6 +33,9 @@ $current_full_path = $_SERVER['PHP_SELF'];
         <a href="../gallery/index.php" class="<?php echo strpos($current_full_path, '/admin/gallery/') !== false ? 'active' : ''; ?>">
             <i class="fas fa-images"></i> <span class="menu-text">Gallery</span>
         </a>
+        <a href="../achievements/index.php" class="<?php echo strpos($current_full_path, '/admin/achievements/') !== false ? 'active' : ''; ?>">
+            <i class="fas fa-trophy"></i> <span class="menu-text">Achievements</span>
+        </a>
         <a href="../contact/index.php" class="<?php echo strpos($current_full_path, '/admin/contact/') !== false ? 'active' : ''; ?>">
             <i class="fas fa-envelope"></i> <span class="menu-text">Contact</span>
         </a>

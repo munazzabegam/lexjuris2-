@@ -121,18 +121,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
         <?php endif; ?>
             <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
+            <input type="text" name="fake_username" style="display:none;" autocomplete="off">
+            <input type="password" name="fake_password" style="display:none;" autocomplete="off">
             <div class="mb-3">
                 <label for="username" class="form-label">Username</label>
-                    <input type="text" class="form-control" id="username" name="username" required value="<?php echo htmlspecialchars($_POST['username'] ?? ''); ?>">
+                    <input type="text" class="form-control" id="username" name="username" required value="<?php echo htmlspecialchars($_POST['username'] ?? ''); ?>" autocomplete="username">
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password" name="password" required>
+                <input type="password" class="form-control" id="password" name="password" required autocomplete="new-password">
             </div>
                 <div class="d-grid mb-3">
                     <button type="submit" class="btn btn-primary btn-lg">Login</button>
                 </div>
-                <p class="text-center">Don't have an account? <a href="signup.php">Sign Up here</a></p>
+                <!-- <p class="text-center">Don't have an account? <a href="signup.php">Sign Up here</a></p> -->
         </form>
         </div>
     </div>

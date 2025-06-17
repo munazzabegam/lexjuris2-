@@ -18,7 +18,7 @@ $query = "SELECT a.*, u.username as author_name
           FROM articles a 
           LEFT JOIN admin_users u ON a.author_id = u.id 
           WHERE a.status = 'published'";
-
+                                                                                                                                            
 if (!empty($search)) {
     $search = $conn->real_escape_string($search);
     $query .= " AND (a.title LIKE '%$search%' OR a.content LIKE '%$search%' OR a.summary LIKE '%$search%')";
@@ -54,7 +54,7 @@ $recent_query = "SELECT title, published_at, slug
                 FROM articles 
                 WHERE status = 'published' 
                 ORDER BY published_at DESC 
-                LIMIT 5";
+                LIMIT 5";     
 $recent_result = $conn->query($recent_query);
 $recent_posts = $recent_result->fetch_all(MYSQLI_ASSOC);
 
@@ -116,7 +116,14 @@ $tags = $tags_result->fetch_all(MYSQLI_ASSOC);
                                 <h3 class="card-title mb-3"><?php echo htmlspecialchars($post['title']); ?></h3>
                                 <div class="row g-0">
                                     <div class="col-12 mb-3">
-                                        <?php if (!empty($post['cover_image'])): ?>
+                                        <?php if (!empty($post['video_url'])): ?>
+                                            <div class="ratio ratio-16x9 mb-3">
+                                                <video controls class="rounded">
+                                                    <source src="<?php echo htmlspecialchars($post['video_url']); ?>" type="video/mp4">
+                                                    Your browser does not support the video tag.
+                                                </video>
+                                            </div>
+                                        <?php elseif (!empty($post['cover_image'])): ?>
                                             <img src="<?php echo htmlspecialchars($post['cover_image']); ?>" class="img-fluid rounded" alt="<?php echo htmlspecialchars($post['title']); ?>" style="width: 100%; height: auto; object-fit: cover;">
                                         <?php else: ?>
                                             <img src="assets/images/blog-default.jpg" class="img-fluid rounded" alt="Default Blog Image" style="width: 100%; height: auto; object-fit: cover;">
