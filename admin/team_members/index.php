@@ -146,7 +146,7 @@ $sub_junior_team_members = $result_sub->fetch_all(MYSQLI_ASSOC);
                                 <th>Order</th>
                                 <th>Photo</th>
                                 <th>Full Name</th>
-                                <th>Position</th>
+                                <th>Education</th>
                                 <th>Status</th>
                                 <th>Created At</th>
                                 <th>Updated At</th>
@@ -171,7 +171,7 @@ $sub_junior_team_members = $result_sub->fetch_all(MYSQLI_ASSOC);
                                             <?php endif; ?>
                                         </td>
                                         <td><?php echo htmlspecialchars($member['full_name']); ?></td>
-                                        <td><?php echo htmlspecialchars($member['position']); ?></td>
+                                        <td><?php echo htmlspecialchars($member['education']); ?></td>
                                         <td>
                                             <span class="badge <?php echo $member['is_active'] ? 'bg-success' : 'bg-warning'; ?>">
                                                 <?php echo $member['is_active'] ? 'Active' : 'Inactive'; ?>
@@ -222,7 +222,7 @@ $sub_junior_team_members = $result_sub->fetch_all(MYSQLI_ASSOC);
                                 <th>Order</th>
                                 <th>Photo</th>
                                 <th>Full Name</th>
-                                <th>Position</th>
+                                <th>Education</th>
                                 <th>Status</th>
                                 <th>Created At</th>
                                 <th>Updated At</th>
@@ -247,7 +247,7 @@ $sub_junior_team_members = $result_sub->fetch_all(MYSQLI_ASSOC);
                                             <?php endif; ?>
                                         </td>
                                         <td><?php echo htmlspecialchars($member['full_name']); ?></td>
-                                        <td><?php echo htmlspecialchars($member['position']); ?></td>
+                                        <td><?php echo htmlspecialchars($member['education']); ?></td>
                                         <td>
                                             <span class="badge <?php echo $member['is_active'] ? 'bg-success' : 'bg-warning'; ?>">
                                                 <?php echo $member['is_active'] ? 'Active' : 'Inactive'; ?>

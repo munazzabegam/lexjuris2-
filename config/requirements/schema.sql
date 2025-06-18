@@ -118,7 +118,8 @@ CREATE TABLE team_members (
     is_active BOOLEAN NOT NULL DEFAULT TRUE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    order_index INT DEFAULT 0
+    order_index INT DEFAULT 0,
+    education VARCHAR(255) NULL
 );
 
 CREATE TABLE team_social_links (

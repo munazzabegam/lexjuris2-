@@ -57,7 +57,7 @@ require_once 'config/database.php';
                                             ' . htmlspecialchars($member['full_name']) . '
                                         </a>
                                     </h3>
-                                    <p>' . htmlspecialchars($member['position']) . '</p>';
+                                    <p>' . htmlspecialchars($member['education']) . '</p>';
                         
                         // Add social links if they exist
                         if ($social_result && $social_result->num_rows > 0) {
@@ -151,7 +151,7 @@ require_once 'config/database.php';
                                             ' . htmlspecialchars($member['full_name']) . '
                                         </a>
                                     </h3>
-                                    <p>' . htmlspecialchars($member['position']) . '</p>';
+                                    <p>' . htmlspecialchars($member['education']) . '</p>';
                         
                         // Add social links if they exist
                         if ($social_result && $social_result->num_rows > 0) {

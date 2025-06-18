@@ -31,8 +31,7 @@ if (!$sub_junior_member) {
 // Handle form submission for updates
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $full_name = trim($_POST['full_name']);
-    $position = trim($_POST['position']);
-    $bio = trim($_POST['bio']);
+    $education = trim($_POST['education']);
     $is_active = isset($_POST['is_active']) ? 1 : 0;
     $order_index = (int)$_POST['order_index'];
     $portfolio = trim($_POST['portfolio']);
@@ -67,8 +66,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     try {
         // Update sub_junior team member
-        $stmt = $conn->prepare("UPDATE sub_junior_team_members SET full_name = ?, position = ?, bio = ?, photo = ?, portfolio = ?, is_active = ?, order_index = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?");
-        $stmt->bind_param("sssssiii", $full_name, $position, $bio, $photo_path, $portfolio, $is_active, $order_index, $sub_junior_member_id);
+        $stmt = $conn->prepare("UPDATE sub_junior_team_members SET full_name = ?, education = ?, photo = ?, portfolio = ?, is_active = ?, order_index = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?");
+        $stmt->bind_param("ssssiii", $full_name, $education, $photo_path, $portfolio, $is_active, $order_index, $sub_junior_member_id);
         $stmt->execute();
 
         // Handle social links: Delete existing and insert new ones
@@ -167,13 +166,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <input type="text" class="form-control" id="full_name" name="full_name" value="<?php echo htmlspecialchars($sub_junior_member['full_name']); ?>" required>
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label for="position" class="form-label">Position</label>
-                            <input type="text" class="form-control" id="position" name="position" value="<?php echo htmlspecialchars($sub_junior_member['position']); ?>" required>
+                            <label for="education" class="form-label">Education</label>
+                            <input type="text" class="form-control" id="education" name="education" value="<?php echo htmlspecialchars($sub_junior_member['education']); ?>" required>
                         </div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="bio" class="form-label">Bio</label>
-                        <textarea class="form-control" id="bio" name="bio" rows="5"><?php echo htmlspecialchars($sub_junior_member['bio']); ?></textarea>
                     </div>
                     <div class="row">
                         <div class="col-md-6 mb-3">
@@ -230,7 +225,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         document.addEventListener('DOMContentLoaded', function() {
             const socialLinksContainer = document.getElementById('social-links-container');
             const addSocialLinkButton = document.getElementById('add-social-link');
-            const availablePlatforms = ['LinkedIn', 'Twitter', 'Email', 'Facebook', 'Instagram', 'GitHub', 'Other']; // Updated to match main member creation
+            const availablePlatforms = ['LinkedIn', 'Twitter', 'Email', 'Facebook', 'Instagram', 'Other'];
 
             // Function to validate email format
             function isValidEmail(email) {
@@ -351,10 +346,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             break;
                         case 'Instagram':
                             urlInput.placeholder = 'Enter Instagram profile URL';
-                            urlInput.type = 'url';
-                            break;
-                        case 'GitHub':
-                            urlInput.placeholder = 'Enter GitHub profile URL';
                             urlInput.type = 'url';
                             break;
                         case 'Other':

@@ -13,7 +13,7 @@ $nav_items = [
 ];
 ?>
 <!-- Navigation -->
-<nav class="navbar navbar-expand-lg fixed-top">
+<nav class="navbar navbar-expand-lg fixed-top<?php echo ($current_page === 'home') ? ' navbar-blur' : ''; ?>">
     <div class="container">
         <a class="navbar-brand d-flex align-items-center" href="index.php">
             <img src="assets/images/logo.png" alt="Lex Juris Logo" style="height:50px;width:auto;margin-right:10px;">
@@ -36,6 +36,18 @@ $nav_items = [
         </div>
     </div>
 </nav>
+
+<?php if ($current_page === 'home'): ?>
+<style>
+  .navbar-blur {
+    background: rgba(255,255,255,0.7) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    transition: background 0.3s, backdrop-filter 0.3s;
+  }
+</style>
+<?php endif; ?>
 
 <!-- AOS CSS -->
 <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">

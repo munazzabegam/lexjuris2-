@@ -31,16 +31,27 @@ require_once 'config/database.php';
 <body>
     <?php include 'includes/header.php'; ?>
     <!-- Hero Section -->
-    <header class="hero-section">
-        <div class="video-background">
-            <video autoplay muted loop id="myVideo">
-                <source src="videos/bgvideo.mp4" type="video/mp4">
-                <source src="videos/bgvideo2.mp4" type="video/mp4">
-                <source src="videos/bgvideo3.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
+    <section class="hero-section">
+        <div class="hero-video-container">
+            <div id="heroVideoCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="8000">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <video autoplay muted loop playsinline class="hero-video">
+                            <source src="videos/bgvideo2.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    <div class="carousel-item">
+                        <video autoplay muted loop playsinline class="hero-video">
+                            <source src="videos/bgvideo3.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="container">
+        <div class="hero-overlay"></div>
+        <div class="container position-relative">
             <div class="row min-vh-100 align-items-center">
                 <div class="col-lg-6" data-aos="fade-right" data-aos-delay="200">
                     <div class="logo">
@@ -67,7 +78,58 @@ require_once 'config/database.php';
                 </div>
             </div>
         </div>
-    </header>
+    </section>
+
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .hero-section {
+            position: relative;
+            overflow: hidden;
+            min-height: 100vh;
+            margin-bottom: 0;
+            padding-bottom: 0;
+            background: #000;
+        }
+        .hero-video-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+        .hero-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 2;
+        }
+        .carousel-item {
+            height: 100vh;
+            position: relative;
+        }
+        .container.position-relative {
+            z-index: 3;
+        }
+        .hero-section + section {
+            margin-top: 0 !important;
+        }
+    </style>
 
     <!-- Services Section -->
     <section class="services-section py-5">
