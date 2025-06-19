@@ -5,7 +5,6 @@ $nav_items = [
     'home' => ['url' => 'index.php', 'text' => 'Home'],
     'about' => ['url' => 'about.php', 'text' => 'About'],
     'services' => ['url' => 'services.php', 'text' => 'Services'],
-    // 'cases' => ['url' => 'cases.php', 'text' => 'Cases'], // Commented out to hide from navbar
     'blog' => ['url' => 'blog.php', 'text' => 'Blog'],
     'contact' => ['url' => 'contact.php', 'text' => 'Contact'],
     'our-teams' => ['url' => 'our-teams.php', 'text' => 'Our Teams']
@@ -13,7 +12,7 @@ $nav_items = [
 ];
 ?>
 <!-- Navigation -->
-<nav class="navbar navbar-expand-lg fixed-top<?php echo ($current_page === 'home') ? ' navbar-blur' : ''; ?>">
+<nav class="navbar navbar-expand-lg fixed-top navbar-blur">
     <div class="container">
         <a class="navbar-brand d-flex align-items-center" href="index.php">
             <img src="assets/images/logo.png" alt="Lex Juris Logo" style="height:50px;width:auto;margin-right:10px;">
@@ -37,7 +36,6 @@ $nav_items = [
     </div>
 </nav>
 
-<?php if ($current_page === 'home'): ?>
 <style>
   .navbar-blur {
     background: rgba(255,255,255,0.7) !important;
@@ -47,7 +45,6 @@ $nav_items = [
     transition: background 0.3s, backdrop-filter 0.3s;
   }
 </style>
-<?php endif; ?>
 
 <!-- AOS CSS -->
 <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
