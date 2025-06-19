@@ -89,9 +89,8 @@ require_once 'config/database.php';
         .hero-section {
             position: relative;
             overflow: hidden;
-            min-height: 100vh;
+            height: 100vh;
             margin-bottom: 0;
-            padding-bottom: 0;
             background: #000;
         }
         .hero-video-container {
@@ -459,7 +458,7 @@ require_once 'config/database.php';
                                             ' . htmlspecialchars($member['full_name']) . '
                                         </a>
                                     </h3>
-                                    <p>' . htmlspecialchars($member['position']) . '</p>';
+                                    <p>' . htmlspecialchars($member['education']) . '</p>';
                         
                         // Add social links if they exist
                         if ($social_result && $social_result->num_rows > 0) {
@@ -514,19 +513,19 @@ require_once 'config/database.php';
                         [
                             'photo' => 'uploads/team_photos/team-1.jpg',
                             'full_name' => 'Omer Farooq Mulki',
-                            'position' => 'B.A. (Law), LL.B',
+                            'education' => 'B.A. (Law), LL.B',
                             'portfolio' => 'portfolio1.html'
                         ],
                         [
                             'photo' => 'uploads/team_photos/team-2.jpg',
                             'full_name' => 'Asif Baikady',
-                            'position' => 'B.Com, LL.B',
+                            'education' => 'B.Com, LL.B',
                             'portfolio' => 'portfolio2.html'
                         ],
                         [
                             'photo' => 'uploads/team_photos/team-3.jpg',
                             'full_name' => 'Mahammad Asgar',
-                            'position' => 'B.A. (Law), LL.B',
+                            'education' => 'B.A. (Law), LL.B',
                             'portfolio' => 'portfolio3.html'
                         ]
                     ];
@@ -541,7 +540,7 @@ require_once 'config/database.php';
                                             ' . htmlspecialchars($member['full_name']) . '
                                         </a>
                                     </h3>
-                                    <p>' . htmlspecialchars($member['position']) . '</p>';
+                                    <p>' . htmlspecialchars($member['education']) . '</p>';
                         
                         // Add social links if they exist for fallback (example - adapt as needed)
                         echo '<div class="team-social-links">
