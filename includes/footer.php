@@ -1,38 +1,138 @@
 <!-- Footer -->
-<footer class="footer bg-dark text-white py-5">
+<footer class="site-footer">
     <div class="container">
-        <div class="row g-4">
-            <div class="col-md-4">
-                <div class="footer-logo mb-3">
-                    <img src="assets/images/logo.png" alt="Lex Juris Logo" class="img-fluid" style="max-height: 60px;">
+        <div class="row">
+            <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
+                <div class="footer-brand mb-3">
+                    <a href="index.php" class="text-decoration-none d-inline-block">
+                        <img src="assets/images/footer_logo.png" alt="Lex Juris Law Chamber" style="max-height: 80px;">
+                    </a>
                 </div>
-                <p>Professional legal services for individuals and businesses. We're here to protect your rights and interests at Lex Juris.</p>
-                <div class="social-links">
-                    <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="text-white me-3"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="#" class="text-white"><i class="fab fa-instagram"></i></a>
+                <p class="footer-description">Professional legal services for individuals and businesses. We're here to protect your rights and interests.</p>
+                <div class="social-links-footer mt-4">
+                    <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
                 </div>
             </div>
-            <div class="col-md-4">
-                <h4 class="mb-3">Quick Links</h4>
-                <ul class="list-unstyled">
-                    <?php foreach ($nav_items as $item): ?>
-                        <li class="mb-2"><a href="<?php echo $item['url']; ?>" class="text-white text-decoration-none"><?php echo $item['text']; ?></a></li>
+
+            <?php
+            // Split nav items for two columns
+            $total_items = count($nav_items);
+            $half_point = (int)ceil($total_items / 2);
+            $nav_col1 = array_slice($nav_items, 0, $half_point);
+            $nav_col2 = array_slice($nav_items, $half_point);
+            ?>
+
+            <div class="col-lg-2 col-md-3 col-6 mb-4 mb-lg-0">
+                <h4 class="footer-title">Explore</h4>
+                <ul class="footer-links-list">
+                    <?php foreach ($nav_col1 as $item): ?>
+                        <li><a href="<?php echo $item['url']; ?>"><i class="fas fa-angle-right"></i> <?php echo $item['text']; ?></a></li>
                     <?php endforeach; ?>
                 </ul>
             </div>
-            <div class="col-md-4">
-                <h4 class="mb-3">Contact Info</h4>
-                <ul class="list-unstyled">
-                    <li class="mb-2"><i class="fas fa-map-marker-alt me-2"></i> 123 Legal Street, City, Country</li>
-                    <li class="mb-2"><i class="fas fa-phone me-2"></i> +1 234 567 890</li>
-                    <li class="mb-2"><i class="fas fa-envelope me-2"></i> info@lawyex.com</li>
+
+            <div class="col-lg-2 col-md-3 col-6 mb-4 mb-lg-0">
+                <h4 class="footer-title" style="visibility: hidden;">More</h4> <!-- Hidden title for alignment -->
+                <ul class="footer-links-list">
+                    <?php foreach ($nav_col2 as $item): ?>
+                        <li><a href="<?php echo $item['url']; ?>"><i class="fas fa-angle-right"></i> <?php echo $item['text']; ?></a></li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+
+            <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                <h4 class="footer-title">Contact</h4>
+                <ul class="footer-contact-list">
+                    <li><i class="fas fa-map-marker-alt"></i> 123 Legal Street, City, Country</li>
+                    <li><i class="fas fa-phone"></i> +1 234 567 890</li>
+                    <li><i class="fas fa-envelope"></i> info@lexjuris.com</li>
                 </ul>
             </div>
         </div>
     </div>
+    <div class="footer-bottom">
+        <div class="container text-center">
+            <p class="mb-0">&copy; <?php echo date('Y'); ?> LexJuris. All Rights Reserved.</p>
+        </div>
+    </div>
 </footer>
+
+<style>
+.site-footer {
+    background-color: #1a1a1a;
+    color: #adb5bd;
+    padding: 60px 0 0 0;
+    font-size: 0.9rem;
+}
+.footer-brand .h2 {
+    margin: 0;
+}
+.footer-description {
+    margin-top: 15px;
+    line-height: 1.7;
+}
+.footer-title {
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 20px;
+}
+.footer-links-list, .footer-contact-list {
+    list-style: none;
+    padding: 0;
+}
+.footer-links-list li, .footer-contact-list li {
+    margin-bottom: 12px;
+}
+.footer-links-list a {
+    color: #adb5bd;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+.footer-links-list a:hover {
+    color: #ffffff;
+    transform: translateX(5px);
+    display: inline-block;
+}
+.footer-links-list a i {
+    color: #bc841c;
+    margin-right: 8px;
+}
+.footer-contact-list i {
+    color: #bc841c;
+    margin-right: 15px;
+    width: 20px;
+}
+.social-links-footer .social-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.05);
+    color: #ffffff;
+    margin-right: 8px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+.social-links-footer .social-icon:hover {
+    background-color: #bc841c;
+    color: #1a1a1a;
+    transform: translateY(-2px);
+}
+.footer-bottom {
+    background-color: #111111;
+    padding: 20px 0;
+    margin-top: 40px;
+    font-size: 0.85rem;
+}
+</style>
 
 <!-- Back to Top Button -->
 <button id="backToTop" class="back-to-top" aria-label="Back to top">
