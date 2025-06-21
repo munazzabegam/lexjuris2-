@@ -7,33 +7,28 @@ if (!isset($_SESSION['user_id'])) {
 
 require_once __DIR__ . '/../../config/database.php';
 
-$contact = null;
-$result = $conn->query("SELECT * FROM contact LIMIT 1");
-if ($result->num_rows > 0) {
-    $contact = $result->fetch_assoc();
-} else {
-    $_SESSION['contact_error'] = "No contact entry found. Please add one.";
+if (!isset($_GET['id'])) {
+    $_SESSION['contact_error'] = "No contact ID provided.";
     header("Location: index.php");
     exit();
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $phone = trim($_POST['phone']);
-    $is_active = isset($_POST['is_active']) ? 1 : 0;
+$id = $_GET['id'];
+$contact = null;
 
-    // Assume there's only one contact entry, so we always update id = 1 or the existing one.
-    // In a real application, you might manage multiple contact types or ensure only one exists.
-    $stmt = $conn->prepare("UPDATE contact SET phone = ?, is_active = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?");
-    $stmt->bind_param("sii", $phone, $is_active, $contact['id']);
+$stmt = $conn->prepare("SELECT * FROM contact WHERE id = ?");
+$stmt->bind_param("i", $id);
+$stmt->execute();
+$result = $stmt->get_result();
 
-    if ($stmt->execute()) {
-        $_SESSION['contact_success'] = "Contact information updated successfully.";
-        header("Location: index.php");
-        exit();
-    } else {
-        $_SESSION['contact_error'] = "Error updating contact information: " . $conn->error;
-    }
+if ($result->num_rows > 0) {
+    $contact = $result->fetch_assoc();
+} else {
+    $_SESSION['contact_error'] = "Contact not found.";
+    header("Location: index.php");
+    exit();
 }
+$stmt->close();
 ?>
 
 <!DOCTYPE html>
@@ -80,14 +75,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="d-flex justify-content-between align-items-center">
                         <h4 class="mb-0">Edit Contact Information</h4>
                         <a href="index.php" class="btn btn-secondary">
-                            <i class="fas fa-arrow-left me-2"></i> Back to Contact Info
+                            <i class="fas fa-arrow-left me-2"></i> Back to List
                         </a>
                     </div>
                 </div>
             </div>
 
             <div class="form-card">
-                <form method="POST" action="">
+                <form method="POST" action="actions/update.php">
+                    <input type="hidden" name="id" value="<?php echo $contact['id']; ?>">
                     <div class="mb-3">
                         <label for="phone" class="form-label">Phone Number</label>
                         <input type="text" class="form-control" id="phone" name="phone" value="<?php echo htmlspecialchars($contact['phone']); ?>" required>

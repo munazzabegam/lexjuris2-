@@ -60,21 +60,39 @@ require_once 'config/database.php';
                     <h1 class="display-4 fw-bold text-white mb-4">Professional Legal Services</h1>
                     <p class="lead text-white mb-4">We provide expert legal solutions for individuals and businesses. Our experienced team is dedicated to protecting your rights and interests.</p>
                     <?php
-                    // Fetch active contact number from database
-                    $query = "SELECT phone FROM contact WHERE is_active = 1 ORDER BY id DESC LIMIT 1";
+                    // Fetch active contact numbers from database
+                    $query = "SELECT phone FROM contact WHERE is_active = 1 ORDER BY id DESC";
                     $result = $conn->query($query);
-                    $phone = "9742964416"; // Default fallback number
+                    $phones = [];
                     
                     if ($result && $result->num_rows > 0) {
-                        $contact = $result->fetch_assoc();
-                        if (!empty($contact['phone'])) {
-                            $phone = $contact['phone'];
+                        while($contact = $result->fetch_assoc()){
+                            if (!empty($contact['phone'])) {
+                                $phones[] = $contact['phone'];
+                            }
                         }
                     }
+
+                    if (!empty($phones)) {
+                        if (count($phones) === 1) {
+                            // Only one number, show a simple button
+                            echo '<a href="tel:' . htmlspecialchars($phones[0]) . '" class="btn btn-warning btn-lg">Contact Us</a>';
+                        } else {
+                            // Multiple numbers, show a dropdown
+                            echo '<div class="dropdown">';
+                            echo '<button class="btn btn-warning btn-lg dropdown-toggle" type="button" id="contactUsDropdown" data-bs-toggle="dropdown" aria-expanded="false">Contact Us</button>';
+                            echo '<ul class="dropdown-menu" aria-labelledby="contactUsDropdown">';
+                            foreach ($phones as $p) {
+                                echo '<li><a class="dropdown-item" href="tel:' . htmlspecialchars($p) . '"><i class="fas fa-phone me-2"></i>' . htmlspecialchars($p) . '</a></li>';
+                            }
+                            echo '</ul>';
+                            echo '</div>';
+                        }
+                    } else {
+                        // Optional: Fallback if no numbers are in the DB
+                        echo '<a href="#" class="btn btn-warning btn-lg disabled">Contact Information Unavailable</a>';
+                    }
                     ?>
-                    <a href="tel:<?php echo htmlspecialchars($phone); ?>" class="btn btn-warning btn-lg">
-                        Contact Us
-                    </a>
                 </div>
             </div>
         </div>
@@ -88,8 +106,8 @@ require_once 'config/database.php';
         }
         .hero-section {
             position: relative;
-            overflow: hidden;
-            m]height: 100vh;
+            /* overflow: hidden; */ /* This was hiding the dropdown */
+            height: 100vh;
             margin-bottom: 0;
             background: #000;
         }
@@ -128,10 +146,13 @@ require_once 'config/database.php';
         .hero-section + section {
             margin-top: 0 !important;
         }
+        .hero-section .dropdown-menu {
+            z-index: 1050; /* Ensure it's above other elements */
+        }
     </style>
 
     <!-- Services Section -->
-    <section class="services-section py-5">
+    <section class="services-section py-5 pt-0">
         <div class="container">
             <div class="row text-center mb-5">
                 <div class="col-12" data-aos="fade-up">
