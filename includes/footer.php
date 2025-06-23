@@ -77,7 +77,15 @@
     </div>
     <div class="footer-bottom">
         <div class="container text-center">
-            <p class="mb-0">&copy; <?php echo date('Y'); ?> LexJuris. All Rights Reserved.</p>
+            <p class="mb-0">
+                &copy; <?php echo date('Y'); ?> LexJuris. All Rights Reserved.
+                <span class="developed-by">
+                    | Developed by
+                    <a href="https://thebrandweave.com" target="_blank" class="dev-logo-link" aria-label="The Brand Weave">
+                        <img src="assets/images/brandweave_logo1.png" alt="The Brand Weave" class="dev-logo">
+                    </a>
+                </span>
+            </p>
         </div>
     </div>
 </footer>
@@ -251,6 +259,26 @@
     .whatsapp-float {
         bottom: 45px;
     }
+}
+.developed-by {
+    font-size: 0.95em;
+    margin-left: 10px;
+    vertical-align: middle;
+}
+.dev-logo-link {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 4px;
+}
+.dev-logo {
+    height: 30px;
+    width: auto;
+    vertical-align: middle;
+    filter: grayscale(0.2) brightness(0.95);
+    transition: filter 0.3s;
+}
+.dev-logo-link:hover .dev-logo {
+    filter: none;
 }
 </style>
 
