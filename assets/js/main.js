@@ -65,22 +65,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Back to Top Button
     if (elements.backToTopButton) {
-        let scrollTimeout;
-        
         window.addEventListener('scroll', function() {
-            // Clear the timeout if it exists
-            if (scrollTimeout) {
-                clearTimeout(scrollTimeout);
+            if (window.pageYOffset > 20) {
+                elements.backToTopButton.classList.add('visible');
+            } else {
+                elements.backToTopButton.classList.remove('visible');
             }
-            
-            // Set a new timeout
-            scrollTimeout = setTimeout(function() {
-                if (window.pageYOffset > 300) {
-                    elements.backToTopButton.classList.add('visible');
-                } else {
-                    elements.backToTopButton.classList.remove('visible');
-                }
-            }, 100); // Debounce the scroll event
         });
 
         elements.backToTopButton.addEventListener('click', function() {

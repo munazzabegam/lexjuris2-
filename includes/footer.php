@@ -10,10 +10,19 @@
                 </div>
                 <p class="footer-description">Professional legal services for individuals and businesses. We're here to protect your rights and interests.</p>
                 <div class="social-links-footer mt-4">
-                    <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    <?php
+                    require_once __DIR__ . '/../config/database.php';
+                    $social_links = [];
+                    $result = $conn->query("SELECT * FROM social_links WHERE is_active = 1 ORDER BY order_index ASC");
+                    if ($result) {
+                        $social_links = $result->fetch_all(MYSQLI_ASSOC);
+                    }
+                    ?>
+                    <?php foreach ($social_links as $link): ?>
+                        <a href="<?php echo htmlspecialchars($link['url']); ?>" class="social-icon" target="_blank" aria-label="<?php echo htmlspecialchars($link['platform']); ?>">
+                            <i class="fab fa-<?php echo strtolower($link['platform']); ?>"></i>
+                        </a>
+                    <?php endforeach; ?>
                 </div>
             </div>
 
@@ -46,9 +55,22 @@
             <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
                 <h4 class="footer-title">Contact</h4>
                 <ul class="footer-contact-list">
-                    <li><i class="fas fa-map-marker-alt"></i> 123 Legal Street, City, Country</li>
-                    <li><i class="fas fa-phone"></i> +1 234 567 890</li>
-                    <li><i class="fas fa-envelope"></i> info@lexjuris.com</li>
+                    <li>
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>
+                            <strong>Main Branch:</strong><br>
+                            6th Floor Paradigm Plaza, AB Shetty Circle, Mangalore, D.K
+                        </span>
+                    </li>
+                    <li>
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>
+                            <strong>Branch:</strong><br>
+                            3rd Floor Canara Tower,  Mission Hospital Road, Udupi
+                        </span>
+                    </li>
+                    <li><i class="fas fa-phone"></i>+91 7411448378, +91 9555552545</li>
+                    <li><i class="fas fa-envelope"></i>teamlexjuris@gmail.com</li>
                 </ul>
             </div>
         </div>
@@ -103,10 +125,27 @@
     color: #bc841c;
     margin-right: 8px;
 }
+.footer-contact-list li {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 14px;
+}
 .footer-contact-list i {
     color: #bc841c;
-    margin-right: 15px;
-    width: 20px;
+    margin-right: 12px;
+    margin-top: 3px;
+    font-size: 1.1rem;
+    min-width: 20px;
+}
+.footer-contact-list span {
+    display: block;
+    line-height: 1.5;
+}
+.footer-contact-list strong {
+    color: #fff;
+    font-weight: 600;
+    font-size: 1rem;
+    letter-spacing: 0.2px;
 }
 .social-links-footer .social-icon {
     display: inline-flex;
@@ -132,12 +171,98 @@
     margin-top: 40px;
     font-size: 0.85rem;
 }
+.back-to-top, .whatsapp-float {
+    right: 20px !important;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+}
+.whatsapp-float {
+    position: fixed;
+    bottom: 75px;
+    z-index: 1050;
+    background: rgba(188, 132, 28, 0.18);
+    color: #bc841c;
+    backdrop-filter: blur(4px);
+    border-radius: 50%;
+    font-size: 18px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    transition: background 0.3s, transform 0.3s;
+    text-decoration: none;
+}
+.whatsapp-float:hover {
+    color:white;
+    border: 1.5px solid #00000000;
+    background-color: var(--primary-color);
+    transform: translateY(-3px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+.back-to-top {
+    position: fixed;
+    bottom: 20px;
+    z-index: 1050;
+    background: rgba(188, 132, 28, 0.18);
+    color: #bc841c;
+    backdrop-filter: blur(4px);
+    border: none;
+    cursor: pointer;
+    border-radius: 50%;
+    font-size: 18px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.back-to-top:hover {
+    color: white;
+    background-color: var(--primary-color);
+    transform: translateY(-3px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+@media (max-width: 768px) {
+    .back-to-top, .whatsapp-float {
+        right: 15px !important;
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+    }
+    .back-to-top {
+        bottom: 15px;
+    }
+    .whatsapp-float {
+        bottom: 55px;
+    }
+}
+@media (max-width: 480px) {
+    .back-to-top, .whatsapp-float {
+        right: 10px !important;
+        width: 35px;
+        height: 35px;
+        font-size: 14px;
+    }
+    .back-to-top {
+        bottom: 10px;
+    }
+    .whatsapp-float {
+        bottom: 45px;
+    }
+}
 </style>
 
 <!-- Back to Top Button -->
 <button id="backToTop" class="back-to-top" aria-label="Back to top">
     <i class="fas fa-arrow-up"></i>
 </button>
+
+<!-- WhatsApp Floating Button -->
+<a href="https://wa.me/9555552545" class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+</a>
 
 <!-- Bootstrap 5 JS Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

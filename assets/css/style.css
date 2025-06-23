@@ -539,13 +539,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .map-section iframe {
-    filter: grayscale(100%);
     transition: filter 0.3s ease;
 }
 
-.map-section iframe:hover {
-    filter: grayscale(0%);
-}
 
 /* Footer */
 .footer {
@@ -770,15 +766,16 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Back to Top Button */
-.back-to-top {
+/* .back-to-top {
     position: fixed;
     bottom: 20px;
     right: 20px;
     width: 45px;
     height: 45px;
     border-radius: 50%;
-    background-color: var(--secondary-color);
-    color: white;
+    background: rgba(188, 132, 28, 0.18);
+    color: #bc841c;
+    backdrop-filter: blur(4px);
     border: none;
     cursor: pointer;
     display: none;
@@ -793,10 +790,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .back-to-top:hover {
+    color: white;
     background-color: var(--primary-color);
     transform: translateY(-3px);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-}
+} */
 
 .back-to-top.visible {
     display: flex !important;

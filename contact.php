@@ -60,8 +60,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         $contact_info = [
                             [
                                 'icon' => 'fa-map-marker-alt',
-                                'title' => 'Our Location',
-                                'content' => '123 Legal Street, City, Country'
+                                'title' => 'Main Branch',
+                                'content' => '6th Floor Paradigm Plaza, AB Shetty Circle, Mangalore , D.K'
+                            ],
+                            [
+                                'icon' => 'fa-map-marker-alt',
+                                'title' => 'Branch',
+                                'content' => '3rd Floor Canara Tower,  Mission Hospital Road, Udupi'
                             ],
                             [
                                 'icon' => 'fa-phone',
@@ -258,7 +263,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="container-fluid p-0">
             <div class="row g-0">
                 <div class="col-12">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d62226.65583043104!2d74.83284582179004!3d12.897045950382683!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xaca9ff5b4f31f2cd%3A0xca2c5cd617d9d383!2sGD%20EDU%20TECH!5e0!3m2!1sen!2sin!4v1749813277807!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3889.735244244663!2d74.83451207619336!3d12.860369284960484!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba35b6aa9117fad%3A0x5599e36896382df0!2sLex%20juris%20law%20chamber%20Mangalore!5e0!3m2!1sen!2sin!4v1750313340054!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
             </div>
         </div>
