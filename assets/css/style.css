@@ -765,37 +765,6 @@ h1, h2, h3, h4, h5, h6 {
     animation: fadeInUp 0.8s var(--animation-timing);
 }
 
-/* Back to Top Button */
-/* .back-to-top {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    background: rgba(188, 132, 28, 0.18);
-    color: #bc841c;
-    backdrop-filter: blur(4px);
-    border: none;
-    cursor: pointer;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
-    z-index: 9999;
-    opacity: 0;
-    transform: translateY(20px);
-}
-
-.back-to-top:hover {
-    color: white;
-    background-color: var(--primary-color);
-    transform: translateY(-3px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-} */
-
 .back-to-top.visible {
     display: flex !important;
     opacity: 1;
@@ -986,7 +955,6 @@ section.animate.visible {
     transform: scale(1.1);
 }
 
-/* Main Team Card Styles (matching provided image) */
 .main-team-card {
     position: relative;
     width: 360px; /* Fixed width */
@@ -1026,7 +994,7 @@ section.animate.visible {
 }
 
 .main-team-card:hover img {
-    transform: scale(1.05); /* Remove tilt (rotate) and match main team card scale on hover */
+    transform: scale(1.05); 
 }
 
 .main-team-card .team-info-overlay h3 {
@@ -1041,19 +1009,16 @@ section.animate.visible {
     margin-bottom: 0; /* Remove bottom margin */
 }
 
-/* Ensure the original team-card styles don't interfere */
 .team-card {
     /* Add any specific styles needed to differentiate from main-team-card if necessary */
     /* For now, the new class .main-team-card will override where applied */
 }
 
-/* Remove icon tilt animation */
 .service-card:hover .service-icon,
 .feature-card:hover .feature-icon {
-    transform: scale(1.2) rotate(5deg); /* Keep other icon animations */
+    transform: scale(1.2) rotate(5deg); 
 }
 
-/* Ensure team-card icons don't tilt */
 .team-card:hover .fas {
-    transform: none; /* Explicitly remove any transform on hover for icons within team-card */
+    transform: none; 
 }

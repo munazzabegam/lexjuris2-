@@ -71,17 +71,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             [
                                 'icon' => 'fa-phone',
                                 'title' => 'Phone Number',
-                                'content' => '+1 234 567 890'
+                                'content' => '+91 7411448378, +91 9555552545'
                             ],
                             [
                                 'icon' => 'fa-envelope',
                                 'title' => 'Email Address',
-                                'content' => 'info@lawyex.com'
+                                'content' => 'teamlexjuris@gmail.com'
                             ],
                             [
                                 'icon' => 'fa-clock',
                                 'title' => 'Working Hours',
-                                'content' => 'Monday - Friday: 9:00 AM - 6:00 PM<br>Saturday: 10:00 AM - 2:00 PM'
+                                'content' => 'Monday - Saturday: 9:00 AM - 9:00 PM<br>Saturday: 9:00 AM - 2:00 PM'
                             ]
                         ];
 
