@@ -79,11 +79,11 @@ require_once 'config/database.php';
                             echo '<a href="tel:' . htmlspecialchars($phones[0]) . '" class="btn btn-warning btn-lg">Contact Us</a>';
                         } else {
                             // Multiple numbers, show a dropdown
-                            echo '<div class="dropdown">';
-                            echo '<button class="btn btn-warning btn-lg dropdown-toggle" type="button" id="contactUsDropdown" data-bs-toggle="dropdown" aria-expanded="false">Contact Us</button>';
+                            echo '<div class="dropdown contact-dropdown">';
+                            echo '<button class="btn btn-warning btn-lg dropdown-toggle" type="button" id="contactUsDropdown" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-phone me-2"></i>Contact Us</button>';
                             echo '<ul class="dropdown-menu" aria-labelledby="contactUsDropdown">';
-                            foreach ($phones as $p) {
-                                echo '<li><a class="dropdown-item" href="tel:' . htmlspecialchars($p) . '"><i class="fas fa-phone me-2"></i>' . htmlspecialchars($p) . '</a></li>';
+                            foreach ($phones as $phone) {
+                                echo '<li><a class="dropdown-item" href="tel:' . htmlspecialchars($phone) . '"><i class="fas fa-mobile-alt me-2"></i>' . htmlspecialchars($phone) . '</a></li>';
                             }
                             echo '</ul>';
                             echo '</div>';
@@ -146,14 +146,135 @@ require_once 'config/database.php';
         .hero-section + section {
             margin-top: 0 !important;
         }
-        .hero-section .dropdown-menu {
-            z-index: 1050; /* Ensure it's above other elements */
+        
+        /* Contact Dropdown Styles */
+        .contact-dropdown {
+            position: relative;
+            z-index: 1060;
+        }
+        
+        .contact-dropdown .dropdown-menu {
+            z-index: 1061 !important;
+            position: absolute !important;
+            top: 100% !important;
+            left: 0 !important;
+            right: auto !important;
+            transform: none !important;
+            margin-top: 0.125rem !important;
+            background-color: #fff !important;
+            border: 1px solid rgba(0, 0, 0, 0.15) !important;
+            border-radius: 0.375rem !important;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.175) !important;
+            min-width: 10rem !important;
+            padding: 0.5rem 0 !important;
+        }
+        
+        .contact-dropdown .dropdown-item {
+            display: block !important;
+            width: 100% !important;
+            padding: 0.25rem 1rem !important;
+            clear: both !important;
+            font-weight: 400 !important;
+            color: #212529 !important;
+            text-align: inherit !important;
+            text-decoration: none !important;
+            white-space: nowrap !important;
+            background-color: transparent !important;
+            border: 0 !important;
+        }
+        
+        .contact-dropdown .dropdown-item:hover {
+            color: #1e2125 !important;
+            background-color: #e9ecef !important;
+        }
+        
+        .contact-dropdown .dropdown-item:focus {
+            color: #1e2125 !important;
+            background-color: #e9ecef !important;
+        }
+        
+        .contact-dropdown .dropdown-toggle::after {
+            display: inline-block !important;
+            margin-left: 0.255em !important;
+            vertical-align: 0.255em !important;
+            content: "" !important;
+            border-top: 0.3em solid !important;
+            border-right: 0.3em solid transparent !important;
+            border-bottom: 0 !important;
+            border-left: 0.3em solid transparent !important;
+        }
+        
+        /* Ensure dropdown is visible on all devices */
+        @media (max-width: 768px) {
+            .contact-dropdown .dropdown-menu {
+                position: absolute !important;
+                transform: none !important;
+                top: 100% !important;
+                left: 0 !important;
+                right: auto !important;
+            }
+        }
+
+        /* New Contact Us Dropdown Design */
+        .contact-dropdown .btn-warning {
+            background-color: #ffc107;
+            border-color: #ffc107;
+            color: #000;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .contact-dropdown .btn-warning:hover,
+        .contact-dropdown .btn-warning:focus {
+            background-color: #e0a800;
+            border-color: #d39e00;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .contact-dropdown .dropdown-menu {
+            border-radius: 0.5rem;
+            border: none;
+            box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.15);
+            padding: 0.5rem 0;
+            margin-top: 0.5rem;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .contact-dropdown .dropdown-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1.5rem;
+            font-weight: 500;
+            color: #343a40;
+            transition: all 0.2s ease;
+        }
+
+        .contact-dropdown .dropdown-item i {
+            color: #ffc107;
+            transition: transform 0.2s ease;
+        }
+
+        .contact-dropdown .dropdown-item:hover {
+            background-color: #f8f9fa;
+            color: #000;
+            transform: translateX(5px);
+        }
+
+        .contact-dropdown .dropdown-item:hover i {
+            transform: scale(1.2);
         }
     </style>
 
     <!-- Services Section -->
-    <section class="services-section py-5 pt-0">
-        <div class="container">
+    <section class="services-section py-5 pt-5">
+        <div class="container" style="margin-top: 5%">
             <div class="row text-center mb-5">
                 <div class="col-12" data-aos="fade-up">
                     <h2 class="section-title">Our Services</h2>
@@ -296,69 +417,43 @@ require_once 'config/database.php';
                 if ($team_result && $team_result->num_rows > 0) {
                     $index = 0;
                     while ($member = $team_result->fetch_assoc()) {
-                        // Fetch social links for this team member
-                        $social_query = "SELECT * FROM team_social_links WHERE team_id = ? AND is_active = 1 ORDER BY FIELD(platform, 'LinkedIn', 'Twitter', 'Email', 'Facebook', 'Instagram', 'GitHub', 'Other')";
-                        $social_stmt = $conn->prepare($social_query);
-                        $social_stmt->bind_param("i", $member['id']);
-                        $social_stmt->execute();
-                        $social_result = $social_stmt->get_result();
-                        
                         echo '<div class="col-md-4 mb-4" data-aos="zoom-in" data-aos-delay="' . ($index * 100) . '">
                             <div class="main-team-card">
                                 <img src="' . (!empty($member['photo']) ? htmlspecialchars($member['photo']) : 'img/team-1.jpg') . '" alt="' . htmlspecialchars($member['full_name']) . '" class="team-img">
                                 <div class="team-info-overlay">
-                                    <h3>
-                                        <a href="' . (!empty($member['portfolio']) ? htmlspecialchars($member['portfolio']) : '#') . '" target="_blank" class="text-white text-decoration-none">
-                                            ' . htmlspecialchars($member['full_name']) . '
-                                        </a>
-                                    </h3>
-                                    <p>' . htmlspecialchars($member['education']) . '</p>';
+                                    <div class="team-header">
+                                        <h3>
+                                            <a href="' . (!empty($member['portfolio']) ? htmlspecialchars($member['portfolio']) : '#') . '" target="_blank" class="text-white text-decoration-none">
+                                                ' . htmlspecialchars($member['full_name']) . '
+                                            </a>
+                                        </h3>';
                         
-                        // Add social links if they exist
-                        if ($social_result && $social_result->num_rows > 0) {
-                            echo '<div class="team-social-links">';
-                            while ($social = $social_result->fetch_assoc()) {
-                                $icon_class = '';
-                                $platform = $social['platform'];
-                                
-                                switch ($platform) {
-                                    case 'LinkedIn':
-                                        $icon_class = 'fab fa-linkedin-in';
-                                        break;
-                                    case 'Twitter':
-                                        $icon_class = 'fab fa-twitter';
-                                        break;
-                                    case 'Email':
-                                        $icon_class = 'fas fa-envelope';
-                                        break;
-                                    case 'Facebook':
-                                        $icon_class = 'fab fa-facebook-f';
-                                        break;
-                                    case 'Instagram':
-                                        $icon_class = 'fab fa-instagram';
-                                        break;
-                                    case 'GitHub':
-                                        $icon_class = 'fab fa-github';
-                                        break;
-                                    case 'Other':
-                                        $icon_class = 'fas fa-link';
-                                        break;
-                                }
-                                
-                                // Format URL based on platform
-                                $url = $social['url'];
-                                if ($platform === 'Email' && !str_starts_with($url, 'mailto:')) {
-                                    $url = 'mailto:' . $url;
-                                }
-                                
-                                echo '<a href="' . htmlspecialchars($url) . '" target="_blank" class="social-link" title="' . htmlspecialchars($platform) . '">
-                                    <i class="' . $icon_class . '"></i>
-                                </a>';
+                        // Add contact icon if available
+                        if (!empty($member['contact'])) {
+                            $contact_url = '';
+                            $contact_icon = '';
+                            
+                            // Determine if it's an email or phone number
+                            if (filter_var($member['contact'], FILTER_VALIDATE_EMAIL)) {
+                                $contact_url = 'mailto:' . $member['contact'];
+                                $contact_icon = 'fas fa-envelope';
+                            } else {
+                                $contact_url = 'tel:' . $member['contact'];
+                                $contact_icon = 'fas fa-phone';
                             }
-                            echo '</div>'; // Close team-social-links
+                            
+                            echo '<div class="team-contact-icon">
+                                <a href="' . htmlspecialchars($contact_url) . '" class="contact-icon-link" title="' . htmlspecialchars($member['contact']) . '">
+                                    <i class="' . $contact_icon . '"></i>
+                                </a>
+                            </div>';
                         }
                         
-                        echo '</div></div></div>';
+                        echo '</div>
+                                    <p>' . htmlspecialchars($member['education']) . '</p>
+                                </div>
+                            </div>
+                        </div>';
                         $index++;
                     }
                 } else {
@@ -368,19 +463,22 @@ require_once 'config/database.php';
                             'photo' => 'uploads/team_photos/team-1.jpg',
                             'full_name' => 'Omer Farooq Mulki',
                             'education' => 'B.A. (Law), LL.B',
-                            'portfolio' => 'portfolio1.html'
+                            'portfolio' => 'portfolio1.html',
+                            'contact' => '+1234567890'
                         ],
                         [
                             'photo' => 'uploads/team_photos/team-2.jpg',
                             'full_name' => 'Asif Baikady',
                             'education' => 'B.Com, LL.B',
-                            'portfolio' => 'portfolio2.html'
+                            'portfolio' => 'portfolio2.html',
+                            'contact' => 'asif@example.com'
                         ],
                         [
                             'photo' => 'uploads/team_photos/team-3.jpg',
                             'full_name' => 'Mahammad Asgar',
                             'education' => 'B.A. (Law), LL.B',
-                            'portfolio' => 'portfolio3.html'
+                            'portfolio' => 'portfolio3.html',
+                            'contact' => '+9876543210'
                         ]
                     ];
 
@@ -389,21 +487,38 @@ require_once 'config/database.php';
                             <div class="main-team-card">
                                 <img src="' . htmlspecialchars($member['photo']) . '" alt="' . htmlspecialchars($member['full_name']) . '" class="team-img">
                                 <div class="team-info-overlay">
-                                    <h3>
-                                        <a href="' . (!empty($member['portfolio']) ? htmlspecialchars($member['portfolio']) : '#') . '" target="_blank" class="text-white text-decoration-none">
-                                            ' . htmlspecialchars($member['full_name']) . '
-                                        </a>
-                                    </h3>
-                                    <p>' . htmlspecialchars($member['education']) . '</p>';
+                                    <div class="team-header">
+                                        <h3>
+                                            <a href="' . (!empty($member['portfolio']) ? htmlspecialchars($member['portfolio']) : '#') . '" target="_blank" class="text-white text-decoration-none">
+                                                ' . htmlspecialchars($member['full_name']) . '
+                                            </a>
+                                        </h3>';
                         
-                        // Add social links if they exist for fallback (example - adapt as needed)
-                        echo '<div class="team-social-links">
-                                <a href="#" target="_blank" class="social-link" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#" target="_blank" class="social-link" title="Twitter"><i class="fab fa-twitter"></i></a>
-                                <a href="#" target="_blank" class="social-link" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        // Add contact icon for fallback
+                        if (!empty($member['contact'])) {
+                            $contact_url = '';
+                            $contact_icon = '';
+                            
+                            if (filter_var($member['contact'], FILTER_VALIDATE_EMAIL)) {
+                                $contact_url = 'mailto:' . $member['contact'];
+                                $contact_icon = 'fas fa-envelope';
+                            } else {
+                                $contact_url = 'tel:' . $member['contact'];
+                                $contact_icon = 'fas fa-phone';
+                            }
+                            
+                            echo '<div class="team-contact-icon">
+                                <a href="' . htmlspecialchars($contact_url) . '" class="contact-icon-link" title="' . htmlspecialchars($member['contact']) . '">
+                                    <i class="' . $contact_icon . '"></i>
+                                </a>
                             </div>';
+                        }
                         
-                        echo '</div></div></div>'; // Close team-info-overlay, main-team-card, col-md-4
+                        echo '</div>
+                                    <p>' . htmlspecialchars($member['education']) . '</p>
+                                </div>
+                            </div>
+                        </div>';
                     }
                 }
                 ?>
@@ -508,6 +623,51 @@ require_once 'config/database.php';
         .social-link[title="GitHub"]:hover { background: #333; }
         .social-link[title="Email"]:hover { background: #EA4335; }
         .social-link[title="Other"]:hover { background: #bc841c; }
+        
+        .team-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .team-header h3 {
+            margin: 0;
+            flex: 1;
+        }
+        
+        .team-contact-icon {
+            margin-left: 15px;
+        }
+        
+        .contact-icon-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            background: rgba(255, 193, 7, 0.95);
+            color: #000;
+            border-radius: 50%;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .contact-icon-link:hover {
+            background: #fff;
+            color: #000;
+            transform: scale(1.15) translateY(-2px);
+            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+            border-color: rgba(255, 193, 7, 0.8);
+        }
+        
+        .contact-icon-link i {
+            margin: 0;
+        }
     </style>
 
     <!-- Practice Areas Section -->
@@ -556,7 +716,7 @@ require_once 'config/database.php';
     </section>
 
     <!-- Testimonials Section -->
-    <section class="testimonials-section py-5 bg-light">
+    <section class="testimonials-section pt-5 bg-light" style="margin-bottom: -20%">
         <div class="container">
             <div class="row text-center mb-5">
                 <div class="col-12">
@@ -625,7 +785,7 @@ require_once 'config/database.php';
     <style>
         .testimonial-item {
             padding: 2rem;
-            max-width: 800px;
+            width: 800px;
             margin: 0 auto;
         }
         .testimonial-text {
@@ -659,6 +819,27 @@ require_once 'config/database.php';
             background-color: #bc841c;
             border-radius: 50%;
             padding: 1.5rem;
+        }
+
+        #testimonialCarousel .carousel-control-prev,
+        #testimonialCarousel .carousel-control-next {
+            top: 20%; /* Adjusted for better visual alignment */
+            transform: translateY(-50%);
+            height: 44px; /* Slightly smaller */
+            width: 44px;  /* Slightly smaller */
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+
+        #testimonialCarousel .carousel-control-prev:hover,
+        #testimonialCarousel .carousel-control-next:hover {
+            opacity: 1;
+        }
+
+        #testimonialCarousel .carousel-control-prev-icon,
+        #testimonialCarousel .carousel-control-next-icon {
+            padding: 0.9rem; /* Adjusted padding for new size */
+            background-size: 50%;
         }
     </style>
 
@@ -725,6 +906,35 @@ require_once 'config/database.php';
                 keyboard: true,  // Enable keyboard controls
                 pause: 'hover'   // Pause on mouse hover
             });
+            
+            // Ensure contact dropdown works properly
+            const contactDropdown = document.getElementById('contactUsDropdown');
+            if (contactDropdown) {
+                // Initialize Bootstrap dropdown manually if needed
+                const dropdown = new bootstrap.Dropdown(contactDropdown, {
+                    boundary: 'viewport',
+                    display: 'dynamic'
+                });
+                
+                // Add click event listener for better mobile support
+                contactDropdown.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const dropdownMenu = this.nextElementSibling;
+                    if (dropdownMenu && dropdownMenu.classList.contains('dropdown-menu')) {
+                        dropdownMenu.classList.toggle('show');
+                    }
+                });
+                
+                // Close dropdown when clicking outside
+                document.addEventListener('click', function(e) {
+                    if (!contactDropdown.contains(e.target)) {
+                        const dropdownMenu = contactDropdown.nextElementSibling;
+                        if (dropdownMenu && dropdownMenu.classList.contains('dropdown-menu')) {
+                            dropdownMenu.classList.remove('show');
+                        }
+                    }
+                });
+            }
         });
     </script>
 </body>

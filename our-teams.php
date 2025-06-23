@@ -41,69 +41,43 @@ require_once 'config/database.php';
                 if ($main_team_result && $main_team_result->num_rows > 0) {
                     $index = 0;
                     while ($member = $main_team_result->fetch_assoc()) {
-                        // Fetch social links for this team member
-                        $social_query = "SELECT * FROM team_social_links WHERE team_id = ? AND is_active = 1 ORDER BY FIELD(platform, 'LinkedIn', 'Twitter', 'Email', 'Facebook', 'Instagram', 'GitHub', 'Other')";
-                        $social_stmt = $conn->prepare($social_query);
-                        $social_stmt->bind_param("i", $member['id']);
-                        $social_stmt->execute();
-                        $social_result = $social_stmt->get_result();
-                        
                         echo '<div class="col-md-4 mb-4" data-aos="zoom-in" data-aos-delay="' . ($index * 100) . '">
                             <div class="main-team-card">
                                 <img src="' . htmlspecialchars($member['photo']) . '" alt="' . htmlspecialchars($member['full_name']) . '" class="team-img">
                                 <div class="team-info-overlay">
-                                    <h3>
-                                        <a href="' . (!empty($member['portfolio']) ? htmlspecialchars($member['portfolio']) : '#') . '" target="_blank" class="text-white text-decoration-none">
-                                            ' . htmlspecialchars($member['full_name']) . '
-                                        </a>
-                                    </h3>
-                                    <p>' . htmlspecialchars($member['education']) . '</p>';
+                                    <div class="team-header">
+                                        <h3>
+                                            <a href="' . (!empty($member['portfolio']) ? htmlspecialchars($member['portfolio']) : '#') . '" target="_blank" class="text-white text-decoration-none">
+                                                ' . htmlspecialchars($member['full_name']) . '
+                                            </a>
+                                        </h3>';
                         
-                        // Add social links if they exist
-                        if ($social_result && $social_result->num_rows > 0) {
-                            echo '<div class="team-social-links">';
-                            while ($social = $social_result->fetch_assoc()) {
-                                $icon_class = '';
-                                $platform = $social['platform'];
-                                
-                                switch ($platform) {
-                                    case 'LinkedIn':
-                                        $icon_class = 'fab fa-linkedin';
-                                        break;
-                                    case 'Twitter':
-                                        $icon_class = 'fab fa-twitter';
-                                        break;
-                                    case 'Email':
-                                        $icon_class = 'fas fa-envelope';
-                                        break;
-                                    case 'Facebook':
-                                        $icon_class = 'fab fa-facebook';
-                                        break;
-                                    case 'Instagram':
-                                        $icon_class = 'fab fa-instagram';
-                                        break;
-                                    case 'GitHub':
-                                        $icon_class = 'fab fa-github';
-                                        break;
-                                    case 'Other':
-                                        $icon_class = 'fas fa-link';
-                                        break;
-                                }
-                                
-                                // Format URL based on platform
-                                $url = $social['url'];
-                                if ($platform === 'Email' && !str_starts_with($url, 'mailto:')) {
-                                    $url = 'mailto:' . $url;
-                                }
-                                
-                                echo '<a href="' . htmlspecialchars($url) . '" target="_blank" class="social-link" title="' . htmlspecialchars($platform) . '">
-                                    <i class="' . $icon_class . '"></i>
-                                </a>';
+                        // Add contact icon if available
+                        if (!empty($member['contact'])) {
+                            $contact_url = '';
+                            $contact_icon = '';
+                            
+                            // Determine if it's an email or phone number
+                            if (filter_var($member['contact'], FILTER_VALIDATE_EMAIL)) {
+                                $contact_url = 'mailto:' . $member['contact'];
+                                $contact_icon = 'fas fa-envelope';
+                            } else {
+                                $contact_url = 'tel:' . $member['contact'];
+                                $contact_icon = 'fas fa-phone';
                             }
-                            echo '</div>';
+                            
+                            echo '<div class="team-contact-icon">
+                                <a href="' . htmlspecialchars($contact_url) . '" class="contact-icon-link" title="' . htmlspecialchars($member['contact']) . '">
+                                    <i class="' . $contact_icon . '"></i>
+                                </a>
+                            </div>';
                         }
                         
-                        echo '</div></div></div>';
+                        echo '</div>
+                                    <p>' . htmlspecialchars($member['education']) . '</p>
+                                </div>
+                            </div>
+                        </div>';
                         $index++;
                     }
                 } else {
@@ -135,86 +109,43 @@ require_once 'config/database.php';
                 if ($sub_junior_result && $sub_junior_result->num_rows > 0) {
                     $index = 0;
                     while ($member = $sub_junior_result->fetch_assoc()) {
-                        // Fetch social links for this team member
-                        $social_query = "SELECT * FROM sub_junior_social_links WHERE sub_junior_id = ? AND is_active = 1 ORDER BY FIELD(platform, 'LinkedIn', 'Twitter', 'Email', 'Facebook', 'Instagram', 'GitHub', 'Other')";
-                        $social_stmt = $conn->prepare($social_query);
-                        $social_stmt->bind_param("i", $member['id']);
-                        $social_stmt->execute();
-                        $social_result = $social_stmt->get_result();
-                        
                         echo '<div class="col-md-4 mb-4" data-aos="zoom-in" data-aos-delay="' . ($index * 100) . '">
                             <div class="main-team-card">
                                 <img src="' . htmlspecialchars($member['photo']) . '" alt="' . htmlspecialchars($member['full_name']) . '" class="team-img">
                                 <div class="team-info-overlay">
-                                    <h3>
-                                        <a href="' . (!empty($member['portfolio']) ? htmlspecialchars($member['portfolio']) : '#') . '" target="_blank" class="text-white text-decoration-none">
-                                            ' . htmlspecialchars($member['full_name']) . '
-                                        </a>
-                                    </h3>
-                                    <p>' . htmlspecialchars($member['education']) . '</p>';
+                                    <div class="team-header">
+                                        <h3>
+                                            <a href="' . (!empty($member['portfolio']) ? htmlspecialchars($member['portfolio']) : '#') . '" target="_blank" class="text-white text-decoration-none">
+                                                ' . htmlspecialchars($member['full_name']) . '
+                                            </a>
+                                        </h3>';
                         
-                        // Add social links if they exist
-                        if ($social_result && $social_result->num_rows > 0) {
-                            echo '<div class="team-social-links">';
-                            while ($social = $social_result->fetch_assoc()) {
-                                $icon_class = '';
-                                $platform = $social['platform'];
-                                
-                                switch ($platform) {
-                                    case 'LinkedIn':
-                                        $icon_class = 'fab fa-linkedin';
-                                        break;
-                                    case 'Twitter':
-                                        $icon_class = 'fab fa-twitter';
-                                        break;
-                                    case 'Email':
-                                        $icon_class = 'fas fa-envelope';
-                                        break;
-                                    case 'Facebook':
-                                        $icon_class = 'fab fa-facebook';
-                                        break;
-                                    case 'Instagram':
-                                        $icon_class = 'fab fa-instagram';
-                                        break;
-                                    case 'GitHub':
-                                        $icon_class = 'fab fa-github';
-                                        break;
-                                    case 'Other':
-                                        $icon_class = 'fas fa-link';
-                                        break;
-                                    case 'WhatsApp':
-                                        $icon_class = 'fab fa-whatsapp';
-                                        break;
-                                    case 'YouTube':
-                                        $icon_class = 'fab fa-youtube';
-                                        break;
-                                    case 'Website':
-                                        $icon_class = 'fas fa-globe';
-                                        break;
-                                    case 'Phone':
-                                        $icon_class = 'fas fa-phone';
-                                        break;
-                                }
-                                
-                                // Format URL based on platform
-                                $url = $social['url'];
-                                if ($platform === 'Email' && !str_starts_with($url, 'mailto:')) {
-                                    $url = 'mailto:' . $url;
-                                } else if ($platform === 'Phone' && !str_starts_with($url, 'tel:')) {
-                                    $url = 'tel:' . $url;
-                                } else if ($platform === 'WhatsApp' && !str_starts_with($url, 'https://wa.me/')) {
-                                    // Assuming WhatsApp numbers are stored without the full URL
-                                    $url = 'https://wa.me/' . preg_replace('/^\+/', '', $url); // Remove leading + if exists
-                                }
-                                
-                                echo '<a href="' . htmlspecialchars($url) . '" target="_blank" class="social-link" title="' . htmlspecialchars($platform) . '">
-                                    <i class="' . $icon_class . '"></i>
-                                </a>';
+                        // Add contact icon if available
+                        if (!empty($member['contact'])) {
+                            $contact_url = '';
+                            $contact_icon = '';
+                            
+                            // Determine if it's an email or phone number
+                            if (filter_var($member['contact'], FILTER_VALIDATE_EMAIL)) {
+                                $contact_url = 'mailto:' . $member['contact'];
+                                $contact_icon = 'fas fa-envelope';
+                            } else {
+                                $contact_url = 'tel:' . $member['contact'];
+                                $contact_icon = 'fas fa-phone';
                             }
-                            echo '</div>';
+                            
+                            echo '<div class="team-contact-icon">
+                                <a href="' . htmlspecialchars($contact_url) . '" class="contact-icon-link" title="' . htmlspecialchars($member['contact']) . '">
+                                    <i class="' . $contact_icon . '"></i>
+                                </a>
+                            </div>';
                         }
                         
-                        echo '</div></div></div>';
+                        echo '</div>
+                                    <p>' . htmlspecialchars($member['education']) . '</p>
+                                </div>
+                            </div>
+                        </div>';
                         $index++;
                     }
                 } else {
@@ -327,6 +258,51 @@ require_once 'config/database.php';
         .social-link[title="GitHub"]:hover { background: #333; }
         .social-link[title="Email"]:hover { background: #EA4335; }
         .social-link[title="Other"]:hover { background: #bc841c; }
+        
+        .team-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .team-header h3 {
+            margin: 0;
+            flex: 1;
+        }
+        
+        .team-contact-icon {
+            margin-left: 15px;
+        }
+        
+        .contact-icon-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            background: rgba(255, 193, 7, 0.95);
+            color: #000;
+            border-radius: 50%;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .contact-icon-link:hover {
+            background: #fff;
+            color: #000;
+            transform: scale(1.15) translateY(-2px);
+            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+            border-color: rgba(255, 193, 7, 0.8);
+        }
+        
+        .contact-icon-link i {
+            margin: 0;
+        }
     </style>
 </body>
 </html> 
