@@ -14,28 +14,6 @@ CREATE TABLE admin_users (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     last_login TIMESTAMP NULL
 );
-
--- cases table
-CREATE TABLE cases (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    case_number VARCHAR(50) NOT NULL UNIQUE,
-    title VARCHAR(255) NOT NULL,
-    description TEXT NOT NULL,
-    link TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    status ENUM('Open', 'Closed', 'In Progress') NOT NULL DEFAULT 'Open',
-    category ENUM('criminal', 'family', 'cheque', 'consumer','labour','high court', 'supreme court','other'),
-    author_id INT,
-    author_name VARCHAR(100),
-    tags TEXT,
-    order_index INT DEFAULT 0,
-    
-    FOREIGN KEY (author_id) REFERENCES admin_users(id),
-    FOREIGN KEY (author_name) REFERENCES admin_users(username)
-);
-
-
 -- articles table
 CREATE TABLE articles (
     id INT AUTO_INCREMENT PRIMARY KEY,

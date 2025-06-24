@@ -10,10 +10,6 @@
     </div>
     <div class="profile-stats">
         <div class="stat">
-            <h5>125</h5>
-            <p>Cases</p>
-        </div>
-        <div class="stat">
             <h5>45</h5>
             <p>Articles</p>
         </div>
