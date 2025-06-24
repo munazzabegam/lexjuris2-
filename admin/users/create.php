@@ -39,19 +39,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             // Handle profile image upload or set default avatar
             if (isset($_FILES['profile_image']) && $_FILES['profile_image']['error'] === UPLOAD_ERR_OK) {
-                $target_dir = __DIR__ . "/../../image/"; // Directory for uploaded images
+                $target_dir = __DIR__ . "/../../uploads/images/"; // Directory for uploaded images
                 $file_extension = pathinfo($_FILES['profile_image']['name'], PATHINFO_EXTENSION);
                 $new_file_name = uniqid('profile_') . '.' . $file_extension;
                 $target_file = $target_dir . $new_file_name;
                 
                 if (move_uploaded_file($_FILES['profile_image']['tmp_name'], $target_file)) {
-                    $profile_image = "image/" . $new_file_name; // Path stored in DB for uploaded image
+                    $profile_image = "uploads/images/" . $new_file_name; // Path stored in DB for uploaded image
                 } else {
                     $error_message = "Error uploading profile image.";
                 }
             } else {
                 // Set default avatar if no image is uploaded
-                $profile_image = "assets/images/default_avatar.png"; // Path to the default avatar
+                $profile_image = "assets/images/default-avatar.png"; // Path to the default avatar
             }
 
             if (empty($error_message)) {

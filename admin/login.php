@@ -112,7 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="card">
         <div class="card-body">
             <div class="logo">
-                    <img src="../image/logo.png" alt="Lex Juris Logo">
+                    <img src="../uploads/images/logo.png" alt="Lex Juris Logo">
                 </div>
             <h2 class="card-title text-center mb-4">Admin Login</h2>
             <?php if ($error_message): ?>

@@ -139,12 +139,10 @@ $result = $conn->query($query);
                                 <?php while ($user = $result->fetch_assoc()): ?>
                                     <tr>
                                         <td>
-                                            <?php if ($user['profile_image']): ?>
-                                                <img src="../../<?php echo htmlspecialchars($user['profile_image']); ?>" 
-                                                     alt="Profile" class="user-avatar">
+                                            <?php if ($user['profile_image'] && file_exists(__DIR__ . '/../../' . $user['profile_image'])): ?>
+                                                <img src="../../<?php echo htmlspecialchars($user['profile_image']); ?>" alt="Profile" width="40" height="40" class="rounded-circle">
                                             <?php else: ?>
-                                                <img src="https://ui-avatars.com/api/?name=<?php echo urlencode($user['username']); ?>&background=bc8414&color=fff" 
-                                                     alt="Default Profile" class="user-avatar">
+                                                <img src="../../assets/images/default-avatar.png" alt="Profile" width="40" height="40" class="rounded-circle">
                                             <?php endif; ?>
                                         </td>
                                         <td><?php echo htmlspecialchars($user['username']); ?></td>

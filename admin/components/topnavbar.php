@@ -14,7 +14,7 @@ $profileImage = $_SESSION['profile_image'] ?? null;
             <!-- Logo and Name -->
             <div class="navbar-brand-top d-flex align-items-center">
                 <div class="logo me-2">
-                    <img src="../../image/logo.png" alt="Lex Juris Logo" width="30" height="30">
+                    <img src="../../uploads/images/logo.png" alt="Lex Juris Logo" width="30" height="30">
                 </div>
                 <div class="logo-name">
                     <h4>Lex<span>Juris</span></h4>

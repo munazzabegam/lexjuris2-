@@ -41,17 +41,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Handle profile image upload
     if (isset($_FILES['profile_image']) && $_FILES['profile_image']['error'] === UPLOAD_ERR_OK) {
-        $target_dir = __DIR__ . "/../../image/";
+        $target_dir = __DIR__ . "/../../uploads/images/";
         $file_extension = pathinfo($_FILES['profile_image']['name'], PATHINFO_EXTENSION);
         $new_file_name = uniqid('profile_') . '.' . $file_extension;
         $target_file = $target_dir . $new_file_name;
         
         if (move_uploaded_file($_FILES['profile_image']['tmp_name'], $target_file)) {
-            // Delete old profile image if exists
             if ($user['profile_image'] && file_exists(__DIR__ . "/../../" . $user['profile_image'])) {
                 unlink(__DIR__ . "/../../" . $user['profile_image']);
             }
-            $profile_image = "image/" . $new_file_name;
+            $profile_image = "uploads/images/" . $new_file_name;
         } else {
             $error_message = "Error uploading profile image.";
         }
