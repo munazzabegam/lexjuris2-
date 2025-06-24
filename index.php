@@ -7,7 +7,7 @@ if (!isset($_SESSION['disclaimer_accepted']) || $_SESSION['disclaimer_accepted']
     exit();
 }
 
-$page_title = "Lawyex - Legal Services";
+$page_title = "LexJuris - Legal Services";
 $current_page = "home";
 
 // Include database connection
@@ -37,12 +37,6 @@ require_once 'config/database.php';
                 <div class="carousel-inner">
                     <div class="carousel-item active">
                         <video autoplay muted loop playsinline class="hero-video">
-                            <source src="videos/bgvideo2.mp4" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                    </div>
-                    <div class="carousel-item">
-                        <video autoplay muted loop playsinline class="hero-video">
                             <source src="videos/bgvideo3.mp4" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
@@ -55,7 +49,7 @@ require_once 'config/database.php';
             <div class="row min-vh-100 align-items-center">
                 <div class="col-lg-6" data-aos="fade-right" data-aos-delay="200">
                     <div class="logo">
-                        <img src="assets/images/logo11.jpg" style="width: 100px; height: 100px;" alt="Lawyex Logo" class="img-fluid rounded-circle">
+                        <img src="assets/images/logo11.jpg" style="width: 100px; height: 100px;" alt="LexJuris Logo" class="img-fluid rounded-circle">
                     </div>
                     <h1 class="display-4 fw-bold text-white mb-4">Professional Legal Services</h1>
                     <p class="lead text-white mb-4">We provide expert legal solutions for individuals and businesses. Our experienced team is dedicated to protecting your rights and interests.</p>
@@ -285,20 +279,21 @@ require_once 'config/database.php';
                 <?php
                 $services = [
                     [
-                        'icon' => 'fa-balance-scale',
+                        'icon' => 'fa-shield-alt',
+                        'title' => 'Criminal Law',
+                        'description' => 'Expert defense and representation in criminal cases and proceedings.'
+                    ],
+                    [
+                        'icon' => 'fa-heart',
                         'title' => 'Family Law',
-                        'description' => 'Expert guidance through divorce, custody, and family matters.'
+                        'description' => 'Comprehensive family legal services including divorce, custody, and support.'
                     ],
                     [
-                        'icon' => 'fa-passport',
-                        'title' => 'Immigration Law',
-                        'description' => 'Comprehensive immigration services and visa assistance.'
-                    ],
-                    [
-                        'icon' => 'fa-gavel',
-                        'title' => 'Civil Law',
-                        'description' => 'Professional representation in civil disputes and litigation.'
+                        'icon' => 'fa-money-bill-wave',
+                        'title' => 'Cheque Law',
+                        'description' => 'Professional handling of cheque-related disputes and legal matters.'
                     ]
+                    
                 ];
 
                 foreach ($services as $index => $service) {

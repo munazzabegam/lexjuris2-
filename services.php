@@ -33,22 +33,40 @@ $current_page = "services";
                 <?php
                 $main_services = [
                     [
-                        'icon' => 'fa-balance-scale',
+                        'icon' => 'fa-shield-alt',
+                        'title' => 'Criminal Law',
+                        'description' => 'Expert defense and representation in criminal cases and proceedings.',
+                        'features' => ['Criminal Defense', 'Bail Applications', 'Appeals', 'Legal Consultation']
+                    ],
+                    [
+                        'icon' => 'fa-heart',
                         'title' => 'Family Law',
-                        'description' => 'Expert guidance through divorce, custody, and family matters.',
+                        'description' => 'Comprehensive family legal services including divorce, custody, and support.',
                         'features' => ['Divorce & Separation', 'Child Custody', 'Child Support', 'Alimony']
                     ],
                     [
-                        'icon' => 'fa-passport',
-                        'title' => 'Immigration Law',
-                        'description' => 'Comprehensive immigration services and visa assistance.',
-                        'features' => ['Visa Applications', 'Green Card', 'Citizenship', 'Deportation Defense']
+                        'icon' => 'fa-money-bill-wave',
+                        'title' => 'Cheque Law',
+                        'description' => 'Professional handling of cheque-related disputes and legal matters.',
+                        'features' => ['Cheque Bounce Cases', 'Payment Disputes', 'Banking Issues', 'Financial Litigation']
                     ],
                     [
-                        'icon' => 'fa-gavel',
-                        'title' => 'Civil Law',
-                        'description' => 'Professional representation in civil disputes and litigation.',
-                        'features' => ['Contract Disputes', 'Property Law', 'Personal Injury', 'Employment Law']
+                        'icon' => 'fa-user-tie',
+                        'title' => 'Consumer Cases',
+                        'description' => 'Expert representation in consumer protection and dispute resolution.',
+                        'features' => ['Consumer Complaints', 'Product Liability', 'Service Disputes', 'Consumer Rights']
+                    ],
+                    [
+                        'icon' => 'fa-briefcase',
+                        'title' => 'Labour Law',
+                        'description' => 'Comprehensive employment and labor law services for workers and employers.',
+                        'features' => ['Employment Disputes', 'Workplace Harassment', 'Wage Claims', 'Industrial Relations']
+                    ],
+                    [
+                        'icon' => 'fa-balance-scale',
+                        'title' => 'High Court Cases',
+                        'description' => 'Specialized representation in High Court proceedings and appeals.',
+                        'features' => ['Civil Appeals', 'Criminal Appeals', 'Writ Petitions', 'Constitutional Matters']
                     ]
                 ];
 
@@ -63,53 +81,6 @@ $current_page = "services";
                         echo '<li><i class="fas fa-check text-warning me-2"></i>' . $feature . '</li>';
                     }
                     echo '</ul></div></div>';
-                }
-                ?>
-            </div>
-        </div>
-    </section>
-
-    <!-- Additional Services -->
-    <section class="additional-services py-5 bg-light">
-        <div class="container">
-            <div class="row text-center mb-5">
-                <div class="col-12" data-aos="fade-up">
-                    <h2 class="section-title">Additional Services</h2>
-                    <p class="section-subtitle">Specialized legal solutions for your specific needs</p>
-                </div>
-            </div>
-            <div class="row g-4">
-                <?php
-                $additional_services = [
-                    [
-                        'icon' => 'fa-building',
-                        'title' => 'Business Law',
-                        'description' => 'Comprehensive legal services for businesses of all sizes.',
-                        'features' => ['Business Formation', 'Contract Review', 'Mergers & Acquisitions']
-                    ],
-                    [
-                        'icon' => 'fa-home',
-                        'title' => 'Real Estate Law',
-                        'description' => 'Expert guidance in all real estate matters.',
-                        'features' => ['Property Transactions', 'Landlord-Tenant Disputes', 'Property Development']
-                    ]
-                ];
-
-                foreach ($additional_services as $index => $service) {
-                    echo '<div class="col-md-6" data-aos="fade-up" data-aos-delay="' . ($index * 200) . '">
-                        <div class="service-detail-card">
-                            <div class="row align-items-center">
-                                <div class="col-md-3 text-center">
-                                    <i class="fas ' . $service['icon'] . ' service-icon"></i>
-                                </div>
-                                <div class="col-md-9">
-                                    <h3>' . $service['title'] . '</h3>
-                                    <p>' . $service['description'] . '</p>
-                                    <ul class="list-unstyled">';
-                    foreach ($service['features'] as $feature) {
-                        echo '<li><i class="fas fa-check text-warning me-2"></i>' . $feature . '</li>';
-                    }
-                    echo '</ul></div></div></div></div>';
                 }
                 ?>
             </div>

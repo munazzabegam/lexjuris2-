@@ -1,8 +1,28 @@
 <?php
-$page_title = "Our Blog - Lawyex";
+$page_title = "Our Blog - LexJuris";
 $current_page = "blog";
 
 require_once 'config/database.php';
+
+// Handle comment submission
+$comment_success = $comment_error = '';
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['comment_post_id'])) {
+    $comment_post_id = (int)$_POST['comment_post_id'];
+    $comment_name = trim($_POST['comment_name'] ?? '');
+    $comment_text = trim($_POST['comment_text'] ?? '');
+    if ($comment_name && $comment_text) {
+        $stmt = $conn->prepare("INSERT INTO blog_comments (post_id, name, comment) VALUES (?, ?, ?)");
+        $stmt->bind_param("iss", $comment_post_id, $comment_name, $comment_text);
+        if ($stmt->execute()) {
+            $comment_success = "Comment added successfully.";
+        } else {
+            $comment_error = "Failed to add comment. Please try again.";
+        }
+        $stmt->close();
+    } else {
+        $comment_error = "Name and comment are required.";
+    }
+}
 
 // Pagination settings
 $posts_per_page = 6;
@@ -135,21 +155,7 @@ $tags = $tags_result->fetch_all(MYSQLI_ASSOC);
                                         <!-- Social Media Icons -->
                                         <div class="social-icons mt-3">
                                             <?php
-                                            // To implement social media icons, you'll need to fetch the social media links
-                                            // from your database (e.g., from the 'articles' table or a related table).
-                                            // For example, if you have columns like 'facebook_link', 'twitter_link', etc.:
-                                            // if (!empty($post['facebook_link'])) {
-                                            //     echo '<a href="' . htmlspecialchars($post['facebook_link']) . '" class="me-2 text-dark"><i class="fab fa-facebook-f"></i></a>';
-                                            // }
-                                            // if (!empty($post['twitter_link'])) {
-                                            //     echo '<a href="' . htmlspecialchars($post['twitter_link']) . '" class="me-2 text-dark"><i class="fab fa-twitter"></i></a>';
-                                            // }
-                                            // if (!empty($post['linkedin_link'])) {
-                                            //     echo '<a href="' . htmlspecialchars($post['linkedin_link']) . '" class="me-2 text-dark"><i class="fab fa-linkedin-in"></i></a>';
-                                            // }
-                                            // if (!empty($post['instagram_link'])) {
-                                            //     echo '<a href="' . htmlspecialchars($post['instagram_link']) . '" class="me-2 text-dark"><i class="fab fa-instagram"></i></a>';
-                                            // }
+                                            // Social media icons logic (if needed)
                                             ?>
                                         </div>
                                     </div>

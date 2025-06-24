@@ -1,5 +1,5 @@
 <?php
-$page_title = "About Us - Lawyex";
+$page_title = "About Us - LexJuris";
 $current_page = "about";
 ?>
 <!DOCTYPE html>
@@ -25,12 +25,12 @@ $current_page = "about";
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-6" data-aos="fade-right" data-aos-delay="200">
-                    <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="About Us" class="img-fluid rounded">
+                    <img src="https://images.pexels.com/photos/6077326/pexels-photo-6077326.jpeg?auto=compress&w=1200&q=80" alt="About Us" class="img-fluid rounded">
                 </div>
                 <div class="col-lg-6" data-aos="fade-left" data-aos-delay="400">
                     <h2 class="section-title">Our Story</h2>
                     <p class="lead">With over 25 years of experience, we've been serving our clients with dedication and excellence.</p>
-                    <p>Founded in 1998, Lawyex has grown to become one of the most trusted law firms in the region. Our team of experienced attorneys specializes in various areas of law, providing comprehensive legal solutions to individuals and businesses.</p>
+                    <p>Founded in 1998, LexJuris has grown to become one of the most trusted law firms in the region. Our team of experienced attorneys specializes in various areas of law, providing comprehensive legal solutions to individuals and businesses.</p>
                     <p>We believe in building strong relationships with our clients, understanding their needs, and delivering personalized legal services that exceed expectations.</p>
                 </div>
             </div>

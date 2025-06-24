@@ -1,5 +1,5 @@
 <?php
-$page_title = "Our Teams - Lawyex";
+$page_title = "Our Teams - LexJuris";
 $current_page = "our-teams";
 
 // Include database connection

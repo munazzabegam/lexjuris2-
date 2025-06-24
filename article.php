@@ -1,5 +1,5 @@
 <?php
-$page_title = "Article - Lawyex";
+$page_title = "Article - LexJuris";
 $current_page = "blog";
 
 require_once 'config/database.php';
@@ -29,7 +29,27 @@ if (!$article) {
 }
 
 // Update page title
-$page_title = $article['title'] . " - Lawyex";
+$page_title = $article['title'] . " - LexJuris";
+
+// Handle comment submission
+$comment_success = $comment_error = '';
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['comment_article_id'])) {
+    $comment_article_id = (int)$_POST['comment_article_id'];
+    $comment_name = trim($_POST['comment_name'] ?? '');
+    $comment_text = trim($_POST['comment_text'] ?? '');
+    if ($comment_name && $comment_text && $comment_article_id === (int)$article['id']) {
+        $stmt = $conn->prepare("INSERT INTO blog_comments (post_id, name, comment) VALUES (?, ?, ?)");
+        $stmt->bind_param("iss", $comment_article_id, $comment_name, $comment_text);
+        if ($stmt->execute()) {
+            $comment_success = "Comment added successfully.";
+        } else {
+            $comment_error = "Failed to add comment. Please try again.";
+        }
+        $stmt->close();
+    } else {
+        $comment_error = "Name and comment are required.";
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -76,6 +96,52 @@ $page_title = $article['title'] . " - Lawyex";
 
                         <div class="article-content">
                             <?php echo $article['content']; ?>
+                        </div>
+
+                        <!-- Comments Section -->
+                        <div class="mt-5">
+                            <h3 class="mb-4">Comments</h3>
+                            <?php
+                            $comments_stmt = $conn->prepare("SELECT name, comment, created_at FROM blog_comments WHERE post_id = ? ORDER BY created_at DESC");
+                            $comments_stmt->bind_param("i", $article['id']);
+                            $comments_stmt->execute();
+                            $comments_result = $comments_stmt->get_result();
+                            if ($comments_result->num_rows > 0):
+                                while ($comment = $comments_result->fetch_assoc()): ?>
+                                    <div class="border rounded p-2 mb-2">
+                                        <strong><?php echo htmlspecialchars($comment['name']); ?></strong>
+                                        <span class="text-muted small ms-2"><?php echo date('M d, Y H:i', strtotime($comment['created_at'])); ?></span>
+                                        <div><?php echo nl2br(htmlspecialchars($comment['comment'])); ?></div>
+                                    </div>
+                                <?php endwhile;
+                            else:
+                                echo '<div class="text-muted">No comments yet.</div>';
+                            endif;
+                            $comments_stmt->close();
+                            ?>
+                            <!-- Leave a Comment Form -->
+                            <div class="card mt-4 mb-2">
+                                <div class="card-body">
+                                    <h5 class="mb-3">Leave a Comment</h5>
+                                    <?php if ($comment_success): ?>
+                                        <div class="alert alert-success">Comment added successfully.</div>
+                                    <?php elseif ($comment_error): ?>
+                                        <div class="alert alert-danger"><?php echo htmlspecialchars($comment_error); ?></div>
+                                    <?php endif; ?>
+                                    <form method="post" action="">
+                                        <input type="hidden" name="comment_article_id" value="<?php echo $article['id']; ?>">
+                                        <div class="mb-2">
+                                            <label for="commentName" class="form-label">Name</label>
+                                            <input type="text" class="form-control" id="commentName" name="comment_name" required>
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="commentText" class="form-label">Comment</label>
+                                            <textarea class="form-control" id="commentText" name="comment_text" rows="3" required></textarea>
+                                        </div>
+                                        <button type="submit" class="btn btn-warning">Submit Comment</button>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
 
                         <?php if (!empty($article['tags'])): ?>

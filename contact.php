@@ -1,5 +1,5 @@
 <?php
-$page_title = "Contact Us - Lawyex";
+$page_title = "Contact Us - LexJuris";
 $current_page = "contact";
 
 // Include database connection
