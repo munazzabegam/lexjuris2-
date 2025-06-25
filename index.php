@@ -665,51 +665,6 @@ require_once 'config/database.php';
         }
     </style>
 
-    <!-- Practice Areas Section -->
-    <section class="practice-area py-5 bg-light">
-        <div class="container">
-            <div class="text-center mb-5">
-                <h2 data-aos="fade-up" data-aos-delay="100">Our Practice Areas</h2>
-                <p data-aos="fade-up" data-aos-delay="200">Expertise across all major legal fields</p>
-            </div>
-
-            <div class="row">
-                <!-- Card 1 -->
-                <div class="col-md-4 mb-4" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="card h-100 shadow border-0">
-                        <div class="card-body text-center">
-                            <i class="fas fa-shield-alt display-4 text-warning mb-3"></i>
-                            <h5 class="card-title">Criminal Law</h5>
-                            <p class="card-text">Protecting your rights in all criminal defense matters.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 2 -->
-                <div class="col-md-4 mb-4" data-aos="zoom-in" data-aos-delay="200">
-                    <div class="card h-100 shadow border-0">
-                        <div class="card-body text-center">
-                            <i class="fas fa-users display-4 text-warning mb-3"></i>
-                            <h5 class="card-title">Family Law</h5>
-                            <p class="card-text">Handling divorce, custody, and family disputes with care.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 3 -->
-                <div class="col-md-4 mb-4" data-aos="zoom-in" data-aos-delay="300">
-                    <div class="card h-100 shadow border-0">
-                        <div class="card-body text-center">
-                            <i class="fas fa-building display-4 text-warning mb-3"></i>
-                            <h5 class="card-title">Corporate Law</h5>
-                            <p class="card-text">Legal support for businesses, startups, and entrepreneurs.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Testimonials Section -->
     <section class="testimonials-section pt-5 bg-light" style="margin-bottom: -20%">
         <div class="container">
