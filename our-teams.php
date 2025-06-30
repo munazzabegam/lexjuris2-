@@ -159,6 +159,74 @@ require_once 'config/database.php';
         </div>
     </section>
 
+    <!-- Udupi Main Member Section -->
+    <section class="team-section py-5">
+        <div class="container">
+            <div class="row text-center mb-5">
+                <div class="col-12" data-aos="fade-up">
+                    <h2 class="section-title">Udupi Team</h2>
+                    <p class="section-subtitle">Meet our distinguished Udupi team members</p>
+                </div>
+            </div>
+            <div class="row g-4 justify-content-center">
+                <?php
+                // Fetch Udupi team members from the new udupi_team_members table
+                $udupi_query = "SELECT * FROM udupi_team_members WHERE is_active = 1 ORDER BY order_index ASC";
+                $udupi_result = $conn->query($udupi_query);
+                
+                if ($udupi_result && $udupi_result->num_rows > 0) {
+                    $index = 0;
+                    while ($member = $udupi_result->fetch_assoc()) {
+                        echo '<div class="col-md-4 mb-4" data-aos="zoom-in" data-aos-delay="' . ($index * 100) . '">
+                            <div class="main-team-card">
+                                <img src="' . htmlspecialchars($member['photo']) . '" alt="' . htmlspecialchars($member['full_name']) . '" class="team-img">
+                                <div class="team-info-overlay">
+                                    <div class="team-header">
+                                        <h3>
+                                            <a href="' . (!empty($member['portfolio']) ? htmlspecialchars($member['portfolio']) : '#') . '" target="_blank" class="text-white text-decoration-none">
+                                                ' . htmlspecialchars($member['full_name']) . '
+                                            </a>
+                                        </h3>';
+                        
+                        // Add contact icon if available
+                        if (!empty($member['contact'])) {
+                            $contact_url = '';
+                            $contact_icon = '';
+                            
+                            // Determine if it's an email or phone number
+                            if (filter_var($member['contact'], FILTER_VALIDATE_EMAIL)) {
+                                $contact_url = 'mailto:' . $member['contact'];
+                                $contact_icon = 'fas fa-envelope';
+                            } else {
+                                $contact_url = 'tel:' . $member['contact'];
+                                $contact_icon = 'fas fa-phone';
+                            }
+                            
+                            echo '<div class="team-contact-icon">
+                                <a href="' . htmlspecialchars($contact_url) . '" class="contact-icon-link" title="' . htmlspecialchars($member['contact']) . '">
+                                    <i class="' . $contact_icon . '"></i>
+                                </a>
+                            </div>';
+                        }
+                        
+                        echo '</div>
+                                    <p>' . htmlspecialchars($member['education']) . '</p>
+                                </div>
+                            </div>
+                        </div>';
+                        $index++;
+                    }
+                } else {
+                    // Fallback if no Udupi team members found
+                    echo '<div class="col-12 text-center">
+                        <p class="text-muted">No Udupi team members found.</p>
+                    </div>';
+                }
+                ?>
+            </div>
+        </div>
+    </section>
+
     <?php include 'includes/footer.php'; ?>
 
     <!-- Bootstrap JS Bundle -->

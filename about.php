@@ -28,10 +28,11 @@ $current_page = "about";
                     <img src="https://images.pexels.com/photos/6077326/pexels-photo-6077326.jpeg?auto=compress&w=1200&q=80" alt="About Us" class="img-fluid rounded">
                 </div>
                 <div class="col-lg-6" data-aos="fade-left" data-aos-delay="400">
-                    <h2 class="section-title">Our Story</h2>
-                    <p class="lead">With over 25 years of experience, we've been serving our clients with dedication and excellence.</p>
-                    <p>Founded in 1998, LexJuris has grown to become one of the most trusted law firms in the region. Our team of experienced attorneys specializes in various areas of law, providing comprehensive legal solutions to individuals and businesses.</p>
-                    <p>We believe in building strong relationships with our clients, understanding their needs, and delivering personalized legal services that exceed expectations.</p>
+                    <h2 class="section-title">Our Journey: The Evolution of Lex Juris Law Chamber</h2>
+                    <p class="lead">A story of perseverance, collaboration, and an enduring pursuit of legal excellence.</p>
+                    <p>The inception of Lex Juris Law Chamber traces back to three zealous legal minds — Asif, Aris, and U.F. — who established their first office near the State Bank, opposite Noufal Hotel. As their practice gained momentum, they welcomed Advocate O.F., followed by Advocate Asgar, a litigator renowned for his courtroom acumen.</p>
+                    <p>Motivated by a shared vision of a more sophisticated workspace, the team embarked on a year-long search for a new office. Their perseverance bore fruit when they discovered an ideal location and transformed it into a thoughtfully designed legal chamber with six elegantly structured cabins.</p>
+                    <p>With five dedicated advocates at the helm, they extended an invitation to Advocate Ijaz — a trusted friend and former classmate of Asgar — completing the circle. Thus, six advocates — united by trust, shared purpose, and an unwavering commitment to justice — inaugurated a new era of Lex Juris Law Chamber.</p>
                 </div>
             </div>
         </div>

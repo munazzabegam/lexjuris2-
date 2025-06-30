@@ -21,6 +21,13 @@ $order_by_sub = $check_column_sub->num_rows > 0 ? "order_index ASC" : "id DESC";
 $result_sub = $conn->query("SELECT * FROM sub_junior_team_members ORDER BY $order_by_sub");
 $sub_junior_team_members = $result_sub->fetch_all(MYSQLI_ASSOC);
 
+// Get all udupi team members ordered by order_index (if exists, otherwise by id)
+$check_column_udupi = $conn->query("SHOW COLUMNS FROM udupi_team_members LIKE 'order_index'");
+$order_by_udupi = $check_column_udupi->num_rows > 0 ? "order_index ASC" : "id DESC";
+
+$result_udupi = $conn->query("SELECT * FROM udupi_team_members ORDER BY $order_by_udupi");
+$udupi_team_members = $result_udupi->fetch_all(MYSQLI_ASSOC);
+
 ?>
 
 <!DOCTYPE html>
@@ -273,6 +280,82 @@ $sub_junior_team_members = $result_sub->fetch_all(MYSQLI_ASSOC);
                     </table>
                 </div>
             </div>
+
+            <!-- Udupi Team Members Section -->
+            <div class="row mb-4 mt-5">
+                <div class="col-12">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0">Manage Udupi Team Members</h4>
+                        <a href="create_udupi.php" class="btn btn-primary">
+                            <i class="fas fa-plus me-2"></i> Add New Udupi Team Member
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5>All Udupi Team Members</h5>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th style="width: 50px;"></th>
+                                <th>Order</th>
+                                <th>Photo</th>
+                                <th>Full Name</th>
+                                <th>Education</th>
+                                <th>Status</th>
+                                <th>Created At</th>
+                                <th>Updated At</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="udupi-members-list">
+                            <?php if (empty($udupi_team_members)): ?>
+                                <tr>
+                                    <td colspan="9" class="text-center">No Udupi team members found.</td>
+                                </tr>
+                            <?php else: ?>
+                                <?php foreach ($udupi_team_members as $member): ?>
+                                    <tr data-id="<?php echo $member['id']; ?>">
+                                        <td><i class="fas fa-grip-vertical drag-handle"></i></td>
+                                        <td><?php echo htmlspecialchars($member['order_index'] ?? 'N/A'); ?></td>
+                                        <td>
+                                            <?php if ($member['photo']): ?>
+                                                <img src="../../<?php echo htmlspecialchars($member['photo']); ?>" alt="Team Photo" class="team-photo">
+                                            <?php else: ?>
+                                                <img src="https://via.placeholder.com/50" alt="Default Photo" class="team-photo">
+                                            <?php endif; ?>
+                                        </td>
+                                        <td><?php echo htmlspecialchars($member['full_name']); ?></td>
+                                        <td><?php echo htmlspecialchars($member['education']); ?></td>
+                                        <td>
+                                            <span class="badge <?php echo $member['is_active'] ? 'bg-success' : 'bg-warning'; ?>">
+                                                <?php echo $member['is_active'] ? 'Active' : 'Inactive'; ?>
+                                            </span>
+                                        </td>
+                                        <td><?php echo date('Y-m-d H:i', strtotime($member['created_at'])); ?></td>
+                                        <td><?php echo $member['updated_at'] ? date('Y-m-d H:i', strtotime($member['updated_at'])) : 'N/A'; ?></td>
+                                        <td>
+                                            <a href="edit_udupi.php?id=<?php echo $member['id']; ?>" class="btn btn-sm btn-outline-primary btn-action">
+                                                <i class="fas fa-edit"></i> Edit
+                                            </a>
+                                            <form action="actions/delete_udupi.php" method="POST" onsubmit="return confirm('Are you sure you want to delete this Udupi team member?');" style="display: inline;">
+                                                <input type="hidden" name="udupi_member_id" value="<?php echo $member['id']; ?>">
+                                                <button type="submit" class="btn btn-sm btn-outline-danger btn-action">
+                                                    <i class="fas fa-trash"></i> Delete
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -379,6 +462,56 @@ $sub_junior_team_members = $result_sub->fetch_all(MYSQLI_ASSOC);
                         error: function(xhr, status, error) {
                             console.error('Error:', error);
                             showAlert('Error updating sub junior team member order. Please try again.', 'danger');
+                        }
+                    });
+                }
+            });
+
+            // Udupi Team Members Sortable
+            $("#udupi-members-list").sortable({
+                handle: ".drag-handle",
+                placeholder: "ui-sortable-placeholder",
+                helper: function(e, tr) {
+                    var $originals = tr.children();
+                    var $helper = tr.clone();
+                    $helper.children().each(function(index) {
+                        $(this).width($originals.eq(index).width());
+                    });
+                    return $helper;
+                },
+                update: function(event, ui) {
+                    var newOrder = [];
+                    $("#udupi-members-list tr").each(function(index) {
+                        if ($(this).data('id')) {
+                            newOrder.push({
+                                id: $(this).data('id'),
+                                order: index
+                            });
+                        }
+                    });
+
+                    // Send the new order to the server for Udupi members
+                    $.ajax({
+                        url: 'actions/update_udupi_order.php',
+                        method: 'POST',
+                        data: {
+                            order: newOrder
+                        },
+                        success: function(response) {
+                            if (response.success) {
+                                $("#udupi-members-list tr").each(function(index) {
+                                    if ($(this).data('id')) {
+                                        $(this).find('td:eq(1)').text(index + 1);
+                                    }
+                                });
+                                showAlert('Udupi team member order updated successfully.');
+                            } else {
+                                showAlert('Error updating Udupi team member order: ' + (response.message || 'Unknown error'), 'danger');
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.error('Error:', error);
+                            showAlert('Error updating Udupi team member order. Please try again.', 'danger');
                         }
                     });
                 }

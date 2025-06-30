@@ -158,3 +158,16 @@ CREATE TABLE `blog_comments` (
     `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (`post_id`) REFERENCES `articles`(`id`) ON DELETE CASCADE
 ) 
+CREATE TABLE `udupi_team_members` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `full_name` varchar(255) NOT NULL,
+  `education` text,
+  `photo` varchar(500) DEFAULT NULL,
+  `contact` varchar(100) DEFAULT NULL,
+  `portfolio` varchar(500) DEFAULT NULL,
+  `order_index` int(11) DEFAULT 0,
+  `is_active` tinyint(1) DEFAULT 1,
+  `created_at` timestamp DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) 
