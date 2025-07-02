@@ -47,126 +47,89 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <?php include 'includes/header.php'; ?>
 
     <!-- Contact Section -->
-    <section class="contact-section py-5">
+    <section class="contact-section py-5" style="background: var(--light-bg);">
         <div class="container">
-            <div class="row g-4">
-                <!-- Contact Information -->
-                <div class="col-lg-4" data-aos="fade-right" data-aos-delay="100">
-                    <div class="contact-info">
-                        <h2 class="section-title">Get in Touch</h2>
-                        <p class="mb-4">We're here to help and answer any questions you might have. We look forward to hearing from you.</p>
-                        
-                        <?php
-                        $contact_info = [
-                            [
-                                'icon' => 'fa-map-marker-alt',
-                                'title' => 'Main Branch',
-                                'content' => '6th Floor Paradigm Plaza, AB Shetty Circle, Mangalore , D.K'
-                            ],
-                            [
-                                'icon' => 'fa-map-marker-alt',
-                                'title' => 'Branch',
-                                'content' => '3rd Floor Canara Tower,  Mission Hospital Road, Udupi'
-                            ],
-                            [
-                                'icon' => 'fa-phone',
-                                'title' => 'Phone Number',
-                                'content' => '+91 7411448378, +91 9555552545'
-                            ],
-                            [
-                                'icon' => 'fa-envelope',
-                                'title' => 'Email Address',
-                                'content' => 'teamlexjuris@gmail.com'
-                            ],
-                            [
-                                'icon' => 'fa-clock',
-                                'title' => 'Working Hours',
-                                'content' => 'Monday - Saturday: 9:00 AM - 9:00 PM<br>Saturday: 9:00 AM - 2:00 PM'
-                            ]
-                        ];
-
-                        foreach ($contact_info as $index => $info) {
-                            echo '<div class="info-item mb-4" data-aos="fade-up" data-aos-delay="' . (200 + $index * 100) . '">
-                                <i class="fas ' . $info['icon'] . ' text-warning me-3"></i>
-                                <div>
-                                    <h4>' . $info['title'] . '</h4>
-                                    <p>' . $info['content'] . '</p>
-                                </div>
-                            </div>';
-                        }
-                        ?>
-                    </div>
-                </div>
-                
+            <div class="row justify-content-center align-items-start g-0">
                 <!-- Contact Form -->
-                <div class="col-lg-8" data-aos="fade-left" data-aos-delay="100">
-                    <div class="contact-form">
-                        <h2 class="section-title">Send us a Message</h2>
-                        <?php if (!empty($errors)): ?>
-                            <div class="alert alert-danger" data-aos="fade-up">
-                                <ul class="mb-0">
-                                    <?php foreach ($errors as $error): ?>
-                                        <li><?php echo htmlspecialchars($error); ?></li>
-                                    <?php endforeach; ?>
-                                </ul>
+                <div class="col-lg-7 px-4 py-5">
+                    <h1 class="display-4 mb-2" style="font-family: 'Playfair Display', serif; font-weight: 700; color: var(--primary-color);">Contact Law Firm</h1>
+                    <p class="mb-4" style="color: #666;">Send a message. We will contact you as soon as possible</p>
+                    <?php if (!empty($errors)): ?>
+                        <div class="alert alert-danger" data-aos="fade-up">
+                            <ul class="mb-0">
+                                <?php foreach ($errors as $error): ?>
+                                    <li><?php echo htmlspecialchars($error); ?></li>
+                                <?php endforeach; ?>
+                            </ul>
+                        </div>
+                    <?php endif; ?>
+                    <?php if (isset($success)): ?>
+                        <div class="alert alert-success" data-aos="fade-up">
+                            Thank you for your message! We will get back to you soon.
+                        </div>
+                    <?php endif; ?>
+                    <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" class="needs-validation" novalidate>
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <input type="text" class="form-control bg-white border-0 rounded-3 py-3" placeholder="Your Name (*)" id="name" name="name" value="<?php echo isset($name) ? htmlspecialchars($name) : ''; ?>" required>
+                                <div class="invalid-feedback">Please enter your name.</div>
                             </div>
-                        <?php endif; ?>
-                        
-                        <?php if (isset($success)): ?>
-                            <div class="alert alert-success" data-aos="fade-up">
-                                Thank you for your message! We will get back to you soon.
+                            <div class="col-12">
+                                <input type="email" class="form-control bg-white border-0 rounded-3 py-3" placeholder="Your Email (*)" id="email" name="email" value="<?php echo isset($email) ? htmlspecialchars($email) : ''; ?>" required>
+                                <div class="invalid-feedback">Please enter a valid email address.</div>
                             </div>
-                        <?php endif; ?>
-
-                        <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" class="needs-validation" novalidate>
-                            <div class="row g-3">
-                                <div class="col-md-6" data-aos="fade-up" data-aos-delay="200">
-                                    <div class="form-group">
-                                        <label for="name" class="form-label">Your Name</label>
-                                        <input type="text" class="form-control" id="name" name="name" value="<?php echo isset($name) ? htmlspecialchars($name) : ''; ?>" required>
-                                        <div class="invalid-feedback">
-                                            Please enter your name.
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6" data-aos="fade-up" data-aos-delay="300">
-                                    <div class="form-group">
-                                        <label for="email" class="form-label">Email Address</label>
-                                        <input type="email" class="form-control" id="email" name="email" value="<?php echo isset($email) ? htmlspecialchars($email) : ''; ?>" required>
-                                        <div class="invalid-feedback">
-                                            Please enter a valid email address.
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6" data-aos="fade-up" data-aos-delay="400">
-                                    <div class="form-group">
-                                        <label for="phone" class="form-label">Phone Number</label>
-                                        <input type="tel" class="form-control" id="phone" name="phone" value="<?php echo isset($phone) ? htmlspecialchars($phone) : ''; ?>">
-                                    </div>
-                                </div>
-                                <div class="col-md-6" data-aos="fade-up" data-aos-delay="500">
-                                    <div class="form-group">
-                                        <label for="subject" class="form-label">Subject</label>
-                                        <input type="text" class="form-control" id="subject" name="subject" value="<?php echo isset($subject) ? htmlspecialchars($subject) : ''; ?>" required>
-                                        <div class="invalid-feedback">
-                                            Please enter a subject.
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12" data-aos="fade-up" data-aos-delay="600">
-                                    <div class="form-group">
-                                        <label for="message" class="form-label">Your Message</label>
-                                        <textarea class="form-control" id="message" name="message" rows="5" required><?php echo isset($message) ? htmlspecialchars($message) : ''; ?></textarea>
-                                        <div class="invalid-feedback">
-                                            Please enter your message.
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12" data-aos="fade-up" data-aos-delay="700">
-                                           <button type="submit" class="btn btn-warning btn-lg">Send Message</button>
-                                </div>
+                            <div class="col-12">
+                                <input type="text" class="form-control bg-white border-0 rounded-3 py-3" placeholder="Subject" id="subject" name="subject" value="<?php echo isset($subject) ? htmlspecialchars($subject) : ''; ?>" required>
+                                <div class="invalid-feedback">Please enter a subject.</div>
                             </div>
-                        </form>
+                            <div class="col-12">
+                                <textarea class="form-control bg-white border-0 rounded-3 py-3" placeholder="Your Message" id="message" name="message" rows="5" required><?php echo isset($message) ? htmlspecialchars($message) : ''; ?></textarea>
+                                <div class="invalid-feedback">Please enter your message.</div>
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-warning px-5 py-2 rounded-3" style="background: var(--secondary-color); border: none; color: #fff;">Send Message</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- Contact Information -->
+                <div class="col-lg-5 d-flex align-items-stretch">
+                    <div class="bg-white rounded-4 shadow-sm p-4 w-100" style="min-width: 320px; border: 2px solid var(--primary-color);">
+                        <div class="mb-4 d-flex align-items-center">
+                            <span class="d-inline-flex justify-content-center align-items-center" style="background: var(--primary-color); width:48px;height:48px; border-radius: 12px;" ><i class="fas fa-phone fa-lg text-white"></i></span>
+                            <div class="ms-3">
+                                <div class="fw-bold" style="color: var(--secondary-color);">Call Free</div>
+                                <div class="text-muted small">+91 7411448378, +91 9555552545</div>
+                            </div>
+                        </div>
+                        <div class="mb-4 d-flex align-items-center">
+                            <span class="d-inline-flex justify-content-center align-items-center" style="background: var(--primary-color); width:48px;height:48px; border-radius: 12px;"><i class="fas fa-envelope fa-lg text-white"></i></span>
+                            <div class="ms-3">
+                                <div class="fw-bold" style="color: var(--secondary-color);">Email</div>
+                                <div class="text-muted small">teamlexjuris@gmail.com</div>
+                            </div>
+                        </div>
+                        <div class="mb-4 d-flex align-items-center">
+                            <span class="d-inline-flex justify-content-center align-items-center" style="background: var(--primary-color); width:48px;height:48px; border-radius: 12px;"><i class="fas fa-map-marker-alt fa-lg text-white"></i></span>
+                            <div class="ms-3">
+                                <div class="fw-bold" style="color: var(--secondary-color);">Head Office</div>
+                                <div class="text-muted small">6th Floor Paradigm Plaza, AB Shetty Circle, Mangalore , D.K</div>
+                            </div>
+                        </div>
+                        <div class="mb-4 d-flex align-items-center">
+                            <span class="d-inline-flex justify-content-center align-items-center" style="background: var(--primary-color); width:48px;height:48px; border-radius: 12px;"><i class="fas fa-map-marker-alt fa-lg text-white"></i></span>
+                            <div class="ms-3">
+                                <div class="fw-bold" style="color: var(--secondary-color);">Branch</div>
+                                <div class="text-muted small">3rd Floor Canara Tower,  Mission Hospital Road, Udupi</div>
+                            </div>
+                        </div>
+                        <div class="mb-2 d-flex align-items-center">
+                            <span class="d-inline-flex justify-content-center align-items-center" style="background: var(--primary-color); width:48px;height:48px; border-radius: 12px;"><i class="fas fa-clock fa-lg text-white"></i></span>
+                            <div class="ms-3">
+                                <div class="fw-bold" style="color: var(--secondary-color);">Working Hours</div>
+                                <div class="text-muted small">Monday - Saturday: 9:00 AM - 9:00 PM<br>Saturday: 9:00 AM - 2:00 PM</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

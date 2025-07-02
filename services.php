@@ -29,101 +29,198 @@ $current_page = "services";
                     <p class="section-subtitle">Comprehensive legal solutions for individuals and businesses</p>
                 </div>
             </div>
-            <div class="row g-4">
+            <div class="row g-4" id="servicesGrid">
                 <?php
-                $main_services = [
+                $services = [
                     [
-                        'icon' => 'fa-shield-alt',
+                        'img' => 'assets/images/image1.jpg',
+                        'svg' => 'assets/images/icons/team.svg',
+                        'title' => 'Civil Law',
+                        'desc' => 'Deals with private disputes between individuals or organizations. Includes contract law, tort law, property law, and family law.',
+                        'link' => '#'
+                    ],
+                    [
+                        'img' => 'assets/images/image1.jpg',
+                        'svg' => 'assets/images/icons/support.svg',
                         'title' => 'Criminal Law',
-                        'description' => 'Expert defense and representation in criminal cases and proceedings.',
-                        'features' => ['Criminal Defense', 'Bail Applications', 'Appeals', 'Legal Consultation']
+                        'desc' => 'Involves prosecution by the state of wrongful acts against society. Includes theft, assault, murder, and cybercrime.',
+                        'link' => '#'
                     ],
                     [
-                        'icon' => 'fa-heart',
+                        'img' => 'assets/images/image1.jpg',
+                        'svg' => 'assets/images/icons/focus.svg',
                         'title' => 'Family Law',
-                        'description' => 'Comprehensive family legal services including divorce, custody, and support.',
-                        'features' => ['Divorce & Separation', 'Child Custody', 'Child Support', 'Alimony']
+                        'desc' => 'Covers matters such as marriage, divorce, child custody, maintenance, adoption, and domestic violence.',
+                        'link' => '#'
                     ],
                     [
-                        'icon' => 'fa-money-bill-wave',
-                        'title' => 'Cheque Law',
-                        'description' => 'Professional handling of cheque-related disputes and legal matters.',
-                        'features' => ['Cheque Bounce Cases', 'Payment Disputes', 'Banking Issues', 'Financial Litigation']
+                        'img' => 'assets/images/image1.jpg',
+                        'svg' => 'assets/images/icons/gavel.svg',
+                        'title' => 'Corporate/Business Law',
+                        'desc' => 'Regulates the formation, operation, and dissolution of businesses. Includes mergers & acquisitions and corporate governance.',
+                        'link' => '#'
                     ],
                     [
-                        'icon' => 'fa-user-tie',
-                        'title' => 'Consumer Cases',
-                        'description' => 'Expert representation in consumer protection and dispute resolution.',
-                        'features' => ['Consumer Complaints', 'Product Liability', 'Service Disputes', 'Consumer Rights']
+                        'img' => 'assets/images/image1.jpg',
+                        'svg' => 'assets/images/icons/law.svg',
+                        'title' => 'Labour & Employment Law',
+                        'desc' => 'Governs employer-employee relationships. Covers wages, termination, discrimination, and workplace safety.',
+                        'link' => '#'
                     ],
                     [
-                        'icon' => 'fa-briefcase',
-                        'title' => 'Labour Law',
-                        'description' => 'Comprehensive employment and labor law services for workers and employers.',
-                        'features' => ['Employment Disputes', 'Workplace Harassment', 'Wage Claims', 'Industrial Relations']
+                        'img' => 'assets/images/image1.jpg',
+                        'svg' => 'assets/images/icons/mission.svg',
+                        'title' => 'Property / Real Estate Law',
+                        'desc' => 'Deals with rights and duties related to real property. Includes transactions, leasing, zoning, and landlord-tenant disputes.',
+                        'link' => '#'
                     ],
                     [
-                        'icon' => 'fa-balance-scale',
-                        'title' => 'High Court Cases',
-                        'description' => 'Specialized representation in High Court proceedings and appeals.',
-                        'features' => ['Civil Appeals', 'Criminal Appeals', 'Writ Petitions', 'Constitutional Matters']
+                        'img' => 'assets/images/image1.jpg',
+                        'svg' => 'assets/images/icons/vision.svg',
+                        'title' => 'Constitutional Law',
+                        'desc' => 'Involves interpretation and application of the Constitution. Covers fundamental rights, duties, and judicial review.',
+                        'link' => '#'
+                    ],
+                    [
+                        'img' => 'assets/images/image1.jpg',
+                        'svg' => 'assets/images/icons/court.svg',
+                        'title' => 'Administrative Law',
+                        'desc' => 'Governs the actions and operations of government agencies. Includes licensing, regulation, and tribunal procedures.',
+                        'link' => '#'
+                    ],
+                    [
+                        'img' => 'assets/images/image1.jpg',
+                        'svg' => 'assets/images/icons/focus.svg',
+                        'title' => 'Tax Law',
+                        'desc' => 'Involves the assessment and collection of taxes. Includes tax planning, appeals, and litigation.',
+                        'link' => '#'
+                    ],
+                    [
+                        'img' => 'assets/images/image1.jpg',
+                        'svg' => 'assets/images/icons/support.svg',
+                        'title' => 'Environmental Law',
+                        'desc' => 'Deals with protection of the environment and natural resources. Includes pollution control and forest conservation.',
+                        'link' => '#'
+                    ],
+                    [
+                        'img' => 'assets/images/image1.jpg',
+                        'svg' => 'assets/images/icons/gavel.svg',
+                        'title' => 'Intellectual Property (IP) Law',
+                        'desc' => 'Protects creations of the mind such as inventions, trademarks, copyrights, and patents.',
+                        'link' => '#'
+                    ],
+                    [
+                        'img' => 'assets/images/image1.jpg',
+                        'svg' => 'assets/images/icons/law.svg',
+                        'title' => 'Cyber Law / IT Law',
+                        'desc' => 'Governs digital transactions, data protection, online defamation, cybercrimes, and e-contracts.',
+                        'link' => '#'
+                    ],
+                    [
+                        'img' => 'assets/images/image1.jpg',
+                        'svg' => 'assets/images/icons/mission.svg',
+                        'title' => 'Consumer Protection Law',
+                        'desc' => 'Provides remedies for consumers against unfair trade practices or defective goods/services.',
+                        'link' => '#'
+                    ],
+                    [
+                        'img' => 'assets/images/image1.jpg',
+                        'svg' => 'assets/images/icons/vision.svg',
+                        'title' => 'Human Rights Law',
+                        'desc' => "Protects individuals' rights and freedoms, often involving issues like discrimination and unlawful detention.",
+                        'link' => '#'
+                    ],
+                    [
+                        'img' => 'assets/images/image1.jpg',
+                        'svg' => 'assets/images/icons/court.svg',
+                        'title' => 'Banking and Finance Law',
+                        'desc' => 'Involves regulations related to loans, securities, financial institutions, and debt recovery.',
+                        'link' => '#'
+                    ],
+                    [
+                        'img' => 'assets/images/image1.jpg',
+                        'svg' => 'assets/images/icons/team.svg',
+                        'title' => 'Alternative Dispute Resolution (ADR)',
+                        'desc' => 'Methods like arbitration, mediation, and conciliation to resolve disputes outside court.',
+                        'link' => '#'
+                    ],
+                    [
+                        'img' => 'assets/images/image1.jpg',
+                        'svg' => 'assets/images/icons/support.svg',
+                        'title' => 'International Law',
+                        'desc' => 'Governs relations between nations; includes treaties, international trade, human rights, and conflict resolution.',
+                        'link' => '#'
                     ]
                 ];
-
-                foreach ($main_services as $index => $service) {
-                    echo '<div class="col-md-4" data-aos="fade-up" data-aos-delay="' . ($index * 200) . '">
-                        <div class="service-card">
-                            <i class="fas ' . $service['icon'] . ' service-icon"></i>
-                            <h3>' . $service['title'] . '</h3>
-                            <p>' . $service['description'] . '</p>
-                            <ul class="list-unstyled">';
-                    foreach ($service['features'] as $feature) {
-                        echo '<li><i class="fas fa-check text-warning me-2"></i>' . $feature . '</li>';
-                    }
-                    echo '</ul></div></div>';
+                $total_services = count($services);
+                foreach ($services as $i => $s) {
+                    $extra = $i >= 6 ? ' extra-service d-none' : '';
+                    echo '<div class="col-lg-4 col-md-6'.$extra.'">'
+                        . '<div class="service-modern-card position-relative bg-white rounded-4 shadow-sm p-4 h-100">'
+                        . '<div class="service-img-wrap position-relative">'
+                        . '<img src="' . $s['img'] . '" class="img-fluid rounded-3 w-100" style="height:220px;object-fit:cover;">'
+                        . '<span class="service-modern-icon position-absolute top-100 start-0 translate-middle-y bg-white rounded-3 shadow d-flex align-items-center justify-content-center" style="width:56px;height:56px;left:24px;top:180px;">'
+                        . str_replace('<svg', '<svg width="35" height="35"', file_get_contents($s['svg']))
+                        . '</span>'
+                        . '</div>'
+                        . '<div class="pt-4 position-relative" style="margin-top:5%;">'
+                        . '<h5 class="fw-bold mb-2" style="font-family:Playfair Display,serif;font-size:1.5rem;">' . $s['title'] . '</h5>'
+                        . '<p class="mb-4 text-muted">' . $s['desc'] . '</p>'
+                        . '<a href="' . $s['link'] . '" class="btn btn-modern-gold">Read More <span style="font-size:1.1em;vertical-align:middle;">&rarr;</span></a>'
+                        . '</div>'
+                        . '</div>'
+                        . '</div>';
                 }
                 ?>
             </div>
+            <?php if ($total_services > 6): ?>
+            <div class="text-center mt-4">
+                <button id="viewMoreBtn" class="btn btn-warning px-4 py-2">View More</button>
+            </div>
+            <?php endif; ?>
         </div>
     </section>
 
     <!-- Why Choose Our Services -->
-    <section class="why-choose-services py-5">
-        <div class="container">
+    <section class="why-choose-us py-5 position-relative" style="background: url('assets/images/image2.jpg') center center/cover no-repeat;height: 80vh;">
+        <div class="why-choose-overlay position-absolute w-100 h-100" style="top:0;left:0;background:rgba(0,0,0,0.7);z-index:1;"></div>
+        <div class="container position-relative" style="z-index:2;">
             <div class="row text-center mb-5">
                 <div class="col-12" data-aos="fade-up">
-                    <h2 class="section-title">Why Choose Our Services</h2>
-                    <p class="section-subtitle">Experience the difference with our dedicated team</p>
+                    <h2 class="section-title text-white" style="padding-top: 2%;">Why Choose Us</h2>
+                    <p class="section-subtitle text-white-50">Experience the difference with our dedicated team</p>
                 </div>
             </div>
             <div class="row g-4">
                 <?php
                 $features = [
                     [
-                        'icon' => 'fa-users',
+                        'svg' => 'assets/images/icons/team.svg',
                         'title' => 'Expert Team',
-                        'description' => 'Highly qualified and experienced legal professionals dedicated to your case.'
+                        'description' => 'Highly qualified and experienced legal professionals.'
                     ],
                     [
-                        'icon' => 'fa-clock',
+                        'svg' => 'assets/images/icons/support.svg',
                         'title' => '24/7 Support',
-                        'description' => 'Round-the-clock assistance for urgent legal matters and concerns.'
+                        'description' => 'Round-the-clock assistance for urgent legal matters.'
                     ],
                     [
-                        'icon' => 'fa-handshake',
+                        'svg' => 'assets/images/icons/focus.svg',
                         'title' => 'Client Focus',
-                        'description' => 'Personalized attention and dedicated service for every client.'
+                        'description' => 'Personalized attention and dedicated service.'
                     ]
                 ];
 
                 foreach ($features as $index => $feature) {
-                    echo '<div class="col-md-4" data-aos="fade-up" data-aos-delay="' . ($index * 200) . '">
-                        <div class="feature-card">
-                            <i class="fas ' . $feature['icon'] . ' feature-icon"></i>
-                            <h3>' . $feature['title'] . '</h3>
-                            <p>' . $feature['description'] . '</p>
-                        </div>
-                    </div>';
+                    echo '<div class="col-md-4" data-aos="fade-up" data-aos-delay="' . ($index * 200) . '">'
+                        . '<div class="feature-card text-white bg-transparent">'
+                        . '<span class="feature-svg-icon" style="display:inline-block;width:5rem;height:5rem;vertical-align:middle;margin-bottom:1rem;">'
+                        . file_get_contents($feature['svg'])
+                        . '</span>'
+                        . '<h3>' . $feature['title'] . '</h3>'
+                        . '<p>' . $feature['description'] . '</p>'
+                        . '</div>'
+                        . '</div>';
                 }
                 ?>
             </div>
@@ -151,5 +248,18 @@ $current_page = "services";
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Custom JS -->
     <script src="assets/js/main.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var btn = document.getElementById('viewMoreBtn');
+        if (btn) {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.extra-service').forEach(function(el) {
+                    el.classList.remove('d-none');
+                });
+                btn.style.display = 'none';
+            });
+        }
+    });
+    </script>
 </body>
 </html> 

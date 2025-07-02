@@ -49,7 +49,7 @@ require_once 'config/database.php';
             <div class="row min-vh-100 align-items-center">
                 <div class="col-lg-6" data-aos="fade-right" data-aos-delay="200">
                     <div class="logo">
-                        <img src="assets/images/logo11.jpg" style="width: 100px; height: 100px;" alt="LexJuris Logo" class="img-fluid rounded-circle">
+                        <img src="assets/images/footer_logo.png" style="width: 120px; height: 120px;" alt="LexJuris Logo" class="img-fluid rounded-circle">
                     </div>
                     <h1 class="display-4 fw-bold text-white mb-4">Professional Legal Services</h1>
                     <p class="lead text-white mb-4">We provide expert legal solutions for individuals and businesses. Our experienced team is dedicated to protecting your rights and interests.</p>
@@ -211,8 +211,8 @@ require_once 'config/database.php';
 
         /* New Contact Us Dropdown Design */
         .contact-dropdown .btn-warning {
-            background-color: #ffc107;
-            border-color: #ffc107;
+            background-color: #bc841c;
+            border-color: #bc841c;
             color: #000;
             font-weight: 600;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
@@ -221,8 +221,8 @@ require_once 'config/database.php';
 
         .contact-dropdown .btn-warning:hover,
         .contact-dropdown .btn-warning:focus {
-            background-color: #e0a800;
-            border-color: #d39e00;
+            background-color: #bc841c;
+            border-color: #bc841c;
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
             transform: translateY(-2px);
         }
@@ -251,7 +251,7 @@ require_once 'config/database.php';
         }
 
         .contact-dropdown .dropdown-item i {
-            color: #ffc107;
+            color: #bc841c;
             transition: transform 0.2s ease;
         }
 
@@ -275,78 +275,296 @@ require_once 'config/database.php';
                     <p class="section-subtitle">Comprehensive legal solutions for all your needs</p>
                 </div>
             </div>
-            <div class="row g-4">
-                <?php
-                $services = [
-                    [
-                        'icon' => 'fa-shield-alt',
-                        'title' => 'Criminal Law',
-                        'description' => 'Expert defense and representation in criminal cases and proceedings.'
-                    ],
-                    [
-                        'icon' => 'fa-heart',
-                        'title' => 'Family Law',
-                        'description' => 'Comprehensive family legal services including divorce, custody, and support.'
-                    ],
-                    [
-                        'icon' => 'fa-money-bill-wave',
-                        'title' => 'Cheque Law',
-                        'description' => 'Professional handling of cheque-related disputes and legal matters.'
-                    ]
-                    
-                ];
-
-                foreach ($services as $index => $service) {
-                    echo '<div class="col-md-4" data-aos="fade-up" data-aos-delay="' . ($index * 200) . '">
-                        <div class="service-card">
-                            <i class="fas ' . $service['icon'] . ' service-icon"></i>
-                            <h3>' . $service['title'] . '</h3>
-                            <p>' . $service['description'] . '</p>
-                        </div>
-                    </div>';
+            <?php
+            $services = [
+                [
+                    'img' => 'assets/images/image1.jpg',
+                    'svg' => 'assets/images/icons/gavel.svg',
+                    'title' => 'Civil Law',
+                    'desc' => 'Deals with private disputes between individuals or organizations. Includes contract law, tort law (e.g., negligence, defamation), property law, and family law.',
+                    'num' => '01',
+                    'link' => '#'
+                ],
+                [
+                    'img' => 'assets/images/image1.jpg',
+                    'svg' => 'assets/images/icons/gavel.svg',
+                    'title' => 'Criminal Law',
+                    'desc' => 'Involves prosecution by the state of wrongful acts (crimes) against society. Includes theft, assault, murder, cybercrime, and white-collar crimes.',
+                    'num' => '02',
+                    'link' => '#'
+                ],
+                [
+                    'img' => 'assets/images/image1.jpg',
+                    'svg' => 'assets/images/icons/gavel.svg',
+                    'title' => 'Family Law',
+                    'desc' => 'Covers matters such as marriage, divorce, child custody, maintenance, adoption, and domestic violence.',
+                    'num' => '03',
+                    'link' => '#'
+                ],
+                [
+                    'img' => 'assets/images/image1.jpg',
+                    'svg' => 'assets/images/icons/gavel.svg',
+                    'title' => 'Corporate/Business Law',
+                    'desc' => 'Regulates the formation, operation, and dissolution of businesses. Includes mergers & acquisitions, company law, corporate governance, and compliance.',
+                    'num' => '04',
+                    'link' => '#'
+                ],
+                [
+                    'img' => 'assets/images/image1.jpg',
+                    'svg' => 'assets/images/icons/gavel.svg',
+                    'title' => 'Labour & Employment Law',
+                    'desc' => 'Governs employer-employee relationships. Covers wages, termination, discrimination, and workplace safety.',
+                    'num' => '05',
+                    'link' => '#'
+                ],
+                [
+                    'img' => 'assets/images/image1.jpg',
+                    'svg' => 'assets/images/icons/gavel.svg',
+                    'title' => 'Property / Real Estate Law',
+                    'desc' => 'Deals with rights and duties related to real property (land and buildings). Includes transactions, leasing, zoning, and landlord-tenant disputes.',
+                    'num' => '06',
+                    'link' => '#'
+                ],
+                [
+                    'img' => 'assets/images/image1.jpg',
+                    'svg' => 'assets/images/icons/gavel.svg',
+                    'title' => 'Constitutional Law',
+                    'desc' => 'Involves interpretation and application of the Constitution. Covers fundamental rights, duties, federal structure, and judicial review.',
+                    'num' => '07',
+                    'link' => '#'
+                ],
+                [
+                    'img' => 'assets/images/image1.jpg',
+                    'svg' => 'assets/images/icons/gavel.svg',
+                    'title' => 'Administrative Law',
+                    'desc' => 'Governs the actions and operations of government agencies. Includes licensing, regulation, and tribunal procedures.',
+                    'num' => '08',
+                    'link' => '#'
+                ],
+                [
+                    'img' => 'assets/images/image1.jpg',
+                    'svg' => 'assets/images/icons/gavel.svg',
+                    'title' => 'Tax Law',
+                    'desc' => 'Involves the assessment and collection of taxes (income tax, GST, customs, etc.). Includes tax planning, appeals, and litigation.',
+                    'num' => '09',
+                    'link' => '#'
+                ],
+                [
+                    'img' => 'assets/images/image1.jpg',
+                    'svg' => 'assets/images/icons/gavel.svg',
+                    'title' => 'Environmental Law',
+                    'desc' => 'Deals with protection of the environment and natural resources. Includes pollution control, forest conservation, and climate change laws.',
+                    'num' => '10',
+                    'link' => '#'
+                ],
+                [
+                    'img' => 'assets/images/image1.jpg',
+                    'svg' => 'assets/images/icons/gavel.svg',
+                    'title' => 'Intellectual Property (IP) Law',
+                    'desc' => 'Protects creations of the mind such as inventions, trademarks, copyrights, and patents.',
+                    'num' => '11',
+                    'link' => '#'
+                ],
+                [
+                    'img' => 'assets/images/image1.jpg',
+                    'svg' => 'assets/images/icons/gavel.svg',
+                    'title' => 'Cyber Law / Information Technology Law',
+                    'desc' => 'Governs digital transactions, data protection, online defamation, cybercrimes, and e-contracts.',
+                    'num' => '12',
+                    'link' => '#'
+                ],
+                [
+                    'img' => 'assets/images/image1.jpg',
+                    'svg' => 'assets/images/icons/gavel.svg',
+                    'title' => 'Consumer Protection Law',
+                    'desc' => 'Provides remedies for consumers against unfair trade practices or defective goods/services.',
+                    'num' => '13',
+                    'link' => '#'
+                ],
+                [
+                    'img' => 'assets/images/image1.jpg',
+                    'svg' => 'assets/images/icons/gavel.svg',
+                    'title' => 'Human Rights Law',
+                    'desc' => "Protects individuals' rights and freedoms, often involving issues like discrimination, unlawful detention, and state abuse.",
+                    'num' => '14',
+                    'link' => '#'
+                ],
+                [
+                    'img' => 'assets/images/image1.jpg',
+                    'svg' => 'assets/images/icons/gavel.svg',
+                    'title' => 'Banking and Finance Law',
+                    'desc' => 'Involves regulations related to loans, securities, financial institutions, and debt recovery.',
+                    'num' => '15',
+                    'link' => '#'
+                ],
+                [
+                    'img' => 'assets/images/image1.jpg',
+                    'svg' => 'assets/images/icons/gavel.svg',
+                    'title' => 'Alternative Dispute Resolution (ADR)',
+                    'desc' => 'Methods like arbitration, mediation, and conciliation to resolve disputes outside court.',
+                    'num' => '16',
+                    'link' => '#'
+                ],
+                [
+                    'img' => 'assets/images/image1.jpg',
+                    'svg' => 'assets/images/icons/gavel.svg',
+                    'title' => 'International Law',
+                    'desc' => 'Governs relations between nations; includes treaties, international trade, human rights, and conflict resolution.',
+                    'num' => '17',
+                    'link' => '#'
+                ]
+            ];
+            ?>
+            <?php
+            $cardsPerSlide = 3;
+            $total = count($services);
+            $slides = [];
+            for ($i = 0; $i < $total; $i++) {
+                $slide = [];
+                for ($j = 0; $j < $cardsPerSlide; $j++) {
+                    $slide[] = $services[($i + $j) % $total];
                 }
-                ?>
+                $slides[] = $slide;
+                if (count($slides) >= $total) break;
+            }
+            ?>
+            <div id="servicesCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="2000">
+                <div class="carousel-inner">
+                    <?php foreach ($slides as $slideIndex => $serviceChunk): ?>
+                        <div class="carousel-item<?= $slideIndex === 0 ? ' active' : '' ?>">
+                            <div class="row justify-content-center">
+                                <?php foreach ($serviceChunk as $s): ?>
+                                    <div class="col-md-4 d-flex align-items-stretch">
+                                        <div class="service-modern-card position-relative bg-white rounded-4 shadow-sm p-4 mx-3 w-100" style="min-width:340px;max-width:340px;">
+                                            <div class="service-img-wrap position-relative">
+                                                <img src="<?= $s['img'] ?>" class="img-fluid rounded-3 w-100" style="height:220px;object-fit:cover;">
+                                                <span class="service-modern-icon position-absolute top-100 start-0 translate-middle-y bg-white rounded-3 shadow d-flex align-items-center justify-content-center" style="width:56px;height:56px;left:24px;top:180px;">
+                                                    <?= preg_replace('/fill=["\'].*?["\']/', 'fill="currentColor"', file_get_contents($s['svg'])) ?>
+                                                </span>
+                                            </div>
+                                            <div class="pt-4 position-relative" style="margin-top:5%;">
+                                                <h5 class="fw-bold mb-2" style="font-family:Playfair Display,serif;font-size:1.5rem;"><?= $s['title'] ?></h5>
+                                                <p class="mb-4 text-muted"><?= $s['desc'] ?></p>
+                                                <span class="service-modern-num position-absolute" style="right:0;margin-top:-10%;font-size:4.5rem;font-weight:700;z-index:0;"><?= $s['num'] ?></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
             </div>
         </div>
     </section>
 
+    <style>
+        .service-modern-card {
+            border: 1px solid #f2f2f2;
+            transition: box-shadow 0.2s, transform 0.25s;
+        }
+        .service-modern-card:hover {
+            box-shadow: 0 16px 40px rgba(44,44,44,0.18);
+            transform: translateY(-10px) scale(1.04);
+
+        }
+        .service-modern-icon {
+            margin-bottom: 20px;
+        }
+        .service-modern-icon svg {
+            width: 32px;
+            height: 32px;
+            display: block;
+            transition: color 0.2s, transform 0.2s;
+            color: #444;
+        }
+        .service-modern-card:hover .service-modern-icon {
+            background: #bc841c !important;
+        }
+        .service-modern-card:hover .service-modern-icon svg {
+            color:rgb(255, 255, 255) !important;
+            transform: scale(1.18);
+        }
+        .service-modern-num {
+            transition: color 0.2s, transform 0.2s;
+            color: #ececec;
+            z-index: 1;
+            top: 0rem;
+        }
+        .fw-bold {
+            margin-top: 20px;
+            width: 80% !important;
+        }
+        .service-modern-card:hover .service-modern-num {
+            color: #bc841c !important;
+            transform: scale(1.08);
+        }
+        .btn-modern-gold {
+            background: #bc841c;
+            color: #fff;
+            border-radius: 8px;
+            padding: 0.5rem 1.5rem;
+            font-weight: 500;
+            border: none;
+            transition: background 0.2s;
+        }
+        .btn-modern-gold:hover {
+            background: #a97a19;
+            color: #fff;
+            text-decoration: none;
+        }
+        /* Truncate service card description to 3 lines with ellipsis */
+        .service-modern-card .mb-4.text-muted {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            min-height: 4.5em;
+            max-height: 4.5em;
+        }
+    </style>
+
     <!-- Why Choose Us Section -->
-    <section class="why-choose-us py-5 bg-light">
-        <div class="container">
+    <section class="why-choose-us py-5 position-relative" style="background: url('assets/images/image2.jpg') center center/cover no-repeat;height: 80vh;">
+        <div class="why-choose-overlay position-absolute w-100 h-100" style="top:0;left:0;background:rgba(0,0,0,0.7);z-index:1;"></div>
+        <div class="container position-relative" style="z-index:2;">
             <div class="row text-center mb-5">
                 <div class="col-12" data-aos="fade-up">
-                    <h2 class="section-title">Why Choose Us</h2>
-                    <p class="section-subtitle">Experience the difference with our dedicated team</p>
+                    <h2 class="section-title text-white"style="padding-top: 2%;">Why Choose Us</h2>
+                    <p class="section-subtitle text-white-50">Experience the difference with our dedicated team</p>
                 </div>
             </div>
             <div class="row g-4">
                 <?php
                 $features = [
                     [
-                        'icon' => 'fa-users',
+                        'svg' => 'assets/images/icons/team.svg',
                         'title' => 'Expert Team',
                         'description' => 'Highly qualified and experienced legal professionals.'
                     ],
                     [
-                        'icon' => 'fa-clock',
+                        'svg' => 'assets/images/icons/support.svg',
                         'title' => '24/7 Support',
                         'description' => 'Round-the-clock assistance for urgent legal matters.'
                     ],
                     [
-                        'icon' => 'fa-handshake',
+                        'svg' => 'assets/images/icons/focus.svg',
                         'title' => 'Client Focus',
                         'description' => 'Personalized attention and dedicated service.'
                     ]
                 ];
 
                 foreach ($features as $index => $feature) {
-                    echo '<div class="col-md-4" data-aos="fade-up" data-aos-delay="' . ($index * 200) . '">
-                        <div class="feature-card">
-                            <i class="fas ' . $feature['icon'] . ' feature-icon"></i>
-                            <h3>' . $feature['title'] . '</h3>
-                            <p>' . $feature['description'] . '</p>
-                        </div>
-                    </div>';
+                    echo '<div class="col-md-4" data-aos="fade-up" data-aos-delay="' . ($index * 200) . '">'
+                        . '<div class="feature-card text-white bg-transparent">'
+                        . '<span class="feature-svg-icon" style="display:inline-block;width:5rem;height:5rem;vertical-align:middle;margin-bottom:1rem;">'
+                        . file_get_contents($feature['svg'])
+                        . '</span>'
+                        . '<h3>' . $feature['title'] . '</h3>'
+                        . '<p>' . $feature['description'] . '</p>'
+                        . '</div>'
+                        . '</div>';
                 }
                 ?>
             </div>
@@ -354,7 +572,7 @@ require_once 'config/database.php';
     </section>
 
     <!-- Stats Section -->
-    <section class="stats-section py-5">
+    <section class="stats-section py-5" style="background: #000;width: 80%; margin: 0 auto;margin-top: -5%;">
         <div class="container">
             <div class="row text-center">
                 <?php
@@ -363,12 +581,12 @@ require_once 'config/database.php';
                 
                 if ($stats_result && $stats_result->num_rows > 0) {
                     while ($stat = $stats_result->fetch_assoc()) {
-                        echo '<div class="col-md-3" data-aos="fade-up" data-aos-delay="' . ($index * 200) . '">
-                            <div class="stat-item">
-                                <h2 class="counter" data-target="' . $stat['number_value'] . '">0</h2>
-                                <p>' . htmlspecialchars($stat['label']) . '</p>
-                            </div>
-                        </div>';
+                        echo '<div class="col-md-3" data-aos="fade-up" data-aos-delay="' . ($index * 200) . '" style="color: #fff;">'
+                            . '<div class="stat-item">'
+                            . '<h2 class="counter" data-target="' . $stat['number_value'] . '" style="color: #bc841c;">0</h2>'
+                            . '<p>' . htmlspecialchars($stat['label']) . '</p>'
+                            . '</div>'
+                            . '</div>';
                         $index++;
                     }
                 } else {
@@ -381,12 +599,12 @@ require_once 'config/database.php';
                     ];
 
                     foreach ($stats as $index => $stat) {
-                        echo '<div class="col-md-3" data-aos="fade-up" data-aos-delay="' . ($index * 200) . '">
-                            <div class="stat-item">
-                                <h2 class="counter" data-target="' . $stat['number'] . '">0</h2>
-                                <p>' . $stat['label'] . '</p>
-                            </div>
-                        </div>';
+                        echo '<div class="col-md-3" data-aos="fade-up" data-aos-delay="' . ($index * 200) . '" style="color: #fff;">'
+                            . '<div class="stat-item">'
+                            . '<h2 class="counter" data-target="' . $stat['number'] . '" style="color: #bc841c;">0</h2>'
+                            . '<p>' . $stat['label'] . '</p>'
+                            . '</div>'
+                            . '</div>';
                     }
                 }
                 ?>
@@ -885,6 +1103,32 @@ require_once 'config/database.php';
                     }
                 });
             }
+        });
+    </script>
+    <script>
+    // Train effect for services
+    document.addEventListener('DOMContentLoaded', function() {
+        const train = document.getElementById('servicesTrain');
+        const outer = document.querySelector('.services-train-outer');
+        let scrollAmount = 0;
+        let speed = 1; // px per frame
+        let cardWidth = 340 + 24; // card width + margin (mx-3 = 1.5rem = 24px)
+        let totalCards = train.children.length / 2;
+        let maxScroll = cardWidth * totalCards;
+        let paused = false;
+        outer.addEventListener('mouseenter', function() { paused = true; });
+        outer.addEventListener('mouseleave', function() { paused = false; });
+        function animateTrain() {
+            if (!paused) {
+                scrollAmount += speed;
+                if (scrollAmount >= maxScroll) {
+                    scrollAmount = 0;
+                }
+                train.style.transform = `translateX(-${scrollAmount}px)`;
+            }
+            requestAnimationFrame(animateTrain);
+        }
+        animateTrain();
         });
     </script>
 </body>
