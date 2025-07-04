@@ -381,14 +381,13 @@ require_once 'config/database.php';
                 height: auto !important;
             }
             /* Testimonials responsiveness */
-            .testimonials-section {
+            .testimonials-section .container {
                 padding-top: 1.5rem !important;
-                padding-bottom: 1.5rem !important;
-                margin-bottom: 0 !important;
+                margin-bottom: -20% !important;
             }
             .testimonial-item {
                 width: 100% !important;
-                padding: 0.5rem !important;
+                /* padding: 0.5rem !important; */
             }
             .testimonial-image {
                 width: 70px !important;
@@ -409,10 +408,6 @@ require_once 'config/database.php';
                 max-height: 220px !important;
                 object-fit: cover !important;
             }
-            /* Remove extra space between testimonials and team gallery */
-            .testimonials-section {
-                margin-bottom: 0 !important;
-            }
             .team-carousel {
                 margin-top: 0 !important;
             }
@@ -420,11 +415,6 @@ require_once 'config/database.php';
             #testimonialCarousel .carousel-inner > .carousel-item:not(.active),
             #teamCarousel .carousel-inner > .carousel-item:not(.active) {
                 display: none !important;
-            }
-            /* Remove extra space between testimonials and team gallery sections */
-            .testimonials-section {
-                margin-bottom: 0 !important;
-                padding-bottom: 0 !important;
             }
             .team-carousel {
                 margin-top: 0 !important;
@@ -608,6 +598,105 @@ require_once 'config/database.php';
                 bottom: 24px;
                 margin-top: 0 !important;
             }
+        }
+        @media (max-width: 768px) {
+          section.testimonials-section {
+            padding-top: 2.5rem !important;
+            padding-bottom: 5rem !important;
+            margin-top: 0 !important;
+            margin-bottom: 0 !important;
+            min-height: 0 !important;
+            height: auto !important;
+            display: block !important;
+          }
+          section.testimonials-section > .container {
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
+            margin-top: 0 !important;
+            margin-bottom: 0 !important;
+          }
+          #testimonialCarousel,
+          #testimonialCarousel .carousel-inner,
+          #testimonialCarousel .carousel-item {
+            min-height: 0 !important;
+            height: auto !important;
+            padding: 0 !important;
+            margin: 0 !important;
+          }
+          .testimonials-section .row,
+          .testimonials-section .mb-5,
+          .testimonials-section .mt-5 {
+            margin-top: 0 !important;
+            margin-bottom: 0 !important;
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
+          }
+          .testimonials-section[style] {
+            margin-bottom: 0 !important;
+          }
+        }
+        @media (max-width: 768px) {
+          section.team-carousel {
+            padding-top: 2.5rem !important;
+            padding-bottom: 2.5rem !important;
+            margin-top: 0 !important;
+            margin-bottom: 0 !important;
+            min-height: 0 !important;
+            height: auto !important;
+            display: block !important;
+          }
+          section.team-carousel > .container {
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
+            margin-top: 0 !important;
+            margin-bottom: 0 !important;
+          }
+          #teamCarousel,
+          #teamCarousel .carousel-inner,
+          #teamCarousel .carousel-item {
+            min-height: 0 !important;
+            height: auto !important;
+            padding: 0 !important;
+            margin: 0 !important;
+          }
+          .team-carousel .row,
+          .team-carousel .mb-5,
+          .team-carousel .mt-5 {
+            margin-top: 0 !important;
+            margin-bottom: 0 !important;
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
+          }
+          .team-carousel[style] {
+            margin-bottom: 0 !important;
+          }
+        }
+        @media (max-width: 768px) {
+          .team-carousel .section-title {
+            margin-top: 1.5rem !important;
+            margin-bottom: 1.5rem !important;
+            padding-top: 0.5rem !important;
+            padding-bottom: 0.5rem !important;
+          }
+        }
+        @media (max-width: 768px) {
+          .team-section .row.g-4.justify-content-center {
+            justify-content: center !important;
+            display: flex !important;
+            flex-wrap: wrap !important;
+          }
+          .team-section .col-md-4 {
+            margin-left: auto !important;
+            margin-right: auto !important;
+            float: none !important;
+            display: flex !important;
+            justify-content: center !important;
+          }
+          .main-team-card, .team-card {
+            margin-left: auto !important;
+            margin-right: auto !important;
+            float: none !important;
+          }
         }
     </style>
 
@@ -1162,7 +1251,7 @@ require_once 'config/database.php';
     </style>
 
     <!-- Testimonials Section -->
-    <section class="testimonials-section pt-5 bg-light" style="margin-bottom: 0;">
+    <section class="testimonials-section pt-5 bg-light" style="margin-bottom: -25%;">
         <div class="container">
             <div class="row text-center mb-5">
                 <div class="col-12">
