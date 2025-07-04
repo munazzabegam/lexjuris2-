@@ -36,10 +36,13 @@ require_once 'config/database.php';
             <div id="heroVideoCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="8000">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <video autoplay muted loop playsinline class="hero-video">
+                        <div class="img-bg" style="background-color: #ffffff; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(50px); display: flex; justify-content: center; align-items: center; position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);">
+                            <img src="assets/images/logo.png" alt="LexJuris Logo" style="max-width: 80%; height: auto; filter: blur(8px) drop-shadow(0 4px 8px #00000080);">
+                        </div>
+                        <!-- <video autoplay muted loop playsinline class="hero-video">
                             <source src="videos/bgvideo3.mp4" type="video/mp4">
                             Your browser does not support the video tag.
-                        </video>
+                        </video> -->
                     </div>
                 </div>
             </div>
@@ -50,9 +53,10 @@ require_once 'config/database.php';
                 <div class="col-lg-6" data-aos="fade-right" data-aos-delay="200">
                     <div class="logo">
                         <img src="assets/images/footer_logo.png" style="width: 120px; height: 120px;" alt="LexJuris Logo" class="img-fluid rounded-circle">
+                        <h4 display-4 fw-bold text-black mb-4>Law Chamber</h4>
                     </div>
-                    <h1 class="display-4 fw-bold text-white mb-4">Professional Legal Services</h1>
-                    <p class="lead text-white mb-4">We provide expert legal solutions for individuals and businesses. Our experienced team is dedicated to protecting your rights and interests.</p>
+                    <h1 class="display-4 fw-bold text-black mb-4">Professional Legal Services</h1>
+                    <p class="lead text-black mb-4">We provide expert legal solutions for individuals and businesses. Our experienced team is dedicated to protecting your rights and interests.</p>
                     <?php
                     // Fetch active contact numbers from database
                     $query = "SELECT phone FROM contact WHERE is_active = 1 ORDER BY id DESC";
@@ -267,8 +271,8 @@ require_once 'config/database.php';
     </style>
 
     <!-- Services Section -->
-    <section class="services-section py-5 pt-5">
-        <div class="container" style="margin-top: 5%">
+    <section class="services-section py-3 pt-3">
+        <div class="container" style="margin-top: 5%;margin-bottom: -10%">
             <div class="row text-center mb-5">
                 <div class="col-12" data-aos="fade-up">
                     <h2 class="section-title">Our Services</h2>
