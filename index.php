@@ -104,7 +104,6 @@ require_once 'config/database.php';
         }
         .hero-section {
             position: relative;
-            /* overflow: hidden; */ /* This was hiding the dropdown */
             height: 100vh;
             margin-bottom: 0;
             background: #000;
@@ -144,13 +143,10 @@ require_once 'config/database.php';
         .hero-section + section {
             margin-top: 0 !important;
         }
-        
-        /* Contact Dropdown Styles */
         .contact-dropdown {
             position: relative;
             z-index: 1060;
         }
-        
         .contact-dropdown .dropdown-menu {
             z-index: 1061 !important;
             position: absolute !important;
@@ -166,7 +162,6 @@ require_once 'config/database.php';
             min-width: 10rem !important;
             padding: 0.5rem 0 !important;
         }
-        
         .contact-dropdown .dropdown-item {
             display: block !important;
             width: 100% !important;
@@ -180,17 +175,14 @@ require_once 'config/database.php';
             background-color: transparent !important;
             border: 0 !important;
         }
-        
         .contact-dropdown .dropdown-item:hover {
             color: #1e2125 !important;
             background-color: #e9ecef !important;
         }
-        
         .contact-dropdown .dropdown-item:focus {
             color: #1e2125 !important;
             background-color: #e9ecef !important;
         }
-        
         .contact-dropdown .dropdown-toggle::after {
             display: inline-block !important;
             margin-left: 0.255em !important;
@@ -201,7 +193,6 @@ require_once 'config/database.php';
             border-bottom: 0 !important;
             border-left: 0.3em solid transparent !important;
         }
-        
         /* Ensure dropdown is visible on all devices */
         @media (max-width: 768px) {
             .contact-dropdown .dropdown-menu {
@@ -212,8 +203,6 @@ require_once 'config/database.php';
                 right: auto !important;
             }
         }
-
-        /* New Contact Us Dropdown Design */
         .contact-dropdown .btn-warning {
             background-color: #bc841c;
             border-color: #bc841c;
@@ -222,7 +211,6 @@ require_once 'config/database.php';
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             transition: all 0.3s ease;
         }
-
         .contact-dropdown .btn-warning:hover,
         .contact-dropdown .btn-warning:focus {
             background-color: #bc841c;
@@ -230,7 +218,6 @@ require_once 'config/database.php';
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
             transform: translateY(-2px);
         }
-
         .contact-dropdown .dropdown-menu {
             border-radius: 0.5rem;
             border: none;
@@ -239,12 +226,10 @@ require_once 'config/database.php';
             margin-top: 0.5rem;
             animation: fadeIn 0.3s ease-in-out;
         }
-
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(-10px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
         .contact-dropdown .dropdown-item {
             display: flex;
             align-items: center;
@@ -253,26 +238,382 @@ require_once 'config/database.php';
             color: #343a40;
             transition: all 0.2s ease;
         }
-
         .contact-dropdown .dropdown-item i {
             color: #bc841c;
             transition: transform 0.2s ease;
         }
-
         .contact-dropdown .dropdown-item:hover {
             background-color: #f8f9fa;
             color: #000;
             transform: translateX(5px);
         }
-
         .contact-dropdown .dropdown-item:hover i {
             transform: scale(1.2);
+        }
+        /* Services Section Responsive */
+        .service-modern-card {
+            border: 1px solid #f2f2f2;
+            transition: box-shadow 0.2s, transform 0.25s;
+            min-width: 0;
+            max-width: 340px;
+            width: 100%;
+        }
+        .service-modern-card:hover {
+            box-shadow: 0 16px 40px rgba(44,44,44,0.18);
+            transform: translateY(-10px) scale(1.04);
+        }
+        .service-modern-icon {
+            margin-bottom: 20px;
+        }
+        .service-modern-icon svg {
+            width: 32px;
+            height: 32px;
+            display: block;
+            transition: color 0.2s, transform 0.2s;
+            color: #444;
+        }
+        .service-modern-card:hover .service-modern-icon {
+            background: #bc841c !important;
+        }
+        .service-modern-card:hover .service-modern-icon svg {
+            color:rgb(255, 255, 255) !important;
+            transform: scale(1.18);
+        }
+        .service-modern-num {
+            transition: color 0.2s, transform 0.2s;
+            color: #ececec;
+            z-index: 1;
+            top: 0rem;
+        }
+        .fw-bold {
+            margin-top: 20px;
+            width: 80% !important;
+        }
+        .service-modern-card:hover .service-modern-num {
+            color: #bc841c !important;
+            transform: scale(1.08);
+        }
+        .btn-modern-gold {
+            background: #bc841c;
+            color: #fff;
+            border-radius: 8px;
+            padding: 0.5rem 1.5rem;
+            font-weight: 500;
+            border: none;
+            transition: background 0.2s;
+        }
+        .btn-modern-gold:hover {
+            background: #a97a19;
+            color: #fff;
+            text-decoration: none;
+        }
+        .service-modern-card .mb-4.text-muted {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            min-height: 4.5em;
+            max-height: 4.5em;
+        }
+        @media (max-width: 991.98px) {
+            .service-modern-card {
+                max-width: 100%;
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+            }
+        }
+        @media (max-width: 767.98px) {
+            .service-modern-card {
+                max-width: 100%;
+                margin: 0 0 1.5rem 0 !important;
+                min-height: 0 !important;
+            }
+            .service-modern-card .mb-4.text-muted {
+                min-height: 0;
+                max-height: none;
+            }
+            /* Show only one card per carousel slide on mobile */
+            #servicesCarousel .carousel-item .row > .col-md-4 {
+                flex: 0 0 100%;
+                max-width: 100%;
+                margin-bottom: 1.5rem;
+                display: flex;
+                justify-content: center;
+                min-height: 0 !important;
+            }
+            #servicesCarousel .carousel-item .row {
+                flex-wrap: nowrap;
+                justify-content: center;
+                margin-left: 0;
+                margin-right: 0;
+                height: auto !important;
+                min-height: 0 !important;
+            }
+            #servicesCarousel .carousel-item {
+                height: auto !important;
+                min-height: 0 !important;
+            }
+            #servicesCarousel .carousel-item .row > .col-md-4:not(:first-child) {
+                display: none;
+            }
+            /* Remove extra space under services section */
+            .services-section,
+            .services-section .container {
+                margin-bottom: 0 !important;
+                padding-bottom: 0 !important;
+            }
+            .services-section .row.mb-5,
+            .services-section .row.text-center.mb-5 {
+                margin-bottom: 0 !important;
+            }
+            #servicesCarousel .carousel-inner > .carousel-item:last-child {
+                margin-bottom: 0 !important;
+                padding-bottom: 0 !important;
+            }
+            /* Remove extra space above Why Choose Us section */
+            .why-choose-us {
+                margin-top: 0 !important;
+            }
+            /* Remove any min-height or height on .services-section or .carousel-inner if present */
+            .services-section, #servicesCarousel .carousel-inner {
+                min-height: 0 !important;
+                height: auto !important;
+            }
+            /* Testimonials responsiveness */
+            .testimonials-section {
+                padding-top: 1.5rem !important;
+                padding-bottom: 1.5rem !important;
+                margin-bottom: 0 !important;
+            }
+            .testimonial-item {
+                width: 100% !important;
+                padding: 0.5rem !important;
+            }
+            .testimonial-image {
+                width: 70px !important;
+                height: 70px !important;
+            }
+            .testimonial-text {
+                font-size: 1rem !important;
+            }
+            /* Team gallery responsiveness */
+            .team-carousel {
+                padding-top: 1.5rem !important;
+                padding-bottom: 1.5rem !important;
+                margin-top: 0 !important;
+            }
+            .team-carousel img {
+                width: 100% !important;
+                height: auto !important;
+                max-height: 220px !important;
+                object-fit: cover !important;
+            }
+            /* Remove extra space between testimonials and team gallery */
+            .testimonials-section {
+                margin-bottom: 0 !important;
+            }
+            .team-carousel {
+                margin-top: 0 !important;
+            }
+            /* Hide non-active carousel items to remove extra space */
+            #testimonialCarousel .carousel-inner > .carousel-item:not(.active),
+            #teamCarousel .carousel-inner > .carousel-item:not(.active) {
+                display: none !important;
+            }
+            /* Remove extra space between testimonials and team gallery sections */
+            .testimonials-section {
+                margin-bottom: 0 !important;
+                padding-bottom: 0 !important;
+            }
+            .team-carousel {
+                margin-top: 0 !important;
+                padding-top: 0 !important;
+            }
+        }
+        /* Why Choose Us Responsive */
+        @media (max-width: 991.98px) {
+            .why-choose-us {
+                height: auto !important;
+                padding-bottom: 2rem;
+            }
+        }
+        @media (max-width: 767.98px) {
+            .why-choose-us {
+                height: auto !important;
+                padding-bottom: 2rem;
+            }
+            .why-choose-us .row.g-4 > div {
+                margin-bottom: 1.5rem;
+            }
+        }
+        /* Stats Section Responsive */
+        @media (max-width: 991.98px) {
+            .stats-section {
+                width: 100% !important;
+            }
+        }
+        @media (max-width: 767.98px) {
+            .stats-section {
+                width: 100% !important;
+                padding: 2rem 0 !important;
+            }
+            .stats-section .col-md-3 {
+                flex: 0 0 100%;
+                max-width: 100%;
+                margin-bottom: 1.5rem;
+            }
+        }
+        /* Team Section Responsive */
+        @media (max-width: 991.98px) {
+            .main-team-card, .team-card {
+                margin-bottom: 1.5rem;
+            }
+            .team-img, .team-card img {
+                height: 250px;
+            }
+        }
+        @media (max-width: 767.98px) {
+            .main-team-card, .team-card {
+                margin-bottom: 1.5rem;
+            }
+            .team-img, .team-card img {
+                height: 180px;
+            }
+        }
+        /* Testimonials Responsive */
+        .testimonial-item {
+            padding: 2rem;
+            width: 800px;
+            margin: 0 auto;
+        }
+        .testimonial-text {
+            font-size: 1.2rem;
+            font-style: italic;
+            color: #666;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        .testimonial-image {
+            border: 3px solid #bc841c;
+            padding: 3px;
+        }
+        .testimonial-item h4 {
+            color: #333;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        .testimonial-role {
+            color: #bc841c;
+            font-size: 0.9rem;
+            margin-bottom: 0;
+        }
+        .carousel-control-prev,
+        .carousel-control-next {
+            width: 5%;
+            opacity: 0.8;
+        }
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+            background-color: #bc841c;
+            border-radius: 50%;
+            padding: 1.5rem;
+        }
+
+        #testimonialCarousel .carousel-control-prev,
+        #testimonialCarousel .carousel-control-next {
+            top: 20%; /* Adjusted for better visual alignment */
+            transform: translateY(-50%);
+            height: 44px; /* Slightly smaller */
+            width: 44px;  /* Slightly smaller */
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+
+        #testimonialCarousel .carousel-control-prev:hover,
+        #testimonialCarousel .carousel-control-next:hover {
+            opacity: 1;
+        }
+
+        #testimonialCarousel .carousel-control-prev-icon,
+        #testimonialCarousel .carousel-control-next-icon {
+            padding: 0.9rem; /* Adjusted padding for new size */
+            background-size: 50%;
+        }
+        /* Team Gallery Carousel Responsive */
+        @media (max-width: 991.98px) {
+            .team-carousel img {
+                height: 350px;
+                object-fit: cover;
+            }
+        }
+        @media (max-width: 767.98px) {
+            .team-carousel img {
+                height: 200px;
+                object-fit: cover;
+            }
+        }
+        /* Add or update WhatsApp and back-to-top button styles */
+        .whatsapp-btn, .whatsapp-fixed-btn {
+            width: 100px !important;
+            height: 100px !important;
+            font-size: 3.2rem !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: #25d366;
+            color: #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            position: fixed;
+            right: 16px;
+            bottom: 160px;
+            z-index: 9999;
+            margin-bottom: 0 !important;
+        }
+
+        /* Add space between WhatsApp and back-to-top button */
+        .back-to-top-btn, .back-to-top-fixed-btn {
+            width: 80px !important;
+            height: 80px !important;
+            font-size: 2.2rem !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: #bc841c;
+            color: #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            position: fixed;
+            right: 16px;
+            bottom: 24px;
+            z-index: 9998;
+            margin-top: 0 !important;
+        }
+
+        @media (max-width: 767.98px) {
+            .whatsapp-btn, .whatsapp-fixed-btn {
+                width: 100px !important;
+                height: 100px !important;
+                font-size: 3.2rem !important;
+                right: 16px;
+                bottom: 160px;
+                margin-bottom: 0 !important;
+            }
+            .back-to-top-btn, .back-to-top-fixed-btn {
+                width: 80px !important;
+                height: 80px !important;
+                font-size: 2.2rem !important;
+                right: 16px;
+                bottom: 24px;
+                margin-top: 0 !important;
+            }
         }
     </style>
 
     <!-- Services Section -->
-    <section class="services-section py-3 pt-3">
-        <div class="container" style="margin-top: 5%;margin-bottom: -10%">
+    <section class="services-section">
+        <div class="container">
             <div class="row text-center mb-5">
                 <div class="col-12" data-aos="fade-up">
                     <h2 class="section-title">Our Services</h2>
@@ -461,73 +802,6 @@ require_once 'config/database.php';
             </div>
         </div>
     </section>
-
-    <style>
-        .service-modern-card {
-            border: 1px solid #f2f2f2;
-            transition: box-shadow 0.2s, transform 0.25s;
-        }
-        .service-modern-card:hover {
-            box-shadow: 0 16px 40px rgba(44,44,44,0.18);
-            transform: translateY(-10px) scale(1.04);
-
-        }
-        .service-modern-icon {
-            margin-bottom: 20px;
-        }
-        .service-modern-icon svg {
-            width: 32px;
-            height: 32px;
-            display: block;
-            transition: color 0.2s, transform 0.2s;
-            color: #444;
-        }
-        .service-modern-card:hover .service-modern-icon {
-            background: #bc841c !important;
-        }
-        .service-modern-card:hover .service-modern-icon svg {
-            color:rgb(255, 255, 255) !important;
-            transform: scale(1.18);
-        }
-        .service-modern-num {
-            transition: color 0.2s, transform 0.2s;
-            color: #ececec;
-            z-index: 1;
-            top: 0rem;
-        }
-        .fw-bold {
-            margin-top: 20px;
-            width: 80% !important;
-        }
-        .service-modern-card:hover .service-modern-num {
-            color: #bc841c !important;
-            transform: scale(1.08);
-        }
-        .btn-modern-gold {
-            background: #bc841c;
-            color: #fff;
-            border-radius: 8px;
-            padding: 0.5rem 1.5rem;
-            font-weight: 500;
-            border: none;
-            transition: background 0.2s;
-        }
-        .btn-modern-gold:hover {
-            background: #a97a19;
-            color: #fff;
-            text-decoration: none;
-        }
-        /* Truncate service card description to 3 lines with ellipsis */
-        .service-modern-card .mb-4.text-muted {
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            min-height: 4.5em;
-            max-height: 4.5em;
-        }
-    </style>
 
     <!-- Why Choose Us Section -->
     <section class="why-choose-us py-5 position-relative" style="background: url('assets/images/image2.jpg') center center/cover no-repeat;height: 80vh;">
@@ -888,7 +1162,7 @@ require_once 'config/database.php';
     </style>
 
     <!-- Testimonials Section -->
-    <section class="testimonials-section pt-5 bg-light" style="margin-bottom: -20%">
+    <section class="testimonials-section pt-5 bg-light" style="margin-bottom: 0;">
         <div class="container">
             <div class="row text-center mb-5">
                 <div class="col-12">
@@ -940,80 +1214,11 @@ require_once 'config/database.php';
                             }
                             ?>
                         </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
-    <style>
-        .testimonial-item {
-            padding: 2rem;
-            width: 800px;
-            margin: 0 auto;
-        }
-        .testimonial-text {
-            font-size: 1.2rem;
-            font-style: italic;
-            color: #666;
-            margin-bottom: 1.5rem;
-            line-height: 1.6;
-        }
-        .testimonial-image {
-            border: 3px solid #bc841c;
-            padding: 3px;
-        }
-        .testimonial-item h4 {
-            color: #333;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-        }
-        .testimonial-role {
-            color: #bc841c;
-            font-size: 0.9rem;
-            margin-bottom: 0;
-        }
-        .carousel-control-prev,
-        .carousel-control-next {
-            width: 5%;
-            opacity: 0.8;
-        }
-        .carousel-control-prev-icon,
-        .carousel-control-next-icon {
-            background-color: #bc841c;
-            border-radius: 50%;
-            padding: 1.5rem;
-        }
-
-        #testimonialCarousel .carousel-control-prev,
-        #testimonialCarousel .carousel-control-next {
-            top: 20%; /* Adjusted for better visual alignment */
-            transform: translateY(-50%);
-            height: 44px; /* Slightly smaller */
-            width: 44px;  /* Slightly smaller */
-            opacity: 0.7;
-            transition: opacity 0.3s ease;
-        }
-
-        #testimonialCarousel .carousel-control-prev:hover,
-        #testimonialCarousel .carousel-control-next:hover {
-            opacity: 1;
-        }
-
-        #testimonialCarousel .carousel-control-prev-icon,
-        #testimonialCarousel .carousel-control-next-icon {
-            padding: 0.9rem; /* Adjusted padding for new size */
-            background-size: 50%;
-        }
-    </style>
 
     <!-- Team Carousel Gallery -->
     <section class="team-carousel py-5 bg-light">
@@ -1049,14 +1254,6 @@ require_once 'config/database.php';
                             }
                             ?>
                         </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#teamCarousel" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#teamCarousel" data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
                     </div>
                 </div>
             </div>
