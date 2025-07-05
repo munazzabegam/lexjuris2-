@@ -1115,7 +1115,6 @@ require_once 'config/database.php';
         .main-team-card, .team-card {
             position: relative;
             overflow: hidden;
-            border-radius: 10px;
             box-shadow: 0 0 15px rgba(0,0,0,0.1);
             transition: transform 0.3s ease;
             margin-bottom: 20px;
