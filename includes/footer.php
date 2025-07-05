@@ -69,6 +69,13 @@
                             3rd Floor Canara Tower,  Mission Hospital Road, Udupi
                         </span>
                     </li>
+                    <li>
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>
+                            <strong>Bangalore:</strong><br>
+                            Bangalore, Karnataka
+                        </span>
+                    </li>
                     <li><i class="fas fa-phone"></i>+91 7411448378, +91 9555552545</li>
                     <li><i class="fas fa-envelope"></i>teamlexjuris@gmail.com</li>
                 </ul>

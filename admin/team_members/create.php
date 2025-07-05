@@ -142,13 +142,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <input type="url" class="form-control" id="portfolio" name="portfolio">
                             <div class="form-text">Enter the full URL including https://</div>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="order_index" class="form-label">Order Index</label>
                             <input type="number" class="form-control" id="order_index" name="order_index" value="0">
                             <div class="form-text">Lower numbers appear first.</div>
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="is_active" class="form-label">Status</label>
                             <div class="form-check form-switch">

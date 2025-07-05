@@ -166,7 +166,6 @@ $current_page = "services";
                         . '<div class="pt-4 position-relative" style="margin-top:5%;">'
                         . '<h5 class="fw-bold mb-2" style="font-family:Playfair Display,serif;font-size:1.5rem;">' . $s['title'] . '</h5>'
                         . '<p class="mb-4 text-muted">' . $s['desc'] . '</p>'
-                        . '<a href="' . $s['link'] . '" class="btn btn-modern-gold">Read More <span style="font-size:1.1em;vertical-align:middle;">&rarr;</span></a>'
                         . '</div>'
                         . '</div>'
                         . '</div>';

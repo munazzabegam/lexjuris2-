@@ -698,12 +698,20 @@ require_once 'config/database.php';
             float: none !important;
           }
         }
+        #servicesCarousel,
+        #servicesCarousel .carousel-inner,
+        #servicesCarousel .carousel-item {
+            height: auto !important;
+            min-height: 0 !important;
+            margin-bottom: 0 !important;
+            padding-bottom: 0 !important;
+        }
     </style>
 
     <!-- Services Section -->
-    <section class="services-section">
-        <div class="container">
-            <div class="row text-center mb-5">
+    <section class="services-section" style="padding-top: 4rem; margin-bottom:1rem; padding-bottom:0;">
+        <div class="container" style="margin-bottom:0; padding-bottom:0;">
+            <div class="row text-center mb-5" style="margin-bottom:0 !important;">
                 <div class="col-12" data-aos="fade-up">
                     <h2 class="section-title">Our Services</h2>
                     <p class="section-subtitle">Comprehensive legal solutions for all your needs</p>
@@ -893,7 +901,7 @@ require_once 'config/database.php';
     </section>
 
     <!-- Why Choose Us Section -->
-    <section class="why-choose-us py-5 position-relative" style="background: url('assets/images/image2.jpg') center center/cover no-repeat;height: 80vh;">
+    <section class="why-choose-us py-2 position-relative" style="background: url('assets/images/image2.jpg') center center/cover no-repeat;height: 80vh;">
         <div class="why-choose-overlay position-absolute w-100 h-100" style="top:0;left:0;background:rgba(0,0,0,0.7);z-index:1;"></div>
         <div class="container position-relative" style="z-index:2;">
             <div class="row text-center mb-5">

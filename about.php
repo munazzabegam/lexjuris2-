@@ -27,95 +27,34 @@ require_once 'config/database.php';
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-6" data-aos="fade-right" data-aos-delay="200">
-                    <img src="https://images.pexels.com/photos/6077326/pexels-photo-6077326.jpeg?auto=compress&w=1200&q=80" alt="About Us" class="img-fluid rounded">
+                    <img id="about-main-img" src="https://images.pexels.com/photos/6077326/pexels-photo-6077326.jpeg?auto=compress&w=1200&q=80" alt="About Us" class="img-fluid rounded w-100" style="height:600px;object-fit:cover;">
                 </div>
-                <div class="col-lg-6" data-aos="fade-left" data-aos-delay="400">
+                <div class="col-lg-6 d-flex flex-column" data-aos="fade-left" data-aos-delay="400">
                     <h2 class="section-title">Our Journey: The Evolution of Lex Juris Law Chamber</h2>
-                    <p class="lead">A story of perseverance, collaboration, and an enduring pursuit of legal excellence.</p>
-                    <p>The inception of Lex Juris Law Chamber traces back to three zealous legal minds — Asif, Aris, and U.F. — who established their first office near the State Bank, opposite Noufal Hotel. As their practice gained momentum, they welcomed Advocate O.F., followed by Advocate Asgar, a litigator renowned for his courtroom acumen.</p>
-                    <p>Motivated by a shared vision of a more sophisticated workspace, the team embarked on a year-long search for a new office. Their perseverance bore fruit when they discovered an ideal location and transformed it into a thoughtfully designed legal chamber with six elegantly structured cabins.</p>
-                    <p>With five dedicated advocates at the helm, they extended an invitation to Advocate Ijaz — a trusted friend and former classmate of Asgar — completing the circle. Thus, six advocates — united by trust, shared purpose, and an unwavering commitment to justice — inaugurated a new era of Lex Juris Law Chamber.</p>
+                    <div class="evolution-content" style="max-height:600px;overflow:auto;">
+                        <p class="lead mb-4">The Evolution of Lex Juris Law Chamber</p>
+                        <p class="mb-3">The inception of Lex Juris Law Chamber traces back to three zealous legal minds and close confidants — <strong>Adv. Asif Baikady</strong>, <strong>Adv. Abu Haris</strong> and <strong>Adv. Umarul Farooq</strong> who shared a unified dream and were unwavering in their pursuit of a common goal: to establish a distinguished and ethical legal practice.</p>
+                        <p class="mb-3">Driven by ambition and the strength of their camaraderie, their shared vision took form with the inauguration of their first office near State Bank, opposite Noufal Hotel, under the moniker Lex Juris Law Chamber.</p>
+                        <p class="mb-3">As their practice steadily gained momentum, they welcomed a dynamic addition to their team — <strong>Adv. Omer Farooq</strong> — whose fresh perspective and vibrant energy brought renewed vitality to the chamber. In the post-pandemic era, <strong>Adv. Asif Baikady</strong> connected with <strong>Adv. Asgar</strong>, a litigator known for his sharp legal acumen, relentless dedication, and charismatic nature. Although Adv. Asgar was not a daily presence in the beginning, his substantial contributions to the firm's legal strategies and courtroom performance added immense value.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-12">
+                    <div class="evolution-content-continued">
+                        <p class="mb-3">Motivated by a collective desire to foster a more sophisticated and professional environment, the team embarked on a year-long search for a new office space. Their perseverance paid off when they discovered an ideal location in the heart of the city's bustling business district. The team meticulously transformed this space into a thoughtfully designed, efficient, and well-appointed legal chamber.</p>
+                        <p class="mb-3">The newly established office, featuring six elegantly structured cabins, laid the foundation for the firm's next chapter. With five dedicated advocates already leading the charge, they extended an invitation to <strong>Adv. Ijaz</strong> a trusted friend and former classmate of Adv. Asgar who enthusiastically joined the team, completing the circle.</p>
+                        <p class="mb-3">Thus, six advocates, united by trust, shared purpose, and an unwavering commitment to justice, inaugurated a new era for Lex Juris Law Chamber.</p>
+                        <p class="mb-3">Their story is one of perseverance, collaboration, and an enduring pursuit of legal excellence.</p>
+                        <p class="mb-0">Today, Lex Juris stands as a pillar of legal advocacy in Mangaluru, offering comprehensive legal assistance to all segments of society. With a team that blends youthful dynamism and seasoned experience, the chamber has grown into one of the most prominent and respected law firms in the region, driven by a relentless commitment to justice, ethics, and service.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Mission & Vision -->
-    <section class="mission-vision py-5 bg-light">
-        <div class="container">
-            <div class="row g-4">
-                <?php
-                $mission_vision = [
-                    [
-                        'icon' => 'fa-bullseye',
-                        'title' => 'Our Mission',
-                        'description' => 'To provide exceptional legal services with integrity, professionalism, and a commitment to client success.'
-                    ],
-                    [
-                        'icon' => 'fa-eye',
-                        'title' => 'Our Vision',
-                        'description' => 'To be the leading law firm known for excellence, innovation, and client satisfaction in the legal industry.'
-                    ]
-                ];
+ 
 
-                foreach ($mission_vision as $index => $item) {
-                    echo '<div class="col-md-6" data-aos="fade-up" data-aos-delay="' . ($index * 200) . '">
-                        <div class="card h-100 border-0 shadow-sm">
-                            <div class="card-body text-center p-4">
-                                <i class="fas ' . $item['icon'] . ' fa-3x text-warning mb-3"></i>
-                                <h3>' . $item['title'] . '</h3>
-                                <p>' . $item['description'] . '</p>
-                            </div>
-                        </div>
-                    </div>';
-                }
-                ?>
-            </div>
-        </div>
-    </section>
-
-    <!-- Values Section -->
-    <section class="values-section py-5">
-        <div class="container">
-            <div class="row text-center mb-5">
-                <div class="col-12" data-aos="fade-up">
-                    <h2 class="section-title">Our Core Values</h2>
-                    <p class="section-subtitle">The principles that guide our practice</p>
-                </div>
-            </div>
-            <div class="row g-4">
-                <?php
-                $values = [
-                    [
-                        'icon' => 'fa-handshake',
-                        'title' => 'Integrity',
-                        'description' => 'We maintain the highest standards of professional ethics and honesty in all our dealings.'
-                    ],
-                    [
-                        'icon' => 'fa-users',
-                        'title' => 'Client Focus',
-                        'description' => 'We prioritize our clients\' needs and work tirelessly to achieve their objectives.'
-                    ],
-                    [
-                        'icon' => 'fa-gavel',
-                        'title' => 'Excellence',
-                        'description' => 'We strive for excellence in every aspect of our legal practice and client service.'
-                    ]
-                ];
-
-                foreach ($values as $index => $value) {
-                    echo '<div class="col-md-4" data-aos="fade-up" data-aos-delay="' . ($index * 200) . '">
-                        <div class="value-card text-center">
-                            <i class="fas ' . $value['icon'] . ' fa-3x text-warning mb-3"></i>
-                            <h3>' . $value['title'] . '</h3>
-                            <p>' . $value['description'] . '</p>
-                        </div>
-                    </div>';
-                }
-                ?>
-            </div>
-        </div>
-    </section>
 
     <!-- Our Services Section -->
     <section class="services-section py-5 bg-light">
@@ -163,7 +102,6 @@ require_once 'config/database.php';
                     echo '<div class="pt-4 position-relative" style="margin-top:5%;">';
                     echo '<h5 class="fw-bold mb-2" style="font-family:Playfair Display,serif;font-size:1.5rem;">' . $s['title'] . '</h5>';
                     echo '<p class="mb-4 text-muted">' . $s['desc'] . '</p>';
-                    echo '<a href="' . $s['link'] . '" class="btn btn-modern-gold">Read More <span style="font-size:1.1em;vertical-align:middle;">&rarr;</span></a>';
                     echo '</div>';
                     echo '</div>';
                     echo '</div>';
