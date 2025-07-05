@@ -47,8 +47,8 @@ require_once 'config/database.php';
                         <p class="mb-3">Thus, six advocates, united by trust, shared purpose, and an unwavering commitment to justice, inaugurated a new era for Lex Juris Law Chamber.</p>
                         <p class="mb-3">Their story is one of perseverance, collaboration, and an enduring pursuit of legal excellence.</p>
                         <p class="mb-0">Today, Lex Juris stands as a pillar of legal advocacy in Mangaluru, offering comprehensive legal assistance to all segments of society. With a team that blends youthful dynamism and seasoned experience, the chamber has grown into one of the most prominent and respected law firms in the region, driven by a relentless commitment to justice, ethics, and service.</p>
-                    </div>
-                </div>
+                            </div>
+                        </div>
             </div>
         </div>
     </section>

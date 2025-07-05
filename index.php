@@ -53,7 +53,7 @@ require_once 'config/database.php';
                 <div class="col-lg-6" data-aos="fade-right" data-aos-delay="200">
                     <div class="logo">
                         <img src="assets/images/footer_logo.png" style="width: 120px; height: 120px;" alt="LexJuris Logo" class="img-fluid rounded-circle">
-                        <h4 display-4 fw-bold text-black mb-4>Law Chamber</h4>
+                        <!-- <h4 display-4 fw-bold text-black mb-4>Law Chamber</h4> -->
                     </div>
                     <h1 class="display-4 fw-bold text-black mb-4">Professional Legal Services</h1>
                     <p class="lead text-black mb-4">We provide expert legal solutions for individuals and businesses. Our experienced team is dedicated to protecting your rights and interests.</p>
