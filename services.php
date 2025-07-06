@@ -96,119 +96,119 @@ $current_page = "services";
                 <?php
                 $services = [
                     [
-                        'img' => 'assets/images/image1.jpg',
+                        'img' => 'assets/images/card_images/civil_law_card.jpg',
                         'svg' => 'assets/images/icons/gavel.svg',
                         'title' => 'Civil Law',
                         'desc' => 'Deals with private disputes between individuals or organizations. Includes contract law, tort law, property law, and family law.',
                         'link' => '#'
                     ],
                     [
-                        'img' => 'assets/images/image1.jpg',
+                        'img' => 'assets/images/card_images/criminal_law_card.jpeg',
                         'svg' => 'assets/images/icons/gavel.svg',
                         'title' => 'Criminal Law',
                         'desc' => 'Involves prosecution by the state of wrongful acts against society. Includes theft, assault, murder, and cybercrime.',
                         'link' => '#'
                     ],
                     [
-                        'img' => 'assets/images/image1.jpg',
+                        'img' => 'assets/images/card_images/family-law.jpg',
                         'svg' => 'assets/images/icons/gavel.svg',
                         'title' => 'Family Law',
                         'desc' => 'Covers matters such as marriage, divorce, child custody, maintenance, adoption, and domestic violence.',
                         'link' => '#'
                     ],
                     [
-                        'img' => 'assets/images/image1.jpg',
+                        'img' => 'assets/images/card_images/Administrative-Law.jpg',
                         'svg' => 'assets/images/icons/gavel.svg',
                         'title' => 'Corporate/Business Law',
                         'desc' => 'Regulates the formation, operation, and dissolution of businesses. Includes mergers & acquisitions and corporate governance.',
                         'link' => '#'
                     ],
                     [
-                        'img' => 'assets/images/image1.jpg',
+                        'img' => 'assets/images/card_images/soundblock-Wood-scales-books-stack-background-leather.webp',
                         'svg' => 'assets/images/icons/gavel.svg',
                         'title' => 'Labour & Employment Law',
                         'desc' => 'Governs employer-employee relationships. Covers wages, termination, discrimination, and workplace safety.',
                         'link' => '#'
                     ],
                     [
-                        'img' => 'assets/images/image1.jpg',
+                        'img' => 'assets/images/card_images/real_estate_law.jpeg',
                         'svg' => 'assets/images/icons/gavel.svg',
                         'title' => 'Property / Real Estate Law',
                         'desc' => 'Deals with rights and duties related to real property. Includes transactions, leasing, zoning, and landlord-tenant disputes.',
                         'link' => '#'
                     ],
                     [
-                        'img' => 'assets/images/image1.jpg',
+                        'img' => 'assets/images/card_images/constitutional_law.jpeg',
                         'svg' => 'assets/images/icons/gavel.svg',
                         'title' => 'Constitutional Law',
                         'desc' => 'Involves interpretation and application of the Constitution. Covers fundamental rights, duties, and judicial review.',
                         'link' => '#'
                     ],
                     [
-                        'img' => 'assets/images/image1.jpg',
+                        'img' => 'assets/images/card_images/Administrative-Law.jpg',
                         'svg' => 'assets/images/icons/gavel.svg',
                         'title' => 'Administrative Law',
                         'desc' => 'Governs the actions and operations of government agencies. Includes licensing, regulation, and tribunal procedures.',
                         'link' => '#'
                     ],
                     [
-                        'img' => 'assets/images/image1.jpg',
+                        'img' => 'assets/images/card_images/tax_law.jpg',
                         'svg' => 'assets/images/icons/gavel.svg',
                         'title' => 'Tax Law',
                         'desc' => 'Involves the assessment and collection of taxes. Includes tax planning, appeals, and litigation.',
                         'link' => '#'
                     ],
                     [
-                        'img' => 'assets/images/image1.jpg',
+                        'img' => 'assets/images/card_images/environmental_law.jpg',
                         'svg' => 'assets/images/icons/gavel.svg',
                         'title' => 'Environmental Law',
                         'desc' => 'Deals with protection of the environment and natural resources. Includes pollution control and forest conservation.',
                         'link' => '#'
                     ],
                     [
-                        'img' => 'assets/images/image1.jpg',
+                        'img' => 'assets/images/card_images/Intellectual-property.jpg',
                         'svg' => 'assets/images/icons/gavel.svg',
                         'title' => 'Intellectual Property (IP) Law',
                         'desc' => 'Protects creations of the mind such as inventions, trademarks, copyrights, and patents.',
                         'link' => '#'
                     ],
                     [
-                        'img' => 'assets/images/image1.jpg',
+                        'img' => 'assets/images/card_images/cyber_law.jpg',
                         'svg' => 'assets/images/icons/gavel.svg',
                         'title' => 'Cyber Law / IT Law',
                         'desc' => 'Governs digital transactions, data protection, online defamation, cybercrimes, and e-contracts.',
                         'link' => '#'
                     ],
                     [
-                        'img' => 'assets/images/image1.jpg',
+                        'img' => 'assets/images/card_images/consumer_law.jpg',
                         'svg' => 'assets/images/icons/gavel.svg',
                         'title' => 'Consumer Protection Law',
                         'desc' => 'Provides remedies for consumers against unfair trade practices or defective goods/services.',
                         'link' => '#'
                     ],
                     [
-                        'img' => 'assets/images/image1.jpg',
+                        'img' => 'assets/images/card_images/Blog photos_human rights lawyers.jpg',
                         'svg' => 'assets/images/icons/gavel.svg',
                         'title' => 'Human Rights Law',
                         'desc' => "Protects individuals' rights and freedoms, often involving issues like discrimination and unlawful detention.",
                         'link' => '#'
                     ],
                     [
-                        'img' => 'assets/images/image1.jpg',
+                        'img' => 'assets/images/card_images/Finance_law.webp',
                         'svg' => 'assets/images/icons/gavel.svg',
                         'title' => 'Banking and Finance Law',
                         'desc' => 'Involves regulations related to loans, securities, financial institutions, and debt recovery.',
                         'link' => '#'
                     ],
                     [
-                        'img' => 'assets/images/image1.jpg',
+                        'img' => 'assets/images/card_images/ADR.jpg',
                         'svg' => 'assets/images/icons/gavel.svg',
                         'title' => 'Alternative Dispute Resolution (ADR)',
                         'desc' => 'Methods like arbitration, mediation, and conciliation to resolve disputes outside court.',
                         'link' => '#'
                     ],
                     [
-                        'img' => 'assets/images/image1.jpg',
+                        'img' => 'assets/images/card_images/international-law-.jpg',
                         'svg' => 'assets/images/icons/gavel.svg',
                         'title' => 'International Law',
                         'desc' => 'Governs relations between nations; includes treaties, international trade, human rights, and conflict resolution.',

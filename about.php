@@ -111,21 +111,21 @@ require_once 'config/database.php';
                 <?php
                 $services = [
                     [
-                        'img' => 'assets/images/image1.jpg',
+                        'img' => 'assets/images/card_images/civil_law_card.jpg',
                         'svg' => 'assets/images/icons/gavel.svg',
                         'title' => 'Civil Law',
                         'desc' => 'Private disputes between individuals or organizations, including contracts, torts, property, and family law.',
                         'link' => '#'
                     ],
                     [
-                        'img' => 'assets/images/image1.jpg',
+                        'img' => 'assets/images/card_images/criminal_law_card.jpeg',
                         'svg' => 'assets/images/icons/gavel.svg',
                         'title' => 'Criminal Law',
                         'desc' => 'Prosecution of crimes against society, including theft, assault, cybercrime, and more.',
                         'link' => '#'
                     ],
                     [
-                        'img' => 'assets/images/image1.jpg',
+                        'img' => 'assets/images/card_images/family-law.jpg',
                         'svg' => 'assets/images/icons/gavel.svg',
                         'title' => 'Family Law',
                         'desc' => 'Matters such as marriage, divorce, child custody, maintenance, and domestic violence.',
