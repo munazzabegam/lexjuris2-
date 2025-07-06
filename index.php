@@ -24,7 +24,7 @@ require_once 'config/database.php';
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
@@ -885,7 +885,7 @@ require_once 'config/database.php';
                                                 </span>
                                             </div>
                                             <div class="pt-4 position-relative" style="margin-top:5%;">
-                                                <h5 class="fw-bold mb-2" style="font-family:Playfair Display,serif;font-size:1.5rem;"><?= $s['title'] ?></h5>
+                                                <h5 class="fw-bold mb-2" style="font-size:1.5rem;"><?= $s['title'] ?></h5>
                                                 <p class="mb-4 text-muted"><?= $s['desc'] ?></p>
                                                 <span class="service-modern-num position-absolute" style="right:0;margin-top:-10%;font-size:4.5rem;font-weight:700;z-index:0;"><?= $s['num'] ?></span>
                                             </div>

@@ -54,7 +54,7 @@ try {
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <!-- css-link -->
     <link rel="stylesheet" href="../assets/css/dashboard.css">
     <style>
@@ -65,7 +65,7 @@ try {
             border-radius: 14px;
             padding: 2.2rem 2rem 1.5rem 2rem;
             margin-bottom: 2rem;
-            font-family: 'Inter', sans-serif;
+            font-family: 'Roboto', sans-serif;
         }
         .welcome-banner h2 {
             font-size: 2.2rem;

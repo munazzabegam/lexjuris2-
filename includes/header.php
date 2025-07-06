@@ -67,7 +67,7 @@ $nav_items = [
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb justify-content-center">
                         <li class="breadcrumb-item"><a href="index.php" class="text-white">Home</a></li>
-                        <li class="breadcrumb-item active text-warning" aria-current="page"><?php echo ucfirst($current_page); ?></li>
+                        <li class="breadcrumb-item active" aria-current="page" style="color: #bc841c;"><?php echo ucfirst($current_page); ?></li>
                     </ol>
                 </nav>
             </div>

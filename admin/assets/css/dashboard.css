@@ -15,7 +15,7 @@
 }
 
 body {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Roboto', sans-serif;
     background-color: #f8f9fa;
     color: var(--text-color);
     overflow-x: hidden;

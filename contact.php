@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
@@ -52,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="row justify-content-center align-items-start g-0">
                 <!-- Contact Form -->
                 <div class="col-lg-7 px-4 py-5">
-                    <h1 class="display-4 mb-2" style="font-family: 'Playfair Display', serif; font-weight: 700; color: var(--primary-color);">Contact Law Firm</h1>
+                    <h1 class="display-4 mb-2" style="font-weight: 700; color: var(--primary-color);">Contact Law Firm</h1>
                     <p class="mb-4" style="color: #666;">Send a message. We will contact you as soon as possible</p>
                     <?php if (!empty($errors)): ?>
                         <div class="alert alert-danger" data-aos="fade-up">
@@ -87,47 +87,79 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <div class="invalid-feedback">Please enter your message.</div>
                             </div>
                             <div class="col-12">
-                                <button type="submit" class="btn btn-warning px-5 py-2 rounded-3" style="background: var(--secondary-color); border: none; color: #fff;">Send Message</button>
+                                <button type="submit" class="btn btn-warning px-5 py-2 rounded-3" style="background: #bc841c; border: none; color: #fff;">Send Message</button>
                             </div>
                         </div>
                     </form>
                 </div>
                 <!-- Contact Information -->
                 <div class="col-lg-5 d-flex align-items-stretch">
-                    <div class="bg-white rounded-4 shadow-sm p-4 w-100" style="min-width: 320px; border: 2px solid var(--primary-color);">
-                        <div class="mb-4 d-flex align-items-center">
-                            <span class="d-inline-flex justify-content-center align-items-center" style="background: var(--primary-color); width:48px;height:48px; border-radius: 12px;" ><i class="fas fa-phone fa-lg text-white"></i></span>
-                            <div class="ms-3">
-                                <div class="fw-bold" style="color: var(--secondary-color);">Call Free</div>
-                                <div class="text-muted small">+91 7411448378, +91 9555552545</div>
+                    <div class="bg-white rounded-4 p-3 w-100" style="min-width: 350px;">
+                        <h4 class="mb-3 text-center" style="color: var(--primary-color); font-weight: 600;">Contact Information</h4>
+                        <div class="contact-info-item mb-2 bg-white border-0 rounded-3 py-2 px-3">
+                            <div class="d-flex align-items-center">
+                                <div class="contact-icon-wrapper me-3 d-flex align-items-center justify-content-center" style="width: 45px; height: 45px; background: var(--primary-color); border-radius: 8px;">
+                                    <i class="fas fa-phone text-white" style="font-size: 1.1rem;"></i>
+                                </div>
+                                <div>
+                                    <div class="fw-semibold mb-1" style="color: var(--primary-color); font-size: 0.95rem;">Call Free</div>
+                                    <div class="text-muted" style="font-size: 0.9rem;">+91 7411448378, +91 9555552545</div>
+                                </div>
                             </div>
                         </div>
-                        <div class="mb-4 d-flex align-items-center">
-                            <span class="d-inline-flex justify-content-center align-items-center" style="background: var(--primary-color); width:48px;height:48px; border-radius: 12px;"><i class="fas fa-envelope fa-lg text-white"></i></span>
-                            <div class="ms-3">
-                                <div class="fw-bold" style="color: var(--secondary-color);">Email</div>
-                                <div class="text-muted small">teamlexjuris@gmail.com</div>
+                        <div class="contact-info-item mb-2 bg-white border-0 rounded-3 py-2 px-3">
+                            <div class="d-flex align-items-center">
+                                <div class="contact-icon-wrapper me-3 d-flex align-items-center justify-content-center" style="width: 45px; height: 45px; background: var(--primary-color); border-radius: 8px;">
+                                    <i class="fas fa-envelope text-white" style="font-size: 1.1rem;"></i>
+                                </div>
+                                <div>
+                                    <div class="fw-semibold mb-1" style="color: var(--primary-color); font-size: 0.95rem;">Email</div>
+                                    <div class="text-muted" style="font-size: 0.9rem;">teamlexjuris@gmail.com</div>
+                                </div>
                             </div>
                         </div>
-                        <div class="mb-4 d-flex align-items-center">
-                            <span class="d-inline-flex justify-content-center align-items-center" style="background: var(--primary-color); width:48px;height:48px; border-radius: 12px;"><i class="fas fa-map-marker-alt fa-lg text-white"></i></span>
-                            <div class="ms-3">
-                                <div class="fw-bold" style="color: var(--secondary-color);">Head Office</div>
-                                <div class="text-muted small">6th Floor Paradigm Plaza, AB Shetty Circle, Mangalore , D.K</div>
+                        <div class="contact-info-item mb-2 bg-white border-0 rounded-3 py-2 px-3">
+                            <div class="d-flex align-items-center">
+                                <div class="contact-icon-wrapper me-3 d-flex align-items-center justify-content-center" style="width: 45px; height: 45px; background: var(--primary-color); border-radius: 8px;">
+                                    <i class="fas fa-map-marker-alt text-white" style="font-size: 1.1rem;"></i>
+                                </div>
+                                <div>
+                                    <div class="fw-semibold mb-1" style="color: var(--primary-color); font-size: 0.95rem;">Head Office</div>
+                                    <div class="text-muted" style="font-size: 0.9rem;">6th Floor Paradigm Plaza, AB Shetty Circle, Mangalore, D.K</div>
+                                </div>
                             </div>
                         </div>
-                        <div class="mb-4 d-flex align-items-center">
-                            <span class="d-inline-flex justify-content-center align-items-center" style="background: var(--primary-color); width:48px;height:48px; border-radius: 12px;"><i class="fas fa-map-marker-alt fa-lg text-white"></i></span>
-                            <div class="ms-3">
-                                <div class="fw-bold" style="color: var(--secondary-color);">Branch</div>
-                                <div class="text-muted small">3rd Floor Canara Tower,  Mission Hospital Road, Udupi</div>
+                        <div class="contact-info-item mb-2 bg-white border-0 rounded-3 py-2 px-3">
+                            <div class="d-flex align-items-center">
+                                <div class="contact-icon-wrapper me-3 d-flex align-items-center justify-content-center" style="width: 45px; height: 45px; background: var(--primary-color); border-radius: 8px;">
+                                    <i class="fas fa-map-marker-alt text-white" style="font-size: 1.1rem;"></i>
+                                </div>
+                                <div>
+                                    <div class="fw-semibold mb-1" style="color: var(--primary-color); font-size: 0.95rem;">Branch 1</div>
+                                    <div class="text-muted" style="font-size: 0.9rem;">3rd Floor Canara Tower, Mission Hospital Road, Udupi</div>
+                                </div>
                             </div>
                         </div>
-                        <div class="mb-2 d-flex align-items-center">
-                            <span class="d-inline-flex justify-content-center align-items-center" style="background: var(--primary-color); width:48px;height:48px; border-radius: 12px;"><i class="fas fa-clock fa-lg text-white"></i></span>
-                            <div class="ms-3">
-                                <div class="fw-bold" style="color: var(--secondary-color);">Working Hours</div>
-                                <div class="text-muted small">Monday - Saturday: 9:00 AM - 9:00 PM<br>Saturday: 9:00 AM - 2:00 PM</div>
+                        <div class="contact-info-item mb-2 bg-white border-0 rounded-3 py-2 px-3">
+                            <div class="d-flex align-items-center">
+                                <div class="contact-icon-wrapper me-3 d-flex align-items-center justify-content-center" style="width: 45px; height: 45px; background: var(--primary-color); border-radius: 8px;">
+                                    <i class="fas fa-map-marker-alt text-white" style="font-size: 1.1rem;"></i>
+                                </div>
+                                <div>
+                                    <div class="fw-semibold mb-1" style="color: var(--primary-color); font-size: 0.95rem;">Branch 2</div>
+                                    <div class="text-muted" style="font-size: 0.9rem;">Bangalore, Karnataka</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="contact-info-item mb-0 bg-white border-0 rounded-3 py-2 px-3">
+                            <div class="d-flex align-items-center">
+                                <div class="contact-icon-wrapper me-3 d-flex align-items-center justify-content-center" style="width: 45px; height: 45px; background: var(--primary-color); border-radius: 8px;">
+                                    <i class="fas fa-clock text-white" style="font-size: 1.1rem;"></i>
+                                </div>
+                                <div>
+                                    <div class="fw-semibold mb-1" style="color: var(--primary-color); font-size: 0.95rem;">Working Hours</div>
+                                    <div class="text-muted" style="font-size: 0.9rem;">Monday - Saturday: 9:00 AM - 9:00 PM<br>Saturday: 9:00 AM - 2:00 PM</div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -163,13 +195,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <div class="accordion-item border-0 mb-3">
                             <h2 class="accordion-header" id="heading<?php echo $faq['id']; ?>">
                                 <button class="accordion-button <?php echo $faq_count === 1 ? '' : 'collapsed'; ?> shadow-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<?php echo $faq['id']; ?>" aria-expanded="<?php echo $expanded; ?>" aria-controls="collapse<?php echo $faq['id']; ?>">
-                                    <i class="fas fa-question-circle text-warning me-3"></i>
+                                    <i class="fas fa-question-circle me-3" style="color: #bc841c;"></i>
                                     <?php echo htmlspecialchars($faq['question']); ?>
                                 </button>
                             </h2>
                             <div id="collapse<?php echo $faq['id']; ?>" class="accordion-collapse collapse <?php echo $show; ?>" aria-labelledby="heading<?php echo $faq['id']; ?>" data-bs-parent="#accordionFaq">
                                 <div class="accordion-body bg-light">
-                                    <i class="fas fa-info-circle text-warning me-2"></i>
+                                    <i class="fas fa-info-circle me-2" style="color: #bc841c;"></i>
                                     <?php echo nl2br(htmlspecialchars($faq['answer'])); ?>
                                 </div>
                             </div>
@@ -187,6 +219,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
 
     <style>
+        .contact-info-item {
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        
+        .contact-info-item:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transform: translateY(-1px);
+        }
+        
+        .contact-icon-wrapper {
+            transition: all 0.3s ease;
+        }
+        
+        .contact-info-item:hover .contact-icon-wrapper {
+            background:  #bc841c !important;
+            transform: scale(1.05);
+        }
+        
         .custom-accordion .accordion-button {
             background-color: #fff;
             color: #333;
@@ -194,6 +245,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             padding: 1.25rem;
             border-radius: 8px !important;
             transition: all 0.3s ease;
+        }
+        
+        .custom-accordion .accordion-button:hover {
+            color: #bc841c;
         }
         
         .custom-accordion .accordion-button:not(.collapsed) {

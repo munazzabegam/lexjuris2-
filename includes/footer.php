@@ -65,14 +65,14 @@
                     <li>
                         <i class="fas fa-map-marker-alt"></i>
                         <span>
-                            <strong>Branch:</strong><br>
+                            <strong>Branch 1:</strong><br>
                             3rd Floor Canara Tower,  Mission Hospital Road, Udupi
                         </span>
                     </li>
                     <li>
                         <i class="fas fa-map-marker-alt"></i>
                         <span>
-                            <strong>Bangalore:</strong><br>
+                            <strong>Branch 2:</strong><br>
                             Bangalore, Karnataka
                         </span>
                     </li>

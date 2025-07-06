@@ -13,9 +13,72 @@ $current_page = "services";
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: #6c757d;
+        }
+        .service-modern-card {
+            transition: all 0.3s ease;
+            border: none;
+            overflow: hidden;
+        }
+        .service-modern-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .service-modern-icon {
+            margin-bottom: 20px;
+        }
+        .service-modern-icon svg {
+            width: 32px;
+            height: 32px;
+            display: block;
+            transition: fill 0.2s, transform 0.2s;
+            fill: #000 !important;
+        }
+        .service-modern-icon svg * {
+            fill: #000 !important;
+        }
+        .service-modern-card:hover .service-modern-icon {
+            background: #bc841c !important;
+        }
+        .service-modern-card:hover .service-modern-icon svg {
+            fill: rgb(255, 255, 255) !important;
+            transform: scale(1.18);
+        }
+        .service-modern-card:hover .service-modern-icon svg * {
+            fill: rgb(255, 255, 255) !important;
+        }
+        .feature-card {
+            text-align: center;
+            padding: 2rem 1rem;
+        }
+        .feature-card h3 {
+            margin: 1rem 0;
+            font-weight: 600;
+        }
+        .feature-card p {
+            margin: 0;
+            opacity: 0.9;
+        }
+        .feature-svg-icon svg {
+            width: 100%;
+            height: 100%;
+            fill: currentColor;
+        }
+    </style>
 </head>
 <body>
     <?php include 'includes/header.php'; ?>
@@ -34,21 +97,21 @@ $current_page = "services";
                 $services = [
                     [
                         'img' => 'assets/images/image1.jpg',
-                        'svg' => 'assets/images/icons/team.svg',
+                        'svg' => 'assets/images/icons/gavel.svg',
                         'title' => 'Civil Law',
                         'desc' => 'Deals with private disputes between individuals or organizations. Includes contract law, tort law, property law, and family law.',
                         'link' => '#'
                     ],
                     [
                         'img' => 'assets/images/image1.jpg',
-                        'svg' => 'assets/images/icons/support.svg',
+                        'svg' => 'assets/images/icons/gavel.svg',
                         'title' => 'Criminal Law',
                         'desc' => 'Involves prosecution by the state of wrongful acts against society. Includes theft, assault, murder, and cybercrime.',
                         'link' => '#'
                     ],
                     [
                         'img' => 'assets/images/image1.jpg',
-                        'svg' => 'assets/images/icons/focus.svg',
+                        'svg' => 'assets/images/icons/gavel.svg',
                         'title' => 'Family Law',
                         'desc' => 'Covers matters such as marriage, divorce, child custody, maintenance, adoption, and domestic violence.',
                         'link' => '#'
@@ -62,42 +125,42 @@ $current_page = "services";
                     ],
                     [
                         'img' => 'assets/images/image1.jpg',
-                        'svg' => 'assets/images/icons/law.svg',
+                        'svg' => 'assets/images/icons/gavel.svg',
                         'title' => 'Labour & Employment Law',
                         'desc' => 'Governs employer-employee relationships. Covers wages, termination, discrimination, and workplace safety.',
                         'link' => '#'
                     ],
                     [
                         'img' => 'assets/images/image1.jpg',
-                        'svg' => 'assets/images/icons/mission.svg',
+                        'svg' => 'assets/images/icons/gavel.svg',
                         'title' => 'Property / Real Estate Law',
                         'desc' => 'Deals with rights and duties related to real property. Includes transactions, leasing, zoning, and landlord-tenant disputes.',
                         'link' => '#'
                     ],
                     [
                         'img' => 'assets/images/image1.jpg',
-                        'svg' => 'assets/images/icons/vision.svg',
+                        'svg' => 'assets/images/icons/gavel.svg',
                         'title' => 'Constitutional Law',
                         'desc' => 'Involves interpretation and application of the Constitution. Covers fundamental rights, duties, and judicial review.',
                         'link' => '#'
                     ],
                     [
                         'img' => 'assets/images/image1.jpg',
-                        'svg' => 'assets/images/icons/court.svg',
+                        'svg' => 'assets/images/icons/gavel.svg',
                         'title' => 'Administrative Law',
                         'desc' => 'Governs the actions and operations of government agencies. Includes licensing, regulation, and tribunal procedures.',
                         'link' => '#'
                     ],
                     [
                         'img' => 'assets/images/image1.jpg',
-                        'svg' => 'assets/images/icons/focus.svg',
+                        'svg' => 'assets/images/icons/gavel.svg',
                         'title' => 'Tax Law',
                         'desc' => 'Involves the assessment and collection of taxes. Includes tax planning, appeals, and litigation.',
                         'link' => '#'
                     ],
                     [
                         'img' => 'assets/images/image1.jpg',
-                        'svg' => 'assets/images/icons/support.svg',
+                        'svg' => 'assets/images/icons/gavel.svg',
                         'title' => 'Environmental Law',
                         'desc' => 'Deals with protection of the environment and natural resources. Includes pollution control and forest conservation.',
                         'link' => '#'
@@ -111,42 +174,42 @@ $current_page = "services";
                     ],
                     [
                         'img' => 'assets/images/image1.jpg',
-                        'svg' => 'assets/images/icons/law.svg',
+                        'svg' => 'assets/images/icons/gavel.svg',
                         'title' => 'Cyber Law / IT Law',
                         'desc' => 'Governs digital transactions, data protection, online defamation, cybercrimes, and e-contracts.',
                         'link' => '#'
                     ],
                     [
                         'img' => 'assets/images/image1.jpg',
-                        'svg' => 'assets/images/icons/mission.svg',
+                        'svg' => 'assets/images/icons/gavel.svg',
                         'title' => 'Consumer Protection Law',
                         'desc' => 'Provides remedies for consumers against unfair trade practices or defective goods/services.',
                         'link' => '#'
                     ],
                     [
                         'img' => 'assets/images/image1.jpg',
-                        'svg' => 'assets/images/icons/vision.svg',
+                        'svg' => 'assets/images/icons/gavel.svg',
                         'title' => 'Human Rights Law',
                         'desc' => "Protects individuals' rights and freedoms, often involving issues like discrimination and unlawful detention.",
                         'link' => '#'
                     ],
                     [
                         'img' => 'assets/images/image1.jpg',
-                        'svg' => 'assets/images/icons/court.svg',
+                        'svg' => 'assets/images/icons/gavel.svg',
                         'title' => 'Banking and Finance Law',
                         'desc' => 'Involves regulations related to loans, securities, financial institutions, and debt recovery.',
                         'link' => '#'
                     ],
                     [
                         'img' => 'assets/images/image1.jpg',
-                        'svg' => 'assets/images/icons/team.svg',
+                        'svg' => 'assets/images/icons/gavel.svg',
                         'title' => 'Alternative Dispute Resolution (ADR)',
                         'desc' => 'Methods like arbitration, mediation, and conciliation to resolve disputes outside court.',
                         'link' => '#'
                     ],
                     [
                         'img' => 'assets/images/image1.jpg',
-                        'svg' => 'assets/images/icons/support.svg',
+                        'svg' => 'assets/images/icons/gavel.svg',
                         'title' => 'International Law',
                         'desc' => 'Governs relations between nations; includes treaties, international trade, human rights, and conflict resolution.',
                         'link' => '#'
@@ -164,7 +227,7 @@ $current_page = "services";
                         . '</span>'
                         . '</div>'
                         . '<div class="pt-4 position-relative" style="margin-top:5%;">'
-                        . '<h5 class="fw-bold mb-2" style="font-family:Playfair Display,serif;font-size:1.5rem;">' . $s['title'] . '</h5>'
+                        . '<h5 class="fw-bold mb-2" style="font-size:1.5rem;">' . $s['title'] . '</h5>'
                         . '<p class="mb-4 text-muted">' . $s['desc'] . '</p>'
                         . '</div>'
                         . '</div>'

@@ -1,7 +1,7 @@
 /* Global Styles */
 :root {
     --primary-color: #1a1a2e;
-    --secondary-color: #dc9210;
+    --secondary-color: #bc841c;
     --text-color: #333;
     --light-bg: #f8f9fa;
     --dark-bg: #1a1a2e;
@@ -9,7 +9,7 @@
 }
 
 body {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Roboto', sans-serif;
     color: var(--text-color);
     line-height: 1.6;
     display: flex;
@@ -18,7 +18,7 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Roboto', sans-serif;
 }
 
 /* Navigation */
@@ -36,7 +36,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .navbar-brand .text-warning {
-    color: #dc9210 !important;
+    color: #bc841c !important;
 }
 
 .nav-link {

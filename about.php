@@ -14,9 +14,55 @@ require_once 'config/database.php';
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: #6c757d;
+        }
+        .service-modern-card {
+            transition: all 0.3s ease;
+            border: none;
+            overflow: hidden;
+        }
+        .service-modern-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .service-modern-icon {
+            margin-bottom: 20px;
+        }
+        .service-modern-icon svg {
+            width: 32px;
+            height: 32px;
+            display: block;
+            transition: fill 0.2s, transform 0.2s;
+            fill: #000 !important;
+        }
+        .service-modern-icon svg * {
+            fill: #000 !important;
+        }
+        .service-modern-card:hover .service-modern-icon {
+            background: #bc841c !important;
+        }
+        .service-modern-card:hover .service-modern-icon svg {
+            fill: rgb(255, 255, 255) !important;
+            transform: scale(1.18);
+        }
+        .service-modern-card:hover .service-modern-icon svg * {
+            fill: rgb(255, 255, 255) !important;
+        }
+    </style>
 </head>
 <body>
     <?php include 'includes/header.php'; ?>
@@ -27,26 +73,22 @@ require_once 'config/database.php';
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-6" data-aos="fade-right" data-aos-delay="200">
-                    <img id="about-main-img" src="https://images.pexels.com/photos/6077326/pexels-photo-6077326.jpeg?auto=compress&w=1200&q=80" alt="About Us" class="img-fluid rounded w-100" style="height:600px;object-fit:cover;">
+                    <img id="about-main-img" src="https://images.pexels.com/photos/6077326/pexels-photo-6077326.jpeg?auto=compress&w=1200&q=80" alt="About Us" class="img-fluid rounded w-100" style="height:500px;object-fit:cover;">
                 </div>
                 <div class="col-lg-6 d-flex flex-column" data-aos="fade-left" data-aos-delay="400">
                     <h2 class="section-title">Our Journey: The Evolution of Lex Juris Law Chamber</h2>
-                    <div class="evolution-content" style="max-height:600px;overflow:auto;">
-                        <p class="lead mb-4">The Evolution of Lex Juris Law Chamber</p>
-                        <p class="mb-3">The inception of Lex Juris Law Chamber traces back to three zealous legal minds and close confidants — <strong>Adv. Asif Baikady</strong>, <strong>Adv. Abu Haris</strong> and <strong>Adv. Umarul Farooq</strong> who shared a unified dream and were unwavering in their pursuit of a common goal: to establish a distinguished and ethical legal practice.</p>
-                        <p class="mb-3">Driven by ambition and the strength of their camaraderie, their shared vision took form with the inauguration of their first office near State Bank, opposite Noufal Hotel, under the moniker Lex Juris Law Chamber.</p>
-                        <p class="mb-3">As their practice steadily gained momentum, they welcomed a dynamic addition to their team — <strong>Adv. Omer Farooq</strong> — whose fresh perspective and vibrant energy brought renewed vitality to the chamber. In the post-pandemic era, <strong>Adv. Asif Baikady</strong> connected with <strong>Adv. Asgar</strong>, a litigator known for his sharp legal acumen, relentless dedication, and charismatic nature. Although Adv. Asgar was not a daily presence in the beginning, his substantial contributions to the firm's legal strategies and courtroom performance added immense value.</p>
+                    <div class="evolution-content" style="height:400px;">
+                        <p class="mb-2" style="text-align: justify; font-size: 1rem;">The Evolution of Lex Juris Law Chamber</p>
+                        <p class="mb-2" style="text-align: justify; font-size: 1rem;">The inception of Lex Juris Law Chamber traces back to three zealous legal minds and close confidants — <strong>Adv. Asif Baikady</strong>, <strong>Adv. Abu Haris</strong> and <strong>Adv. Umarul Farooq</strong> who shared a unified dream and were unwavering in their pursuit of a common goal: to establish a distinguished and ethical legal practice.</p>
+                        <p class="mb-2" style="text-align: justify; font-size: 1rem;">Driven by ambition and the strength of their camaraderie, their shared vision took form with the inauguration of their first office near State Bank, opposite Noufal Hotel, under the moniker Lex Juris Law Chamber.</p>
+                        <p class="mb-2" style="text-align: justify; font-size: 1rem;">As their practice steadily gained momentum, they welcomed a dynamic addition to their team — <strong>Adv. Omer Farooq</strong> — whose fresh perspective and vibrant energy brought renewed vitality to the chamber. In the post-pandemic era, <strong>Adv. Asif Baikady</strong> connected with <strong>Adv. Asgar</strong>, a litigator known for his sharp legal acumen, relentless dedication, and charismatic nature. Although Adv. Asgar was not a daily presence in the beginning, his substantial contributions to the firm's legal strategies and courtroom performance added immense value.</p>
                     </div>
                 </div>
             </div>
             <div class="row mt-4">
                 <div class="col-12">
                     <div class="evolution-content-continued">
-                        <p class="mb-3">Motivated by a collective desire to foster a more sophisticated and professional environment, the team embarked on a year-long search for a new office space. Their perseverance paid off when they discovered an ideal location in the heart of the city's bustling business district. The team meticulously transformed this space into a thoughtfully designed, efficient, and well-appointed legal chamber.</p>
-                        <p class="mb-3">The newly established office, featuring six elegantly structured cabins, laid the foundation for the firm's next chapter. With five dedicated advocates already leading the charge, they extended an invitation to <strong>Adv. Ijaz</strong> a trusted friend and former classmate of Adv. Asgar who enthusiastically joined the team, completing the circle.</p>
-                        <p class="mb-3">Thus, six advocates, united by trust, shared purpose, and an unwavering commitment to justice, inaugurated a new era for Lex Juris Law Chamber.</p>
-                        <p class="mb-3">Their story is one of perseverance, collaboration, and an enduring pursuit of legal excellence.</p>
-                        <p class="mb-0">Today, Lex Juris stands as a pillar of legal advocacy in Mangaluru, offering comprehensive legal assistance to all segments of society. With a team that blends youthful dynamism and seasoned experience, the chamber has grown into one of the most prominent and respected law firms in the region, driven by a relentless commitment to justice, ethics, and service.</p>
+                        <p class="mb-0" style="text-align: justify; font-size: 1rem;">Motivated by a collective desire to foster a more sophisticated and professional environment, the team embarked on a year-long search for a new office space. Their perseverance paid off when they discovered an ideal location in the heart of the city's bustling business district. The team meticulously transformed this space into a thoughtfully designed, efficient, and well-appointed legal chamber. The newly established office, featuring six elegantly structured cabins, laid the foundation for the firm's next chapter. With five dedicated advocates already leading the charge, they extended an invitation to <strong>Adv. Ijaz</strong> a trusted friend and former classmate of Adv. Asgar who enthusiastically joined the team, completing the circle. Thus, six advocates, united by trust, shared purpose, and an unwavering commitment to justice, inaugurated a new era for Lex Juris Law Chamber. Their story is one of perseverance, collaboration, and an enduring pursuit of legal excellence. Today, Lex Juris stands as a pillar of legal advocacy in Mangaluru, offering comprehensive legal assistance to all segments of society. With a team that blends youthful dynamism and seasoned experience, the chamber has grown into one of the most prominent and respected law firms in the region, driven by a relentless commitment to justice, ethics, and service.</p>
                             </div>
                         </div>
             </div>
@@ -77,14 +119,14 @@ require_once 'config/database.php';
                     ],
                     [
                         'img' => 'assets/images/image1.jpg',
-                        'svg' => 'assets/images/icons/support.svg',
+                        'svg' => 'assets/images/icons/gavel.svg',
                         'title' => 'Criminal Law',
                         'desc' => 'Prosecution of crimes against society, including theft, assault, cybercrime, and more.',
                         'link' => '#'
                     ],
                     [
                         'img' => 'assets/images/image1.jpg',
-                        'svg' => 'assets/images/icons/team.svg',
+                        'svg' => 'assets/images/icons/gavel.svg',
                         'title' => 'Family Law',
                         'desc' => 'Matters such as marriage, divorce, child custody, maintenance, and domestic violence.',
                         'link' => '#'
@@ -100,7 +142,7 @@ require_once 'config/database.php';
                     echo '</span>';
                     echo '</div>';
                     echo '<div class="pt-4 position-relative" style="margin-top:5%;">';
-                    echo '<h5 class="fw-bold mb-2" style="font-family:Playfair Display,serif;font-size:1.5rem;">' . $s['title'] . '</h5>';
+                    echo '<h5 class="fw-bold mb-2" style="font-size:1.5rem;">' . $s['title'] . '</h5>';
                     echo '<p class="mb-4 text-muted">' . $s['desc'] . '</p>';
                     echo '</div>';
                     echo '</div>';
