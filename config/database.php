@@ -6,6 +6,12 @@ class Database {
     public $password = "BrandWeave@25";
     public $conn;
 
+    // public $host = "localhost";
+    // public $db_name = "lex_juris";
+    // public $username = "root";
+    // public $password = "";
+    // public $conn;
+
     public function getConnection() {
         $this->conn = null;
 

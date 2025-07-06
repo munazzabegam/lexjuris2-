@@ -90,7 +90,10 @@ $current_page = "services";
         .feature-svg-icon svg {
             width: 100%;
             height: 100%;
-            fill: currentColor;
+            fill: #bc841c !important;
+        }
+        .feature-svg-icon svg * {
+            fill: #bc841c !important;
         }
         /* Responsive Tweaks */
         @media (max-width: 991.98px) {
