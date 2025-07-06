@@ -10,7 +10,13 @@ require_once 'config/database.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Our Team - LexJuris Law Chamber. Meet our expert advocates in Mangalore, Karnataka. Experienced lawyers specializing in various areas of law. Best legal team in Karnataka.">
+    <meta name="keywords" content="legal team mangalore, expert advocates karnataka, law firm team, experienced lawyers, legal professionals, best advocates team, law chamber lawyers">
     <title><?php echo $page_title; ?></title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/images/favicon.png">
+    <link rel="apple-touch-icon" href="assets/images/favicon.png">
+    <link rel="manifest" href="assets/images/site.webmanifest">
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->

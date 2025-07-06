@@ -1,0 +1,14 @@
+{
+    "name": "LexJuris Law Chamber",
+    "short_name": "LexJuris",
+    "icons": [
+        {
+            "src": "/assets/images/favicon.png",
+            "sizes": "any",
+            "type": "image/png"
+        }
+    ],
+    "theme_color": "#bc841c",
+    "background_color": "#ffffff",
+    "display": "standalone"
+} 

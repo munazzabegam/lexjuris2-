@@ -33,7 +33,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contact LexJuris Law Chamber - Best advocate in Mangalore, Karnataka. Get expert legal consultation and representation. Reach our experienced lawyers for all your legal needs.">
+    <meta name="keywords" content="contact lexjuris, legal consultation mangalore, advocate contact, lawyer consultation karnataka, legal advice mangalore, law firm contact, best advocate contact">
     <title><?php echo $page_title; ?></title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/images/favicon.png">
+    <link rel="apple-touch-icon" href="assets/images/favicon.png">
+    <link rel="manifest" href="assets/images/site.webmanifest">
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->

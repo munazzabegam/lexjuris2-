@@ -101,7 +101,13 @@ $tags = $tags_result->fetch_all(MYSQLI_ASSOC);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Legal Blog - LexJuris Law Chamber. Expert legal insights, case studies, and legal advice from the best advocates in Mangalore, Karnataka. Stay informed with legal updates.">
+    <meta name="keywords" content="legal blog mangalore, legal insights, case studies, legal advice, law articles, legal updates, advocate blog, legal knowledge">
     <title><?php echo $page_title; ?></title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/images/favicon.png">
+    <link rel="apple-touch-icon" href="assets/images/favicon.png">
+    <link rel="manifest" href="assets/images/site.webmanifest">
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->

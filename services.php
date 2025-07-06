@@ -7,7 +7,13 @@ $current_page = "services";
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Legal Services by LexJuris - Best advocate in Mangalore offering civil law, criminal law, family law, corporate law, property law, and more. Expert legal consultation in Karnataka.">
+    <meta name="keywords" content="legal services mangalore, civil law advocate, criminal law lawyer, family law attorney, corporate law firm, property law expert, legal consultation karnataka, best lawyer mangalore">
     <title><?php echo $page_title; ?></title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/images/favicon.png">
+    <link rel="apple-touch-icon" href="assets/images/favicon.png">
+    <link rel="manifest" href="assets/images/site.webmanifest">
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->

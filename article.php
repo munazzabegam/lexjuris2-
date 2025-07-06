@@ -56,7 +56,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['comment_article_id'])
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Legal Article - Expert legal insights and analysis from LexJuris Law Chamber, the best advocates in Mangalore, Karnataka. Comprehensive legal knowledge and case studies.">
+    <meta name="keywords" content="legal article, legal analysis, case study, legal insights, advocate article, legal knowledge, law analysis, legal expertise">
     <title><?php echo $page_title; ?></title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/images/favicon.png">
+    <link rel="apple-touch-icon" href="assets/images/favicon.png">
+    <link rel="manifest" href="assets/images/site.webmanifest">
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->

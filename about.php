@@ -8,7 +8,13 @@ require_once 'config/database.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="About LexJuris Law Chamber - Leading law firm in Mangalore, Karnataka. Our experienced team of advocates provides comprehensive legal services. Learn about our journey and commitment to justice.">
+    <meta name="keywords" content="about lexjuris, law firm mangalore, legal team karnataka, experienced advocates, law chamber history, legal services mangalore, trusted lawyers, professional advocates">
     <title><?php echo $page_title; ?></title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/images/favicon.png">
+    <link rel="apple-touch-icon" href="assets/images/favicon.png">
+    <link rel="manifest" href="assets/images/site.webmanifest">
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
