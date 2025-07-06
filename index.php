@@ -720,7 +720,7 @@ require_once 'config/database.php';
             <?php
             $services = [
                 [
-                    'img' => 'assets/images/image1.jpg',
+                    'img' => 'assets/images/civil_law_card.jpg',
                     'svg' => 'assets/images/icons/gavel.svg',
                     'title' => 'Civil Law',
                     'desc' => 'Deals with private disputes between individuals or organizations. Includes contract law, tort law (e.g., negligence, defamation), property law, and family law.',
@@ -728,7 +728,7 @@ require_once 'config/database.php';
                     'link' => '#'
                 ],
                 [
-                    'img' => 'assets/images/image1.jpg',
+                    'img' => 'assets/images/criminal_law_card.jpeg',
                     'svg' => 'assets/images/icons/gavel.svg',
                     'title' => 'Criminal Law',
                     'desc' => 'Involves prosecution by the state of wrongful acts (crimes) against society. Includes theft, assault, murder, cybercrime, and white-collar crimes.',
@@ -736,7 +736,7 @@ require_once 'config/database.php';
                     'link' => '#'
                 ],
                 [
-                    'img' => 'assets/images/image1.jpg',
+                    'img' => 'assets/images/family-law.jpg',
                     'svg' => 'assets/images/icons/gavel.svg',
                     'title' => 'Family Law',
                     'desc' => 'Covers matters such as marriage, divorce, child custody, maintenance, adoption, and domestic violence.',
@@ -744,7 +744,7 @@ require_once 'config/database.php';
                     'link' => '#'
                 ],
                 [
-                    'img' => 'assets/images/image1.jpg',
+                    'img' => 'assets/images/soundblock-Wood-scales-books-stack-background-leather.webp',
                     'svg' => 'assets/images/icons/gavel.svg',
                     'title' => 'Corporate/Business Law',
                     'desc' => 'Regulates the formation, operation, and dissolution of businesses. Includes mergers & acquisitions, company law, corporate governance, and compliance.',
@@ -752,7 +752,7 @@ require_once 'config/database.php';
                     'link' => '#'
                 ],
                 [
-                    'img' => 'assets/images/image1.jpg',
+                    'img' => 'assets/images/Finance_law.webp',
                     'svg' => 'assets/images/icons/gavel.svg',
                     'title' => 'Labour & Employment Law',
                     'desc' => 'Governs employer-employee relationships. Covers wages, termination, discrimination, and workplace safety.',
@@ -760,7 +760,7 @@ require_once 'config/database.php';
                     'link' => '#'
                 ],
                 [
-                    'img' => 'assets/images/image1.jpg',
+                    'img' => 'assets/images/real_estate_law.jpeg',
                     'svg' => 'assets/images/icons/gavel.svg',
                     'title' => 'Property / Real Estate Law',
                     'desc' => 'Deals with rights and duties related to real property (land and buildings). Includes transactions, leasing, zoning, and landlord-tenant disputes.',
@@ -768,7 +768,7 @@ require_once 'config/database.php';
                     'link' => '#'
                 ],
                 [
-                    'img' => 'assets/images/image1.jpg',
+                    'img' => 'assets/images/constitutional_law.jpeg',
                     'svg' => 'assets/images/icons/gavel.svg',
                     'title' => 'Constitutional Law',
                     'desc' => 'Involves interpretation and application of the Constitution. Covers fundamental rights, duties, federal structure, and judicial review.',
@@ -776,7 +776,7 @@ require_once 'config/database.php';
                     'link' => '#'
                 ],
                 [
-                    'img' => 'assets/images/image1.jpg',
+                    'img' => 'assets/images/Administrative-Law.jpg',
                     'svg' => 'assets/images/icons/gavel.svg',
                     'title' => 'Administrative Law',
                     'desc' => 'Governs the actions and operations of government agencies. Includes licensing, regulation, and tribunal procedures.',
@@ -784,7 +784,7 @@ require_once 'config/database.php';
                     'link' => '#'
                 ],
                 [
-                    'img' => 'assets/images/image1.jpg',
+                    'img' => 'assets/images/tax_law.jpg',
                     'svg' => 'assets/images/icons/gavel.svg',
                     'title' => 'Tax Law',
                     'desc' => 'Involves the assessment and collection of taxes (income tax, GST, customs, etc.). Includes tax planning, appeals, and litigation.',
@@ -792,7 +792,7 @@ require_once 'config/database.php';
                     'link' => '#'
                 ],
                 [
-                    'img' => 'assets/images/image1.jpg',
+                    'img' => 'assets/images/environmental_law.jpg',
                     'svg' => 'assets/images/icons/gavel.svg',
                     'title' => 'Environmental Law',
                     'desc' => 'Deals with protection of the environment and natural resources. Includes pollution control, forest conservation, and climate change laws.',
@@ -800,7 +800,7 @@ require_once 'config/database.php';
                     'link' => '#'
                 ],
                 [
-                    'img' => 'assets/images/image1.jpg',
+                    'img' => 'assets/images/Intellectual-property.jpg',
                     'svg' => 'assets/images/icons/gavel.svg',
                     'title' => 'Intellectual Property (IP) Law',
                     'desc' => 'Protects creations of the mind such as inventions, trademarks, copyrights, and patents.',
@@ -808,7 +808,7 @@ require_once 'config/database.php';
                     'link' => '#'
                 ],
                 [
-                    'img' => 'assets/images/image1.jpg',
+                    'img' => 'assets/images/cyber_law.jpg',
                     'svg' => 'assets/images/icons/gavel.svg',
                     'title' => 'Cyber Law / Information Technology Law',
                     'desc' => 'Governs digital transactions, data protection, online defamation, cybercrimes, and e-contracts.',
@@ -816,7 +816,7 @@ require_once 'config/database.php';
                     'link' => '#'
                 ],
                 [
-                    'img' => 'assets/images/image1.jpg',
+                    'img' => 'assets/images/consumer_law.jpg',
                     'svg' => 'assets/images/icons/gavel.svg',
                     'title' => 'Consumer Protection Law',
                     'desc' => 'Provides remedies for consumers against unfair trade practices or defective goods/services.',
@@ -824,7 +824,7 @@ require_once 'config/database.php';
                     'link' => '#'
                 ],
                 [
-                    'img' => 'assets/images/image1.jpg',
+                    'img' => 'assets/images/Blog photos_human rights lawyers.jpg',
                     'svg' => 'assets/images/icons/gavel.svg',
                     'title' => 'Human Rights Law',
                     'desc' => "Protects individuals' rights and freedoms, often involving issues like discrimination, unlawful detention, and state abuse.",
@@ -832,7 +832,7 @@ require_once 'config/database.php';
                     'link' => '#'
                 ],
                 [
-                    'img' => 'assets/images/image1.jpg',
+                    'img' => 'assets/images/Finance_law.webp',
                     'svg' => 'assets/images/icons/gavel.svg',
                     'title' => 'Banking and Finance Law',
                     'desc' => 'Involves regulations related to loans, securities, financial institutions, and debt recovery.',
@@ -840,7 +840,7 @@ require_once 'config/database.php';
                     'link' => '#'
                 ],
                 [
-                    'img' => 'assets/images/image1.jpg',
+                    'img' => 'assets/images/ADR.jpg',
                     'svg' => 'assets/images/icons/gavel.svg',
                     'title' => 'Alternative Dispute Resolution (ADR)',
                     'desc' => 'Methods like arbitration, mediation, and conciliation to resolve disputes outside court.',
@@ -848,7 +848,7 @@ require_once 'config/database.php';
                     'link' => '#'
                 ],
                 [
-                    'img' => 'assets/images/image1.jpg',
+                    'img' => 'assets/images/international-law-.jpg',
                     'svg' => 'assets/images/icons/gavel.svg',
                     'title' => 'International Law',
                     'desc' => 'Governs relations between nations; includes treaties, international trade, human rights, and conflict resolution.',
