@@ -17,6 +17,10 @@ $current_page = "services";
     <!-- Custom CSS -->
     <link rel="stylesheet" href="assets/css/style.css">
     <style>
+        html, body {
+            max-width: 100vw;
+            overflow-x: hidden;
+        }
         body {
             font-family: 'Roboto', sans-serif;
         }
@@ -33,6 +37,10 @@ $current_page = "services";
             transition: all 0.3s ease;
             border: none;
             overflow: hidden;
+            min-width: 0;
+            max-width: 100%;
+            width: 100%;
+            margin-bottom: 1.5rem;
         }
         .service-modern-card:hover {
             transform: translateY(-5px);
@@ -77,6 +85,81 @@ $current_page = "services";
             width: 100%;
             height: 100%;
             fill: currentColor;
+        }
+        /* Responsive Tweaks */
+        @media (max-width: 991.98px) {
+            .section-title {
+                font-size: 2rem;
+            }
+            .service-modern-card {
+                margin-bottom: 1.2rem;
+            }
+        }
+        @media (max-width: 767.98px) {
+            .section-title {
+                font-size: 1.5rem;
+            }
+            .section-subtitle {
+                font-size: 1rem;
+            }
+            .service-modern-card {
+                padding: 1rem 0.5rem;
+                margin-bottom: 1rem;
+            }
+            .service-img-wrap img {
+                height: 160px !important;
+            }
+            .feature-card {
+                padding: 1.2rem 0.5rem;
+            }
+            .why-choose-us {
+                height: auto !important;
+                padding-bottom: 2rem;
+            }
+            .why-choose-overlay {
+                min-height: 0 !important;
+            }
+            .cta-section .row {
+                flex-direction: column;
+                text-align: center;
+            }
+            .cta-section .col-lg-8, .cta-section .col-lg-4 {
+                text-align: center !important;
+            }
+            .cta-section h2 {
+                font-size: 1.3rem;
+            }
+        }
+        @media (max-width: 575.98px) {
+            .service-modern-card {
+                padding: 0.7rem 0.2rem;
+            }
+            .service-img-wrap img {
+                height: 120px !important;
+            }
+            .feature-card {
+                padding: 0.7rem 0.2rem;
+            }
+        }
+        /* Ensure grid columns stack on mobile */
+        @media (max-width: 991.98px) {
+            #servicesGrid .col-lg-4 {
+                flex: 0 0 50%;
+                max-width: 50%;
+            }
+        }
+        @media (max-width: 767.98px) {
+            #servicesGrid .col-lg-4, #servicesGrid .col-md-6 {
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
+        }
+        /* Button spacing */
+        #viewMoreBtn {
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            width: 100%;
+            max-width: 320px;
         }
     </style>
 </head>
@@ -298,13 +381,13 @@ $current_page = "services";
                     <p class="lead mb-0">Contact us today for a free consultation and let us help you with your legal needs.</p>
                 </div>
                 <div class="col-lg-4 text-lg-end" data-aos="fade-left">
-                    <a href="tel:9742964416" class="btn btn-warning btn-lg">Get Started</a>
+                    <a href="tel:9555552545" class="btn btn-warning btn-lg">Get Started</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <?php include 'includes/footer.php'; ?>
+<?php include 'includes/footer.php'; ?>
 
     <!-- Bootstrap JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -321,6 +404,20 @@ $current_page = "services";
                 btn.style.display = 'none';
             });
         }
+        // Back to top button functionality
+        var backToTopBtn = document.getElementById('backToTopBtn');
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 300) {
+                backToTopBtn.style.display = 'flex';
+            } else {
+                backToTopBtn.style.display = 'none';
+            }
+        });
+        backToTopBtn.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        // Hide initially
+        backToTopBtn.style.display = 'none';
     });
     </script>
 </body>

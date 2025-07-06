@@ -62,6 +62,34 @@ require_once 'config/database.php';
         .service-modern-card:hover .service-modern-icon svg * {
             fill: rgb(255, 255, 255) !important;
         }
+        html, body {
+            max-width: 100vw;
+            overflow-x: hidden;
+        }
+        .evolution-content {
+            /* Remove fixed height to allow content to grow naturally */
+            height: auto !important;
+            min-height: 0 !important;
+        }
+        @media (max-width: 767.98px) {
+            .about-section .row.align-items-center {
+                flex-direction: column !important;
+                align-items: stretch !important;
+            }
+            .about-section img {
+                height: 220px !important;
+                object-fit: cover;
+            }
+            .evolution-content, .evolution-content-continued {
+                padding-top: 1rem;
+                padding-bottom: 1rem;
+                height: auto !important;
+                min-height: 0 !important;
+            }
+            .section-title {
+                font-size: 1.5rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -233,7 +261,7 @@ require_once 'config/database.php';
                     <div class="col-lg-8" data-aos="zoom-in" data-aos-delay="100">
                         <span class="text-uppercase text-white fw-bold" style="letter-spacing:1px; font-size:1rem;">Legal Services</span>
                         <h2 class="section-title text-white my-2" style="font-size:2.2rem;">We help solve your legal issues</h2>
-                        <a href="#contact" class="btn btn-warning px-4 py-2 fw-semibold mt-3" style="font-size:1rem;">Make an Appointment</a>
+                        <a href="tel:9555552545" class="btn btn-warning px-4 py-2 fw-semibold mt-3" style="font-size:1rem;">Make an Appointment</a>
                     </div>
                 </div>
             </div>

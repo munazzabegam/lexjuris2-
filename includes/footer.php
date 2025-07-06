@@ -242,29 +242,29 @@
 @media (max-width: 768px) {
     .back-to-top, .whatsapp-float {
         right: 15px !important;
-        width: 40px;
-        height: 40px;
-        font-size: 16px;
+        width: 60px;
+        height: 60px;
+        font-size: 28px;
     }
     .back-to-top {
-        bottom: 15px;
+        bottom: 40px;
     }
     .whatsapp-float {
-        bottom: 55px;
+        bottom: 110px;
     }
 }
 @media (max-width: 480px) {
     .back-to-top, .whatsapp-float {
         right: 10px !important;
-        width: 35px;
-        height: 35px;
-        font-size: 14px;
+        width: 55px;
+        height: 55px;
+        font-size: 25px;
     }
     .back-to-top {
-        bottom: 10px;
+        bottom: 30px;
     }
     .whatsapp-float {
-        bottom: 45px;
+        bottom: 100px;
     }
 }
 .developed-by {
