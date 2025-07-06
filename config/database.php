@@ -1,18 +1,34 @@
 <?php
-// Database configuration
-$host = 'localhost';
-$dbname = 'lex_juris';
-$username = 'root';
-$password = '';
+class Database {
+    public $host = "localhost";
+    public $db_name = "u232955123_lex_juris";
+    public $username = "u232955123_brandweave";
+    public $password = "BrandWeave@25";
+    public $conn;
 
-// Create mysqli connection
-$conn = new mysqli($host, $username, $password, $dbname);
+    public function getConnection() {
+        $this->conn = null;
 
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+        try {
+            $this->conn = new mysqli($this->host, $this->username, $this->password, $this->db_name);
+            
+            // Check connection
+            if ($this->conn->connect_error) {
+                throw new Exception("Connection failed: " . $this->conn->connect_error);
+            }
+
+            // Set charset to utf8mb4
+            $this->conn->set_charset("utf8mb4");
+            
+        } catch (Exception $exception) {
+            echo "Connection error: " . $exception->getMessage();
+        }
+
+        return $this->conn;
+    }
 }
 
-// Set charset to utf8mb4
-$conn->set_charset("utf8mb4");
+// Create database instance and connection
+$database = new Database();
+$conn = $database->getConnection();
 ?> 
