@@ -77,7 +77,7 @@ if (isset($_POST['accept_disclaimer'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Legal Disclaimer - LexJuris Law Chamber. Important legal information and terms of use for our website. Professional legal services in Mangalore, Karnataka.">
     <meta name="keywords" content="legal disclaimer, terms of use, legal information, law firm disclaimer, legal terms, professional services">
-    <title>Legal Disclaimer - Law Firm</title>
+    <title>Legal Disclaimer - LexJuris</title>
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="assets/images/favicon.png">
     <link rel="apple-touch-icon" href="assets/images/favicon.png">

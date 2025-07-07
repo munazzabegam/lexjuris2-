@@ -193,7 +193,7 @@ require_once 'config/database.php';
     </section>
 
     <!-- Testimonials Section -->
-    <section class="testimonials-section pt-5 bg-light" style="padding-bottom: 3rem;">
+    <section class="testimonials-section pt-5 bg-light" style="padding-bottom: 15% !important;">
         <div class="container">
             <div class="row text-center mb-5">
                 <div class="col-12">

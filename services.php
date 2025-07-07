@@ -1,5 +1,5 @@
 <?php
-$page_title = "Our Services - Lex Juris";
+$page_title = "Our Services - LexJuris";
 $current_page = "services";
 ?>
 <!DOCTYPE html>

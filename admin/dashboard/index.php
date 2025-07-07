@@ -62,145 +62,128 @@ try {
     <!-- css-link -->
     <link rel="stylesheet" href="../assets/css/dashboard.css">
     <style>
-        body { background: #f6f7fb; }
+        body {
+            background: #f7f7f9;
+            font-family: 'Roboto', sans-serif;
+        }
+        .dashboard-container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 16px;
+        }
+        .dashboard-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #222;
+            margin-bottom: 2rem;
+            letter-spacing: -1px;
+        }
         .welcome-banner {
-            background: var(--primary-color);
-            color: #fff;
+            background: #fff;
             border-radius: 14px;
+            box-shadow: var(--card-shadow);
             padding: 2.2rem 2rem 1.5rem 2rem;
             margin-bottom: 2rem;
-            font-family: 'Roboto', sans-serif;
         }
         .welcome-banner h2 {
             font-size: 2.2rem;
             font-weight: 700;
+            color: var(--primary-color);
             margin-bottom: 0.3rem;
         }
         .welcome-banner p {
             font-size: 1.1rem;
-            color: #fff8e1;
+            color: #666;
             margin-bottom: 0;
         }
         .stat-cards {
-            display: flex;
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2.5rem;
         }
         .stat-card {
-            flex: 1 1 200px;
             background: #fff;
-            border-radius: 12px;
+            border-radius: 14px;
             box-shadow: var(--card-shadow);
-            padding: 1.5rem 1.2rem;
+            padding: 2rem 1.5rem 1.5rem 1.5rem;
             display: flex;
             align-items: center;
             gap: 1.2rem;
-            min-width: 200px;
+            min-width: 0;
+            transition: box-shadow 0.2s;
         }
-        .stat-card .icon {
-            font-size: 2.2rem;
+        .stat-card:hover {
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+        }
+        .stat-card .icon-circle {
+            background: rgba(188, 132, 20, 0.12);
+            color: var(--primary-color);
             border-radius: 50%;
-            padding: 0.7rem;
-            color: #fff;
+            width: 48px;
+            height: 48px;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 2rem;
+            margin-right: 1rem;
         }
-        .stat-users { background: #2563eb; }
-        .stat-articles { background: #f59e42; }
-        .stat-testimonials { background: #22c55e; }
-        .stat-faq { background: #7c3aed; }
-        .stat-card .info {
-            display: flex;
-            flex-direction: column;
-        }
-        .stat-card .label {
+        .stat-card .title {
             font-size: 1.1rem;
-            color: #888;
+            color: #666;
             font-weight: 500;
+            margin-bottom: 0.2rem;
         }
         .stat-card .value {
             font-size: 2rem;
             font-weight: 700;
             color: #22223b;
         }
-        .dashboard-sections {
+        @media (max-width: 600px) {
+            .dashboard-title { font-size: 1.4rem; }
+            .stat-card { padding: 1.2rem 1rem; }
+            .stat-value { font-size: 1.5rem; }
+        }
+        .quick-actions-card {
+            background: #fff;
+            border-radius: 14px;
+            box-shadow: var(--card-shadow);
+            padding: 1.5rem 1.2rem;
+            margin-bottom: 2rem;
+        }
+        .quick-actions-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 1.2rem;
+            color: var(--text-color);
+        }
+        .quick-actions-list {
             display: flex;
-            gap: 1.5rem;
+            gap: 1.2rem;
             flex-wrap: wrap;
         }
-        .dashboard-section {
-            background: #fff;
-            border-radius: 12px;
-            box-shadow: var(--card-shadow);
-            padding: 1.5rem 1.2rem;
-            flex: 1 1 350px;
-            min-width: 320px;
-        }
-        .dashboard-section h5 {
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 1.2rem;
-        }
-        .quick-actions {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.2rem;
-        }
         .quick-action-btn {
-            background: #f6f7fb;
-            border: 2px dashed #e0e7ff;
-            border-radius: 10px;
-            padding: 1.2rem 0.5rem;
-            text-align: center;
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #bc8414;
-            cursor: pointer;
-            transition: background 0.2s, border 0.2s;
-        }
-        .quick-action-btn:hover {
-            background: #fffbe6;
-            border-color: #bc8414;
-        }
-        .quick-action-btn i {
-            font-size: 1.6rem;
-            margin-bottom: 0.5rem;
-            display: block;
-        }
-        .recent-activity {
-            min-height: 90px;
-            color: #888;
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-size: 1.05rem;
-        }
-        .system-info {
-            background: #fff;
-            border-radius: 12px;
-            box-shadow: var(--card-shadow);
-            padding: 1.5rem 1.2rem;
-            margin-top: 2rem;
-        }
-        .system-info h5 {
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 1.2rem;
-        }
-        .system-info-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        .system-info-list li {
-            margin-bottom: 0.7rem;
-            color: #444;
+            gap: 0.5rem;
+            background: rgba(188, 132, 20, 0.08);
+            color: var(--primary-color);
+            border: 1px solid rgba(188, 132, 20, 0.15);
+            border-radius: 8px;
+            padding: 0.7rem 1.2rem;
+            font-weight: 500;
             font-size: 1rem;
+            text-decoration: none;
+            transition: background 0.2s, border 0.2s, color 0.2s;
         }
-        @media (max-width: 991px) {
-            .stat-cards, .dashboard-sections { flex-direction: column; gap: 1rem; }
+        .quick-action-btn i {
+            font-size: 1.2rem;
+        }
+        .quick-action-btn:hover {
+            background: var(--primary-color);
+            color: #fff;
+            border-color: var(--primary-color);
+            text-decoration: none;
         }
     </style>
 </head>
@@ -213,40 +196,48 @@ try {
                 <h2>Welcome back, admin!</h2>
                 <p>Here's what's happening with your site today.</p>
             </div>
-            <div class="stat-cards mb-4">
+            <div class="row mb-4">
+                <div class="col-md-3 col-sm-6 mb-3">
                 <div class="stat-card">
-                    <div class="icon stat-users"><i class="fas fa-users"></i></div>
-                    <div class="info">
-                        <span class="label">Total Users</span>
-                        <span class="value"><?php echo number_format($totalUsers); ?></span>
+                        <span class="icon-circle"><i class="fas fa-users"></i></span>
+                        <div>
+                            <div class="title">Total Users</div>
+                            <div class="value"><?php echo number_format($totalUsers); ?></div>
+                        </div>
                     </div>
                 </div>
+                <div class="col-md-3 col-sm-6 mb-3">
                 <div class="stat-card">
-                    <div class="icon stat-articles"><i class="fas fa-newspaper"></i></div>
-                    <div class="info">
-                        <span class="label">Total Articles</span>
-                        <span class="value"><?php echo number_format($totalArticles); ?></span>
+                        <span class="icon-circle"><i class="fas fa-newspaper"></i></span>
+                        <div>
+                            <div class="title">Total Articles</div>
+                            <div class="value"><?php echo number_format($totalArticles); ?></div>
+                        </div>
                     </div>
                 </div>
+                <div class="col-md-3 col-sm-6 mb-3">
                 <div class="stat-card">
-                    <div class="icon stat-testimonials"><i class="fas fa-star"></i></div>
-                    <div class="info">
-                        <span class="label">Testimonials</span>
-                        <span class="value"><?php echo number_format($totalTestimonials); ?></span>
+                        <span class="icon-circle"><i class="fas fa-star"></i></span>
+                        <div>
+                            <div class="title">Testimonials</div>
+                            <div class="value"><?php echo number_format($totalTestimonials); ?></div>
+                        </div>
                     </div>
                 </div>
+                <div class="col-md-3 col-sm-6 mb-3">
                 <div class="stat-card">
-                    <div class="icon stat-faq"><i class="fas fa-question-circle"></i></div>
-                    <div class="info">
-                        <span class="label">FAQ Entries</span>
-                        <span class="value"><?php echo number_format($totalFaq); ?></span>
+                        <span class="icon-circle"><i class="fas fa-question-circle"></i></span>
+                        <div>
+                            <div class="title">FAQ Entries</div>
+                            <div class="value"><?php echo number_format($totalFaq); ?></div>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="dashboard-sections mb-4">
-                <div class="dashboard-section">
-                    <h5>Quick Actions</h5>
-                    <div class="quick-actions">
+                <div class="quick-actions-card">
+                    <div class="quick-actions-title">Quick Actions</div>
+                    <div class="quick-actions-list">
                         <a href="../articles/add.php" class="quick-action-btn"><i class="fas fa-plus"></i>New Article</a>
                         <a href="../users/create.php" class="quick-action-btn"><i class="fas fa-user-plus"></i>New User</a>
                         <a href="../testimonials/create.php" class="quick-action-btn"><i class="fas fa-star"></i>New Testimonial</a>

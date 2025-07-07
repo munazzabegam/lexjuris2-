@@ -5,9 +5,9 @@ $nav_items = [
     'home' => ['url' => 'index.php', 'text' => 'Home'],
     'about' => ['url' => 'about.php', 'text' => 'About'],
     'services' => ['url' => 'services.php', 'text' => 'Services'],
+    'our-teams' => ['url' => 'our-teams.php', 'text' => 'Teams'],
     'blog' => ['url' => 'blog.php', 'text' => 'Blog'],
-    'contact' => ['url' => 'contact.php', 'text' => 'Contact'],
-    'our-teams' => ['url' => 'our-teams.php', 'text' => 'Our Teams']
+    'contact' => ['url' => 'contact.php', 'text' => 'Contact']
     
 ];
 ?>

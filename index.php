@@ -7,7 +7,7 @@ if (!isset($_SESSION['disclaimer_accepted']) || $_SESSION['disclaimer_accepted']
     exit();
 }
 
-$page_title = "LexJuris - Legal Services";
+$page_title = "LexJuris Law Chamber";
 $current_page = "home";
 
 // Include database connection
@@ -263,6 +263,29 @@ require_once 'config/database.php';
             min-width: 0;
             max-width: 340px;
             width: 100%;
+            height: 500px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: stretch;
+            margin-bottom: 10% !important;
+        }
+        .service-img-wrap {
+            height: 220px;
+            position: relative;
+            margin-bottom: 1rem;
+        }
+        .service-img-wrap img {
+            height: 100%;
+            object-fit: cover;
+            width: 100%;
+            border-radius: 12px;
+        }
+        .service-modern-card .pt-4 {
+            flex: 1 1 auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
         }
         .service-modern-card:hover {
             box-shadow: 0 16px 40px rgba(44,44,44,0.18);
@@ -289,7 +312,8 @@ require_once 'config/database.php';
             transition: color 0.2s, transform 0.2s;
             color: #ececec;
             z-index: 1;
-            top: 0rem;
+            top: -2rem;
+            margin-bottom: -5%;
         }
         .fw-bold {
             margin-top: 20px;
@@ -752,7 +776,7 @@ require_once 'config/database.php';
                 [
                     'img' => 'assets/images/card_images/Administrative-Law.jpg',
                     'svg' => 'assets/images/icons/gavel.svg',
-                    'title' => 'Corporate/Business Law',
+                    'title' => 'Corporate / Business Law',
                     'desc' => 'Regulates the formation, operation, and dissolution of businesses. Includes mergers & acquisitions, company law, corporate governance, and compliance.',
                     'num' => '04',
                     'link' => '#'
@@ -893,7 +917,7 @@ require_once 'config/database.php';
                                             <div class="pt-4 position-relative" style="margin-top:5%;">
                                                 <h5 class="fw-bold mb-2" style="font-size:1.5rem;"><?= $s['title'] ?></h5>
                                                 <p class="mb-4 text-muted"><?= $s['desc'] ?></p>
-                                                <span class="service-modern-num position-absolute" style="right:0;margin-top:-10%;font-size:4.5rem;font-weight:700;z-index:0;"><?= $s['num'] ?></span>
+                                                <span class="service-modern-num position-absolute" style="right:0;margin-top:-5% !important;font-size:4.5rem;font-weight:700;z-index:0;"><?= $s['num'] ?></span>
                                             </div>
                                         </div>
                                     </div>
@@ -961,10 +985,14 @@ require_once 'config/database.php';
                 $stats_result = $conn->query($stats_query);
                 
                 if ($stats_result && $stats_result->num_rows > 0) {
+                    $index = 0;
                     while ($stat = $stats_result->fetch_assoc()) {
                         echo '<div class="col-md-3" data-aos="fade-up" data-aos-delay="' . ($index * 200) . '" style="color: #fff;">'
                             . '<div class="stat-item">'
-                            . '<h2 class="counter" data-target="' . $stat['number_value'] . '" style="color: #bc841c;">0</h2>'
+                            . '<h2 style="color: #bc841c; display: inline-block;">'
+                            . '<span class="counter" data-target="' . $stat['number_value'] . '">0</span>'
+                            . '<span style="font-size: 1.2em; vertical-align: baseline; margin-left: 2px;">+</span>'
+                            . '</h2>'
                             . '<p>' . htmlspecialchars($stat['label']) . '</p>'
                             . '</div>'
                             . '</div>';
@@ -982,7 +1010,10 @@ require_once 'config/database.php';
                     foreach ($stats as $index => $stat) {
                         echo '<div class="col-md-3" data-aos="fade-up" data-aos-delay="' . ($index * 200) . '" style="color: #fff;">'
                             . '<div class="stat-item">'
-                            . '<h2 class="counter" data-target="' . $stat['number'] . '" style="color: #bc841c;">0</h2>'
+                            . '<h2 style="color: #bc841c; display: inline-block;">'
+                            . '<span class="counter" data-target="' . $stat['number'] . '">0</span>'
+                            . '<span style="font-size: 1.2em; vertical-align: baseline; margin-left: 2px;">+</span>'
+                            . '</h2>'
                             . '<p>' . $stat['label'] . '</p>'
                             . '</div>'
                             . '</div>';
