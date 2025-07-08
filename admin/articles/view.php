@@ -11,7 +11,7 @@ require_once __DIR__ . '/../../config/database.php';
 $article_id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 
 if (!$article_id) {
-    $_SESSION['blog_error'] = "Invalid blog ID";
+    $_SESSION['article_error'] = "Invalid article ID";
     header("Location: index.php");
     exit();
 }
@@ -28,15 +28,15 @@ $result = $stmt->get_result();
 $article = $result->fetch_assoc();
 
 if (!$article) {
-    $_SESSION['blog_error'] = "Blog not found";
+    $_SESSION['article_error'] = "Article not found";
     header("Location: index.php");
     exit();
 }
 
-$blog_success = $_SESSION['blog_success'] ?? null;
-unset($_SESSION['blog_success']);
-$blog_error = $_SESSION['blog_error'] ?? null;
-unset($_SESSION['blog_error']);
+$article_success = $_SESSION['article_success'] ?? null;
+unset($_SESSION['article_success']);
+$article_error = $_SESSION['article_error'] ?? null;
+unset($_SESSION['article_error']);
 
 // Fetch social media links
 $social_query = "SELECT platform, url FROM article_social_links WHERE article_id = ?";
@@ -46,21 +46,13 @@ $social_stmt->execute();
 $social_result = $social_stmt->get_result();
 $social_links = $social_result->fetch_all(MYSQLI_ASSOC);
 
-// Fetch comments for this article
-$comments_stmt = $conn->prepare("SELECT id, name, comment, created_at FROM blog_comments WHERE post_id = ? ORDER BY created_at DESC");
-$comments_stmt->bind_param("i", $article_id);
-$comments_stmt->execute();
-$comments_result = $comments_stmt->get_result();
-$comments = $comments_result->fetch_all(MYSQLI_ASSOC);
-$comments_stmt->close();
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo htmlspecialchars($article['title']); ?> - Blog Details</title>
+    <title><?php echo htmlspecialchars($article['title']); ?> - Article Details</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="../assets/css/dashboard.css" rel="stylesheet">
@@ -200,16 +192,16 @@ $comments_stmt->close();
 
     <div class="main-content">
         <div class="container-fluid">
-            <?php if ($blog_success): ?>
+            <?php if ($article_success): ?>
             <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <?php echo htmlspecialchars($blog_success); ?>
+                <?php echo htmlspecialchars($article_success); ?>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
             <?php endif; ?>
 
-            <?php if ($blog_error): ?>
+            <?php if ($article_error): ?>
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <?php echo htmlspecialchars($blog_error); ?>
+                <?php echo htmlspecialchars($article_error); ?>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
             <?php endif; ?>
@@ -217,19 +209,19 @@ $comments_stmt->close();
             <div class="row mb-4">
                 <div class="col-12">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h4 class="mb-0">Blog Details</h4>
+                        <h4 class="mb-0">Article Details</h4>
                         <div class="article-actions">
                             <a href="edit.php?id=<?php echo $article_id; ?>" class="btn btn-primary btn-action">
-                                <i class="fas fa-edit"></i>Edit Blog
+                                <i class="fas fa-edit"></i>Edit Article
                             </a>
-                            <form action="actions/delete.php" method="POST" onsubmit="return confirm('Are you sure you want to delete this blog?');" style="display: inline;">
+                            <form action="actions/delete.php" method="POST" onsubmit="return confirm('Are you sure you want to delete this article?');" style="display: inline;">
                                 <input type="hidden" name="article_id" value="<?php echo $article_id; ?>">
                                 <button type="submit" class="btn btn-danger btn-action">
-                                    <i class="fas fa-trash"></i>Delete Blog
+                                    <i class="fas fa-trash"></i>Delete Article
                                 </button>
                             </form>
                             <a href="index.php" class="btn btn-secondary btn-action">
-                                <i class="fas fa-arrow-left"></i>Back to Blogs
+                                <i class="fas fa-arrow-left"></i>Back to Articles
                             </a>
                         </div>
                     </div>
@@ -237,7 +229,7 @@ $comments_stmt->close();
             </div>
 
             <div class="article-header">
-                <h1 class="blog-title"><?php echo htmlspecialchars($article['title']); ?></h1>
+                <h1 class="article-title"><?php echo htmlspecialchars($article['title']); ?></h1>
                 <div class="article-meta">
                     <span class="article-meta-item">
                         <i class="fas fa-user"></i>
@@ -261,12 +253,10 @@ $comments_stmt->close();
                             <?php echo ucfirst(htmlspecialchars($article['status'])); ?>
                         </span>
                     </span>
-                    <?php if (!empty($article['updated_at']) && $article['updated_at'] !== '-' && $article['updated_at'] !== $article['published_at']): ?>
-                        <span class="article-meta-item">
-                            <i class="fas fa-edit"></i>
-                            Last Updated: <?php echo htmlspecialchars(date('F d, Y h:i A', strtotime($article['updated_at']))); ?>
-                        </span>
-                    <?php endif; ?>
+                    <span class="article-meta-item">
+                        <i class="fas fa-edit"></i>
+                        Last Updated: <?php echo htmlspecialchars(date('F d, Y h:i A', strtotime($article['updated_at']))); ?>
+                    </span>
                 </div>
                 <?php if (!empty($article['cover_image'])): ?>
                     <div class="mb-3 text-center">
@@ -312,28 +302,6 @@ $comments_stmt->close();
                     </div>
                 </div>
             <?php endif; ?>
-
-            <div class="article-footer mt-4">
-                <h4>Comments</h4>
-                <?php if (!empty($comments)): ?>
-                    <?php foreach ($comments as $comment): ?>
-                        <div class="border rounded p-2 mb-2 d-flex justify-content-between align-items-start">
-                            <div>
-                                <strong><?php echo htmlspecialchars($comment['name']); ?></strong>
-                                <span class="text-muted small ms-2"><?php echo date('M d, Y H:i', strtotime($comment['created_at'])); ?></span>
-                                <div><?php echo nl2br(htmlspecialchars($comment['comment'])); ?></div>
-                            </div>
-                            <form method="POST" action="actions/delete_comment.php" onsubmit="return confirm('Delete this comment?');">
-                                <input type="hidden" name="comment_id" value="<?php echo $comment['id']; ?>">
-                                <input type="hidden" name="article_id" value="<?php echo $article_id; ?>">
-                                <button type="submit" class="btn btn-sm btn-danger ms-3"><i class="fas fa-trash"></i> Delete</button>
-                            </form>
-                        </div>
-                    <?php endforeach; ?>
-                <?php else: ?>
-                    <div class="text-muted">No comments yet.</div>
-                <?php endif; ?>
-            </div>
         </div>
     </div>
 

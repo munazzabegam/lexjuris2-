@@ -9,8 +9,8 @@ $current_full_path = $_SERVER['PHP_SELF'];
         <a href="../dashboard/index.php" class="<?php echo strpos($current_full_path, '/admin/dashboard/') !== false ? 'active' : ''; ?>">
             <i class="fas fa-tachometer-alt"></i> <span class="menu-text">Dashboard</span>
         </a>
-        <a href="../blogs/index.php" class="<?php echo strpos($current_full_path, '/admin/blogs/') !== false ? 'active' : ''; ?>">
-            <i class="fas fa-newspaper"></i> <span class="menu-text">Blogs</span>
+        <a href="../articles/index.php" class="<?php echo strpos($current_full_path, '/admin/articles/') !== false ? 'active' : ''; ?>">
+            <i class="fas fa-newspaper"></i> <span class="menu-text">Articles</span>
         </a>
         <a href="../faq/index.php" class="<?php echo strpos($current_full_path, '/admin/faq/') !== false ? 'active' : ''; ?>">
             <i class="fas fa-question-circle"></i> <span class="menu-text">FAQ</span>

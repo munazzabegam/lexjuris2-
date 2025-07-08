@@ -1,8 +1,8 @@
 <?php
-$page_title = "Blog - LexJuris";
+$page_title = "Our Blog - LexJuris";
 $current_page = "blog";
 
-require_once '../config/database.php';
+require_once 'config/database.php';
 
 // Handle comment submission
 $comment_success = $comment_error = '';
@@ -32,7 +32,6 @@ $offset = ($current_page_num - 1) * $posts_per_page;
 // Search functionality
 $search = isset($_GET['search']) ? trim($_GET['search']) : '';
 $category_filter = isset($_GET['category']) ? trim($_GET['category']) : '';
-$tag_filter = isset($_GET['tag']) ? trim($_GET['tag']) : '';
 
 // Build the query
 $query = "SELECT a.*, u.username as author_name 
@@ -48,11 +47,6 @@ if (!empty($search)) {
 if (!empty($category_filter)) {
     $category_filter = $conn->real_escape_string($category_filter);
     $query .= " AND a.category = '$category_filter'";
-}
-
-if (!empty($tag_filter)) {
-    $tag_filter = $conn->real_escape_string($tag_filter);
-    $query .= " AND FIND_IN_SET('$tag_filter', a.tags)";
 }
 
 // Get total posts for pagination
@@ -101,9 +95,6 @@ $tags_query = "SELECT DISTINCT TRIM(tag) as tag
                ) tags_table";
 $tags_result = $conn->query($tags_query);
 $tags = $tags_result->fetch_all(MYSQLI_ASSOC);
-
-$project_folder = explode('/', $_SERVER['SCRIPT_NAME'])[1];
-$project_base = '/' . $project_folder . '/';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -114,9 +105,9 @@ $project_base = '/' . $project_folder . '/';
     <meta name="keywords" content="legal blog mangalore, legal insights, case studies, legal advice, law articles, legal updates, advocate blog, legal knowledge">
     <title><?php echo $page_title; ?></title>
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="../assets/images/favicon.png">
-    <link rel="apple-touch-icon" href="../assets/images/favicon.png">
-    <link rel="manifest" href="../assets/images/site.webmanifest">
+    <link rel="icon" type="image/png" href="assets/images/favicon.png">
+    <link rel="apple-touch-icon" href="assets/images/favicon.png">
+    <link rel="manifest" href="assets/images/site.webmanifest">
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -124,10 +115,10 @@ $project_base = '/' . $project_folder . '/';
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-    <?php include '../includes/header.php'; ?>
+    <?php include 'includes/header.php'; ?>
 
     <!-- Blog Section -->
     <section class="blog-section py-5">
@@ -154,20 +145,19 @@ $project_base = '/' . $project_folder . '/';
                                         <?php if (!empty($post['video_url'])): ?>
                                             <div class="ratio ratio-16x9 mb-3">
                                                 <video controls class="rounded">
-                                                    <source src="<?php echo $project_base . htmlspecialchars($post['video_url']); ?>" type="video/mp4">
+                                                    <source src="<?php echo htmlspecialchars($post['video_url']); ?>" type="video/mp4">
                                                     Your browser does not support the video tag.
                                                 </video>
                                             </div>
                                         <?php elseif (!empty($post['cover_image'])): ?>
-                                            <?php $cover_image = (strpos($post['cover_image'], 'http') === 0) ? $post['cover_image'] : $project_base . ltrim($post['cover_image'], '/'); ?>
-                                            <img src="<?php echo htmlspecialchars($cover_image); ?>" class="img-fluid rounded" alt="<?php echo htmlspecialchars($post['title']); ?>" style="width: 100%; height: auto; object-fit: cover;">
+                                            <img src="<?php echo htmlspecialchars($post['cover_image']); ?>" class="img-fluid rounded" alt="<?php echo htmlspecialchars($post['title']); ?>" style="width: 100%; height: auto; object-fit: cover;">
                                         <?php else: ?>
-                                            <img src="../assets/images/blog-default.jpg" class="img-fluid rounded" alt="Default Blog Image" style="width: 100%; height: auto; object-fit: cover;">
+                                            <img src="assets/images/blog-default.jpg" class="img-fluid rounded" alt="Default Blog Image" style="width: 100%; height: auto; object-fit: cover;">
                                         <?php endif; ?>
                                     </div>
                                     <div class="col-12">
                                         <p class="card-text"><?php echo htmlspecialchars($post['summary'] ?? substr(strip_tags($post['content']), 0, 200) . '...'); ?></p>
-                                        <a href="blog.php?slug=<?php echo htmlspecialchars($post['slug']); ?>" class="btn btn-warning">Read More</a>
+                                        <a href="article.php?slug=<?php echo htmlspecialchars($post['slug']); ?>" class="btn btn-warning">Read More</a>
                                         <!-- Social Media Icons -->
                                         <div class="social-icons mt-3">
                                             <?php
@@ -185,17 +175,17 @@ $project_base = '/' . $project_folder . '/';
                         <nav aria-label="Blog pagination">
                             <ul class="pagination justify-content-center">
                                 <li class="page-item <?php echo $current_page_num <= 1 ? 'disabled' : ''; ?>">
-                                    <a class="page-link" href="?page=<?php echo $current_page_num - 1; ?><?php echo !empty($search) ? '&search=' . urlencode($search) : ''; ?><?php echo !empty($category_filter) ? '&category=' . urlencode($category_filter) : ''; ?><?php echo !empty($tag_filter) ? '&tag=' . urlencode($tag_filter) : ''; ?>" aria-label="Previous">
+                                    <a class="page-link" href="?page=<?php echo $current_page_num - 1; ?><?php echo !empty($search) ? '&search=' . urlencode($search) : ''; ?><?php echo !empty($category_filter) ? '&category=' . urlencode($category_filter) : ''; ?>" aria-label="Previous">
                                         <span aria-hidden="true">&laquo;</span>
                                     </a>
                                 </li>
                                 <?php for ($i = 1; $i <= $total_pages; $i++): ?>
                                     <li class="page-item <?php echo $i === $current_page_num ? 'active' : ''; ?>">
-                                        <a class="page-link" href="?page=<?php echo $i; ?><?php echo !empty($search) ? '&search=' . urlencode($search) : ''; ?><?php echo !empty($category_filter) ? '&category=' . urlencode($category_filter) : ''; ?><?php echo !empty($tag_filter) ? '&tag=' . urlencode($tag_filter) : ''; ?>"><?php echo $i; ?></a>
+                                        <a class="page-link" href="?page=<?php echo $i; ?><?php echo !empty($search) ? '&search=' . urlencode($search) : ''; ?><?php echo !empty($category_filter) ? '&category=' . urlencode($category_filter) : ''; ?>"><?php echo $i; ?></a>
                                     </li>
                                 <?php endfor; ?>
                                 <li class="page-item <?php echo $current_page_num >= $total_pages ? 'disabled' : ''; ?>">
-                                    <a class="page-link" href="?page=<?php echo $current_page_num + 1; ?><?php echo !empty($search) ? '&search=' . urlencode($search) : ''; ?><?php echo !empty($category_filter) ? '&category=' . urlencode($category_filter) : ''; ?><?php echo !empty($tag_filter) ? '&tag=' . urlencode($tag_filter) : ''; ?>" aria-label="Next">
+                                    <a class="page-link" href="?page=<?php echo $current_page_num + 1; ?><?php echo !empty($search) ? '&search=' . urlencode($search) : ''; ?><?php echo !empty($category_filter) ? '&category=' . urlencode($category_filter) : ''; ?>" aria-label="Next">
                                         <span aria-hidden="true">&raquo;</span>
                                     </a>
                                 </li>
@@ -242,7 +232,7 @@ $project_base = '/' . $project_folder . '/';
                             <ul class="list-unstyled">
                                 <?php foreach ($recent_posts as $post): ?>
                                 <li class="mb-3">
-                                    <a href="blog.php?slug=<?php echo htmlspecialchars($post['slug']); ?>" class="text-decoration-none">
+                                    <a href="article.php?slug=<?php echo htmlspecialchars($post['slug']); ?>" class="text-decoration-none">
                                         <h6 class="mb-1"><?php echo htmlspecialchars($post['title']); ?></h6>
                                         <small class="text-muted"><?php echo date('F j, Y', strtotime($post['published_at'])); ?></small>
                                     </a>
@@ -268,11 +258,11 @@ $project_base = '/' . $project_folder . '/';
         </div>
     </section>
 
-    <?php include '../includes/footer.php'; ?>
+    <?php include 'includes/footer.php'; ?>
 
     <!-- Bootstrap JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Custom JS -->
-    <script src="../assets/js/main.js"></script>
+    <script src="assets/js/main.js"></script>
 </body>
 </html> 

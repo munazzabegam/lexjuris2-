@@ -1,6 +1,4 @@
 <?php
-date_default_timezone_set('Asia/Kolkata');
-
 session_start();
 
 // Check if admin is logged in
@@ -140,10 +138,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $stmt = $conn->prepare($query);
 
-    // Set published_at and updated_at to the current time
-    $now = date('Y-m-d H:i:s');
-    $published_at = ($status === 'published') ? $now : null;
-    $updated_at = $now;
+    // Set published_at based on status
+    $published_at = ($status === 'published') ? date('Y-m-d H:i:s') : null;
+    $updated_at = date('Y-m-d H:i:s'); // Always set updated_at to current time
 
     $stmt->bind_param("ssssssssisss", 
         $title,
@@ -182,7 +179,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $social_stmt->close();
         }
 
-        $_SESSION['blog_success'] = "Blog added successfully.";
+        $_SESSION['article_success'] = "Article added successfully.";
         // Clear old data after successful submission
         unset($_SESSION['old_data']);
     } else {

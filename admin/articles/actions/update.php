@@ -1,5 +1,4 @@
 <?php
-date_default_timezone_set('Asia/Kolkata');
 session_start();
 if (!isset($_SESSION['user_id'])) {
     header("Location: ../../login.php");
@@ -80,17 +79,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $conn->begin_transaction();
 
             // Update article
-            $updated_at = date('Y-m-d H:i:s');
-            $check_query = "SELECT published_at FROM articles WHERE id = ?";
-            $check_stmt = $conn->prepare($check_query);
-            $check_stmt->bind_param("i", $article_id);
-            $check_stmt->execute();
-            $check_result = $check_stmt->get_result();
-            $article = $check_result->fetch_assoc();
-            $published_at = $article['published_at'];
-            if ($status === 'published' && !$published_at) {
-                $published_at = $updated_at;
-            }
             $query = "UPDATE articles SET 
                      title = ?, 
                      category = ?, 
@@ -99,11 +87,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                      status = ?, 
                      tags = ?, 
                      external_link = ?,
-                     updated_at = ?,
-                     published_at = ?";
+                     updated_at = ?";
             
-            $params = [$title, $category, $summary, $content, $status, $tags, $external_link, $updated_at, $published_at];
-            $types = "sssssssss";
+            $params = [$title, $category, $summary, $content, $status, $tags, $external_link, date('Y-m-d H:i:s')];
+            $types = "ssssssss";
+
+            // Handle published_at based on status change
+            if ($status === 'published') {
+                // Check if article was previously unpublished
+                $check_query = "SELECT published_at FROM articles WHERE id = ?";
+                $check_stmt = $conn->prepare($check_query);
+                $check_stmt->bind_param("i", $article_id);
+                $check_stmt->execute();
+                $check_result = $check_stmt->get_result();
+                $article = $check_result->fetch_assoc();
+                
+                if (!$article['published_at']) {
+                    $query .= ", published_at = ?";
+                    $params[] = date('Y-m-d H:i:s');
+                    $types .= "s";
+                }
+            }
 
             if ($cover_image) {
                 $query .= ", cover_image = ?";

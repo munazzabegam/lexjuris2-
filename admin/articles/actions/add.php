@@ -84,50 +84,14 @@ if (isset($_FILES['cover_image']) && $_FILES['cover_image']['error'] === UPLOAD_
     }
 }
 
-// Debug: log all file upload info
-error_log(print_r($_FILES, true));
-
-// Handle video upload
-$video_url = null;
-if (isset($_FILES['video']) && $_FILES['video']['error'] === UPLOAD_ERR_OK) {
-    $allowed_types = ['video/mp4'];
-    $max_size = 100 * 1024 * 1024; // 100MB
-    if (!in_array($_FILES['video']['type'], $allowed_types)) {
-        $errors[] = "Invalid video format. Only MP4 is allowed.";
-    } elseif ($_FILES['video']['size'] > $max_size) {
-        $errors[] = "Video size exceeds 100MB limit.";
-    } else {
-        $upload_dir = __DIR__ . '/../../../uploads/articles/';
-        if (!file_exists($upload_dir)) {
-            mkdir($upload_dir, 0777, true);
-        }
-        $file_extension = pathinfo($_FILES['video']['name'], PATHINFO_EXTENSION);
-        $file_name = uniqid('article_video_') . '.' . $file_extension;
-        $target_path = $upload_dir . $file_name;
-        if (move_uploaded_file($_FILES['video']['tmp_name'], $target_path)) {
-            $video_url = 'uploads/articles/' . $file_name;
-        } else {
-            $errors[] = "Failed to upload video.";
-        }
-    }
-} else if (isset($_FILES['video']) && $_FILES['video']['error'] !== UPLOAD_ERR_NO_FILE) {
-    $errors[] = "Video upload error: " . $_FILES['video']['error'];
-}
-
 if (empty($errors)) {
     try {
         $conn->begin_transaction();
         $published_at = ($status === 'published') ? date('Y-m-d H:i:s') : null;
-        // Get the next order_index
-        $order_index = 1;
-        $result = $conn->query("SELECT MAX(order_index) AS max_order FROM articles");
-        if ($result && $row = $result->fetch_assoc()) {
-            $order_index = (int)$row['max_order'] + 1;
-        }
-        $query = "INSERT INTO articles (title, slug, content, summary, category, status, tags, external_link, cover_image, video_url, author_id, published_at, updated_at, order_index) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), ?)";
+        $query = "INSERT INTO articles (title, slug, content, summary, category, status, tags, external_link, cover_image, author_id, published_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())";
         $stmt = $conn->prepare($query);
         $stmt->bind_param(
-            "ssssssssssisi",
+            "sssssssssis",
             $title,
             $slug,
             $content,
@@ -137,10 +101,8 @@ if (empty($errors)) {
             $tags,
             $external_link,
             $cover_image,
-            $video_url,
             $_SESSION['user_id'],
-            $published_at,
-            $order_index
+            $published_at
         );
         $stmt->execute();
         $article_id = $conn->insert_id;
@@ -156,16 +118,7 @@ if (empty($errors)) {
             }
         }
         $conn->commit();
-        // Renumber all order_index values to start from 1 and increment by 1
-        $result = $conn->query("SELECT id FROM articles ORDER BY order_index ASC, id ASC");
-        if ($result) {
-            $i = 1;
-            while ($row = $result->fetch_assoc()) {
-                $conn->query("UPDATE articles SET order_index = $i WHERE id = " . (int)$row['id']);
-                $i++;
-            }
-        }
-        $_SESSION['blog_success'] = "Blog added successfully.";
+        $_SESSION['article_success'] = "Article added successfully.";
         header("Location: ../index.php");
         exit();
     } catch (Exception $e) {

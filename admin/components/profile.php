@@ -11,7 +11,7 @@
     <div class="profile-stats">
         <div class="stat">
             <h5>45</h5>
-            <p>Blogs</p>
+            <p>Articles</p>
         </div>
         <div class="stat">
             <h5>89</h5>

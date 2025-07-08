@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['order'])) {
         // Commit transaction
         $conn->commit();
         
-        $_SESSION['blog_success'] = "Blog order updated successfully.";
+        $_SESSION['article_success'] = "Article order updated successfully.";
         
         header('Content-Type: application/json');
         echo json_encode(['success' => true]);

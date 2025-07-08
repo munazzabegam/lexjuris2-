@@ -84,23 +84,23 @@ $categories_result = $conn->query($categories_query);
 $categories = $categories_result->fetch_all(MYSQLI_ASSOC);
 
 // Read and clear session messages
-$blog_success = $_SESSION['blog_success'] ?? null;
-unset($_SESSION['blog_success']);
-$blog_error = $_SESSION['blog_error'] ?? null;
-unset($_SESSION['blog_error']);
+$article_success = $_SESSION['article_success'] ?? null;
+unset($_SESSION['article_success']);
+$article_error = $_SESSION['article_error'] ?? null;
+unset($_SESSION['article_error']);
 
 // Debugging: Print fetched data and session messages
 // echo "<pre>Articles: "; var_dump($articles); echo "</pre>";
 // echo "<pre>Categories: "; var_dump($categories); echo "</pre>";
-// echo "<pre>Article Success: "; var_dump($blog_success); echo "</pre>";
-// echo "<pre>Article Error: "; var_dump($blog_error); echo "</pre>";
+// echo "<pre>Article Success: "; var_dump($article_success); echo "</pre>";
+// echo "<pre>Article Error: "; var_dump($article_error); echo "</pre>";
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog Management - Admin Dashboard</title>
+    <title>Articles Management - Admin Dashboard</title>
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="../../assets/images/favicon.png">
     <link rel="apple-touch-icon" href="../../assets/images/favicon.png">
@@ -227,16 +227,16 @@ unset($_SESSION['blog_error']);
 
     <div class="main-content">
         <div class="container-fluid p-3">
-            <?php if ($blog_success): ?>
+            <?php if ($article_success): ?>
             <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <?php echo htmlspecialchars($blog_success); ?>
+                <?php echo htmlspecialchars($article_success); ?>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
             <?php endif; ?>
 
-            <?php if ($blog_error): ?>
+            <?php if ($article_error): ?>
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <?php echo htmlspecialchars($blog_error); ?>
+                <?php echo htmlspecialchars($article_error); ?>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
             <?php endif; ?>
@@ -244,9 +244,9 @@ unset($_SESSION['blog_error']);
             <div class="row mb-4">
                 <div class="col-12">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h4 class="mb-0">Blog Management</h4>
+                        <h4 class="mb-0">Articles Management</h4>
                         <a href="add.php" class="btn btn-primary">
-                            <i class="fas fa-plus me-2"></i>Add New Blog
+                            <i class="fas fa-plus me-2"></i>Add New Article
                         </a>
                     </div>
                 </div>
@@ -278,15 +278,15 @@ unset($_SESSION['blog_error']);
                     </div>
                     <div class="filter-item">
                         <label>Search</label>
-                        <input type="text" name="search" class="form-control" placeholder="Search blogs..." value="<?php echo htmlspecialchars($search_query); ?>">
+                        <input type="text" name="search" class="form-control" placeholder="Search articles..." value="<?php echo htmlspecialchars($search_query); ?>">
                     </div>
                 </form>
             </div>
 
-            <!-- Blogs List (Table) -->
+            <!-- Articles List (Table) -->
             <div class="table-card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5>All Blogs</h5>
+                    <h5>All Articles</h5>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-hover">
@@ -302,10 +302,10 @@ unset($_SESSION['blog_error']);
                                 <th>Actions</th>
                             </tr>
                         </thead>
-                        <tbody id="sortable-blogs">
+                        <tbody id="sortable-articles">
                             <?php if (empty($articles)): ?>
                                 <tr>
-                                    <td colspan="8" class="text-center">No blogs found.</td>
+                                    <td colspan="8" class="text-center">No articles found.</td>
                                 </tr>
                             <?php else: ?>
                                 <?php foreach ($articles as $article): ?>
@@ -319,8 +319,16 @@ unset($_SESSION['blog_error']);
                                                 <?php echo ucfirst(htmlspecialchars($article['status'])); ?>
                                             </span>
                                         </td>
-                                        <td><?php echo !empty($article['published_at']) ? date('Y-m-d H:i', strtotime($article['published_at'])) : 'N/A'; ?></td>
-                                        <td><?php echo !empty($article['updated_at']) ? date('Y-m-d H:i', strtotime($article['updated_at'])) : 'N/A'; ?></td>
+                                        <td><?php echo date('Y-m-d H:i', strtotime($article['published_at'])); ?></td>
+                                        <td>
+                                            <?php 
+                                            if ($article['updated_at'] && $article['updated_at'] !== $article['published_at']) {
+                                                echo date('Y-m-d H:i', strtotime($article['updated_at']));
+                                            } else {
+                                                echo '-';
+                                            }
+                                            ?>
+                                        </td>
                                         <td>
                                             <a href="view.php?id=<?php echo $article['id']; ?>" class="btn btn-sm btn-outline-primary btn-action">
                                                 <i class="fas fa-eye"></i>View
@@ -328,7 +336,7 @@ unset($_SESSION['blog_error']);
                                             <a href="edit.php?id=<?php echo $article['id']; ?>" class="btn btn-sm btn-outline-secondary btn-action">
                                                 <i class="fas fa-edit"></i>Edit
                                             </a>
-                                            <form action="actions/delete.php" method="POST" onsubmit="return confirm('Are you sure you want to delete this blog?');" style="display: inline;">
+                                            <form action="actions/delete.php" method="POST" onsubmit="return confirm('Are you sure you want to delete this article?');" style="display: inline;">
                                                 <input type="hidden" name="article_id" value="<?php echo $article['id']; ?>">
                                                 <button type="submit" class="btn btn-sm btn-outline-danger btn-action">
                                                     <i class="fas fa-trash"></i>Delete
@@ -351,7 +359,7 @@ unset($_SESSION['blog_error']);
     <script src="../assets/js/common.js"></script>
     <script>
         $(document).ready(function() {
-            $("#sortable-blogs").sortable({
+            $("#sortable-articles").sortable({
                 handle: ".drag-handle",
                 placeholder: "ui-sortable-placeholder",
                 helper: function(e, tr) {
@@ -364,7 +372,7 @@ unset($_SESSION['blog_error']);
                 },
                 update: function(event, ui) {
                     var newOrder = [];
-                    $("#sortable-blogs tr").each(function(index) {
+                    $("#sortable-articles tr").each(function(index) {
                         newOrder.push({
                             id: $(this).data('article-id'),
                             order: index
@@ -381,16 +389,16 @@ unset($_SESSION['blog_error']);
                         success: function(response) {
                             if (response.success) {
                                 // Update the displayed order_index values
-                                $("#sortable-blogs tr").each(function(index) {
+                                $("#sortable-articles tr").each(function(index) {
                                     $(this).find('td:eq(1)').text(index);
                                 });
-                                showAlert('Blogs order updated successfully.');
+                                showAlert('Articles order updated successfully.');
                             } else {
-                                showAlert('Error updating blog order.', 'danger');
+                                showAlert('Error updating article order.', 'danger');
                             }
                         },
                         error: function() {
-                            showAlert('Error updating blog order.', 'danger');
+                            showAlert('Error updating article order.', 'danger');
                         }
                     });
                 }

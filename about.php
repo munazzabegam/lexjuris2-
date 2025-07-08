@@ -1,7 +1,7 @@
 <?php
 $page_title = "About Us - LexJuris";
 $current_page = "about";
-require_once '../config/database.php';
+require_once 'config/database.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -12,9 +12,9 @@ require_once '../config/database.php';
     <meta name="keywords" content="about lexjuris, law firm mangalore, legal team karnataka, experienced advocates, law chamber history, legal services mangalore, trusted lawyers, professional advocates">
     <title><?php echo $page_title; ?></title>
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="../assets/images/favicon.png">
-    <link rel="apple-touch-icon" href="../assets/images/favicon.png">
-    <link rel="manifest" href="../assets/images/site.webmanifest">
+    <link rel="icon" type="image/png" href="assets/images/favicon.png">
+    <link rel="apple-touch-icon" href="assets/images/favicon.png">
+    <link rel="manifest" href="assets/images/site.webmanifest">
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -22,7 +22,7 @@ require_once '../config/database.php';
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
     <style>
         body {
             font-family: 'Roboto', sans-serif;
@@ -99,7 +99,7 @@ require_once '../config/database.php';
     </style>
 </head>
 <body>
-    <?php include '../includes/header.php'; ?>
+    <?php include 'includes/header.php'; ?>
 
 
     <!-- About Section -->
@@ -145,22 +145,22 @@ require_once '../config/database.php';
                 <?php
                 $services = [
                     [
-                        'img' => '../assets/images/card_images/civil_law_card.jpg',
-                        'svg' => '../assets/images/icons/gavel.svg',
+                        'img' => 'assets/images/card_images/civil_law_card.jpg',
+                        'svg' => 'assets/images/icons/gavel.svg',
                         'title' => 'Civil Law',
                         'desc' => 'Private disputes between individuals or organizations, including contracts, torts, property, and family law.',
                         'link' => '#'
                     ],
                     [
-                        'img' => '../assets/images/card_images/criminal_law_card.jpeg',
-                        'svg' => '../assets/images/icons/gavel.svg',
+                        'img' => 'assets/images/card_images/criminal_law_card.jpeg',
+                        'svg' => 'assets/images/icons/gavel.svg',
                         'title' => 'Criminal Law',
                         'desc' => 'Prosecution of crimes against society, including theft, assault, cybercrime, and more.',
                         'link' => '#'
                     ],
                     [
-                        'img' => '../assets/images/card_images/family-law.jpg',
-                        'svg' => '../assets/images/icons/gavel.svg',
+                        'img' => 'assets/images/card_images/family-law.jpg',
+                        'svg' => 'assets/images/icons/gavel.svg',
                         'title' => 'Family Law',
                         'desc' => 'Matters such as marriage, divorce, child custody, maintenance, and domestic violence.',
                         'link' => '#'
@@ -186,7 +186,7 @@ require_once '../config/database.php';
             </div>
             <div class="row">
                 <div class="col-12 text-center mt-3">
-                    <a href="../services.php" class="btn btn-warning btn-lg px-5">View More</a>
+                    <a href="services.php" class="btn btn-warning btn-lg px-5">View More</a>
                 </div>
             </div>
         </div>
@@ -275,7 +275,7 @@ require_once '../config/database.php';
 
 
 
-    <?php include '../includes/footer.php'; ?>
+    <?php include 'includes/footer.php'; ?>
 
     <!-- Bootstrap JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

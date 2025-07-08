@@ -4,8 +4,8 @@
         <div class="row">
             <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
                 <div class="footer-brand mb-3">
-                    <a href="<?php echo ($current_page === 'home') ? 'index.php' : '../index.php'; ?>" class="text-decoration-none d-inline-block">
-                        <img src="<?php echo ($current_page === 'home') ? 'assets/images/footer_logo.png' : '../assets/images/footer_logo.png'; ?>" alt="Lex Juris Law Chamber" style="max-height: 80px;">
+                    <a href="index.php" class="text-decoration-none d-inline-block">
+                        <img src="assets/images/footer_logo.png" alt="Lex Juris Law Chamber" style="max-height: 80px;">
                     </a>
                 </div>
                 <p class="footer-description">Professional legal services for individuals and businesses. We're here to protect your rights and interests.</p>
@@ -27,19 +27,6 @@
             </div>
 
             <?php
-            // Add project base logic as in header.php
-            $project_folder = explode('/', $_SERVER['SCRIPT_NAME'])[1];
-            $project_base = '/' . $project_folder . '/';
-
-            $nav_items = [
-                ['url' => $project_base . 'index.php', 'text' => 'Home'],
-                ['url' => $project_base . 'about/', 'text' => 'About'],
-                ['url' => $project_base . 'services/', 'text' => 'Services'],
-                ['url' => $project_base . 'teams/', 'text' => 'Teams'],
-                ['url' => $project_base . 'blog/', 'text' => 'Blog'],
-                ['url' => $project_base . 'contact/', 'text' => 'Contact']
-            ];
-
             // Split nav items for two columns
             $total_items = count($nav_items);
             $half_point = (int)ceil($total_items / 2);
@@ -102,7 +89,7 @@
                 <span class="developed-by">
                     | Developed by
                     <a href="https://thebrandweave.com" target="_blank" class="dev-logo-link" aria-label="The Brand Weave">
-                        <img src="<?php echo ($current_page === 'home') ? 'assets/images/brandweave_logo1.png' : '../assets/images/brandweave_logo1.png'; ?>" alt="The Brand Weave" class="dev-logo">
+                        <img src="assets/images/brandweave_logo1.png" alt="The Brand Weave" class="dev-logo">
                     </a>
                 </span>
             </p>

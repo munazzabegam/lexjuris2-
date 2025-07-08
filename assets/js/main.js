@@ -209,15 +209,13 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!navigator.onLine) {
             // If offline, redirect to the no-internet page
             // Ensure we don't redirect if we are already on the no-internet page
-            var projectBase = getProjectBase();
-            if (window.location.pathname.indexOf('no-internet/index.php') === -1) {
-                window.location.href = projectBase + 'no-internet/index.php';
+            if (window.location.pathname.indexOf('no-internet.html') === -1) {
+                window.location.href = 'no-internet.html';
             }
         } else {
-            // If online and currently on the no-internet page, redirect back to home
-            var projectBase = getProjectBase();
-            if (window.location.pathname.indexOf('no-internet/index.php') !== -1) {
-                window.location.href = projectBase;
+            // If online and currently on the no-internet page, redirect back to index.php
+            if (window.location.pathname.indexOf('no-internet.html') !== -1) {
+                window.location.href = 'index.php'; // Or window.history.back()
             }
         }
     }
@@ -249,10 +247,3 @@ window.addEventListener('scroll', () => {
         }
     });
 }); 
-
-// Helper to get project base from current path
-function getProjectBase() {
-    var path = window.location.pathname;
-    var parts = path.split('/').filter(Boolean);
-    return parts.length > 0 ? '/' + parts[0] + '/' : '/';
-} 
