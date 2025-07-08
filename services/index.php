@@ -11,9 +11,9 @@ $current_page = "services";
     <meta name="keywords" content="legal services mangalore, civil law advocate, criminal law lawyer, family law attorney, corporate law firm, property law expert, legal consultation karnataka, best lawyer mangalore">
     <title><?php echo $page_title; ?></title>
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="assets/images/favicon.png">
-    <link rel="apple-touch-icon" href="assets/images/favicon.png">
-    <link rel="manifest" href="assets/images/site.webmanifest">
+    <link rel="icon" type="image/png" href="../assets/images/favicon.png">
+    <link rel="apple-touch-icon" href="../assets/images/favicon.png">
+    <link rel="manifest" href="../assets/images/site.webmanifest">
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -21,7 +21,7 @@ $current_page = "services";
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
     <style>
         html, body {
             max-width: 100vw;
@@ -173,7 +173,7 @@ $current_page = "services";
     </style>
 </head>
 <body>
-    <?php include 'includes/header.php'; ?>
+    <?php include '../includes/header.php'; ?>
 
     <!-- Services Overview -->
     <section class="services-overview py-5">
@@ -188,120 +188,120 @@ $current_page = "services";
                 <?php
                 $services = [
                     [
-                        'img' => 'assets/images/card_images/civil_law_card.jpg',
-                        'svg' => 'assets/images/icons/gavel.svg',
+                        'img' => '../assets/images/card_images/civil_law_card.jpg',
+                        'svg' => '../assets/images/icons/gavel.svg',
                         'title' => 'Civil Law',
                         'desc' => 'Deals with private disputes between individuals or organizations. Includes contract law, tort law, property law, and family law.',
                         'link' => '#'
                     ],
                     [
-                        'img' => 'assets/images/card_images/criminal_law_card.jpeg',
-                        'svg' => 'assets/images/icons/gavel.svg',
+                        'img' => '../assets/images/card_images/criminal_law_card.jpeg',
+                        'svg' => '../assets/images/icons/gavel.svg',
                         'title' => 'Criminal Law',
                         'desc' => 'Involves prosecution by the state of wrongful acts against society. Includes theft, assault, murder, and cybercrime.',
                         'link' => '#'
                     ],
                     [
-                        'img' => 'assets/images/card_images/family-law.jpg',
-                        'svg' => 'assets/images/icons/gavel.svg',
+                        'img' => '../assets/images/card_images/family-law.jpg',
+                        'svg' => '../assets/images/icons/gavel.svg',
                         'title' => 'Family Law',
                         'desc' => 'Covers matters such as marriage, divorce, child custody, maintenance, adoption, and domestic violence.',
                         'link' => '#'
                     ],
                     [
-                        'img' => 'assets/images/card_images/Administrative-Law.jpg',
-                        'svg' => 'assets/images/icons/gavel.svg',
+                        'img' => '../assets/images/card_images/Administrative-Law.jpg',
+                        'svg' => '../assets/images/icons/gavel.svg',
                         'title' => 'Corporate/Business Law',
                         'desc' => 'Regulates the formation, operation, and dissolution of businesses. Includes mergers & acquisitions and corporate governance.',
                         'link' => '#'
                     ],
                     [
-                        'img' => 'assets/images/card_images/soundblock-Wood-scales-books-stack-background-leather.webp',
-                        'svg' => 'assets/images/icons/gavel.svg',
+                        'img' => '../assets/images/card_images/soundblock-Wood-scales-books-stack-background-leather.webp',
+                        'svg' => '../assets/images/icons/gavel.svg',
                         'title' => 'Labour & Employment Law',
                         'desc' => 'Governs employer-employee relationships. Covers wages, termination, discrimination, and workplace safety.',
                         'link' => '#'
                     ],
                     [
-                        'img' => 'assets/images/card_images/real_estate_law.jpeg',
-                        'svg' => 'assets/images/icons/gavel.svg',
+                        'img' => '../assets/images/card_images/real_estate_law.jpeg',
+                        'svg' => '../assets/images/icons/gavel.svg',
                         'title' => 'Property / Real Estate Law',
                         'desc' => 'Deals with rights and duties related to real property. Includes transactions, leasing, zoning, and landlord-tenant disputes.',
                         'link' => '#'
                     ],
                     [
-                        'img' => 'assets/images/card_images/constitutional_law.jpeg',
-                        'svg' => 'assets/images/icons/gavel.svg',
+                        'img' => '../assets/images/card_images/constitutional_law.jpeg',
+                        'svg' => '../assets/images/icons/gavel.svg',
                         'title' => 'Constitutional Law',
                         'desc' => 'Involves interpretation and application of the Constitution. Covers fundamental rights, duties, and judicial review.',
                         'link' => '#'
                     ],
                     [
-                        'img' => 'assets/images/card_images/Administrative-Law.jpg',
-                        'svg' => 'assets/images/icons/gavel.svg',
+                        'img' => '../assets/images/card_images/Administrative-Law.jpg',
+                        'svg' => '../assets/images/icons/gavel.svg',
                         'title' => 'Administrative Law',
                         'desc' => 'Governs the actions and operations of government agencies. Includes licensing, regulation, and tribunal procedures.',
                         'link' => '#'
                     ],
                     [
-                        'img' => 'assets/images/card_images/tax_law.jpg',
-                        'svg' => 'assets/images/icons/gavel.svg',
+                        'img' => '../assets/images/card_images/tax_law.jpg',
+                        'svg' => '../assets/images/icons/gavel.svg',
                         'title' => 'Tax Law',
                         'desc' => 'Involves the assessment and collection of taxes. Includes tax planning, appeals, and litigation.',
                         'link' => '#'
                     ],
                     [
-                        'img' => 'assets/images/card_images/environmental_law.jpg',
-                        'svg' => 'assets/images/icons/gavel.svg',
+                        'img' => '../assets/images/card_images/environmental_law.jpg',
+                        'svg' => '../assets/images/icons/gavel.svg',
                         'title' => 'Environmental Law',
                         'desc' => 'Deals with protection of the environment and natural resources. Includes pollution control and forest conservation.',
                         'link' => '#'
                     ],
                     [
-                        'img' => 'assets/images/card_images/Intellectual-property.jpg',
-                        'svg' => 'assets/images/icons/gavel.svg',
+                        'img' => '../assets/images/card_images/Intellectual-property.jpg',
+                        'svg' => '../assets/images/icons/gavel.svg',
                         'title' => 'Intellectual Property (IP) Law',
                         'desc' => 'Protects creations of the mind such as inventions, trademarks, copyrights, and patents.',
                         'link' => '#'
                     ],
                     [
-                        'img' => 'assets/images/card_images/cyber_law.jpg',
-                        'svg' => 'assets/images/icons/gavel.svg',
+                        'img' => '../assets/images/card_images/cyber_law.jpg',
+                        'svg' => '../assets/images/icons/gavel.svg',
                         'title' => 'Cyber Law / IT Law',
                         'desc' => 'Governs digital transactions, data protection, online defamation, cybercrimes, and e-contracts.',
                         'link' => '#'
                     ],
                     [
-                        'img' => 'assets/images/card_images/consumer_law.jpg',
-                        'svg' => 'assets/images/icons/gavel.svg',
+                        'img' => '../assets/images/card_images/consumer_law.jpg',
+                        'svg' => '../assets/images/icons/gavel.svg',
                         'title' => 'Consumer Protection Law',
                         'desc' => 'Provides remedies for consumers against unfair trade practices or defective goods/services.',
                         'link' => '#'
                     ],
                     [
-                        'img' => 'assets/images/card_images/Blog photos_human rights lawyers.jpg',
-                        'svg' => 'assets/images/icons/gavel.svg',
+                        'img' => '../assets/images/card_images/Blog photos_human rights lawyers.jpg',
+                        'svg' => '../assets/images/icons/gavel.svg',
                         'title' => 'Human Rights Law',
                         'desc' => "Protects individuals' rights and freedoms, often involving issues like discrimination and unlawful detention.",
                         'link' => '#'
                     ],
                     [
-                        'img' => 'assets/images/card_images/Finance_law.webp',
-                        'svg' => 'assets/images/icons/gavel.svg',
+                        'img' => '../assets/images/card_images/Finance_law.webp',
+                        'svg' => '../assets/images/icons/gavel.svg',
                         'title' => 'Banking and Finance Law',
                         'desc' => 'Involves regulations related to loans, securities, financial institutions, and debt recovery.',
                         'link' => '#'
                     ],
                     [
-                        'img' => 'assets/images/card_images/ADR.jpg',
-                        'svg' => 'assets/images/icons/gavel.svg',
+                        'img' => '../assets/images/card_images/ADR.jpg',
+                        'svg' => '../assets/images/icons/gavel.svg',
                         'title' => 'Alternative Dispute Resolution (ADR)',
                         'desc' => 'Methods like arbitration, mediation, and conciliation to resolve disputes outside court.',
                         'link' => '#'
                     ],
                     [
-                        'img' => 'assets/images/card_images/international-law-.jpg',
-                        'svg' => 'assets/images/icons/gavel.svg',
+                        'img' => '../assets/images/card_images/international-law-.jpg',
+                        'svg' => '../assets/images/icons/gavel.svg',
                         'title' => 'International Law',
                         'desc' => 'Governs relations between nations; includes treaties, international trade, human rights, and conflict resolution.',
                         'link' => '#'
@@ -336,7 +336,7 @@ $current_page = "services";
     </section>
 
     <!-- Why Choose Our Services -->
-    <section class="why-choose-us py-5 position-relative" style="background: url('assets/images/image2.jpg') center center/cover no-repeat;height: 80vh;">
+    <section class="why-choose-us py-5 position-relative" style="background: url('../assets/images/image2.jpg') center center/cover no-repeat;height: 80vh;">
         <div class="why-choose-overlay position-absolute w-100 h-100" style="top:0;left:0;background:rgba(0,0,0,0.7);z-index:1;"></div>
         <div class="container position-relative" style="z-index:2;">
             <div class="row text-center mb-5">
@@ -349,17 +349,17 @@ $current_page = "services";
                 <?php
                 $features = [
                     [
-                        'svg' => 'assets/images/icons/team.svg',
+                        'svg' => '../assets/images/icons/team.svg',
                         'title' => 'Expert Team',
                         'description' => 'Highly qualified and experienced legal professionals.'
                     ],
                     [
-                        'svg' => 'assets/images/icons/support.svg',
+                        'svg' => '../assets/images/icons/support.svg',
                         'title' => '24/7 Support',
                         'description' => 'Round-the-clock assistance for urgent legal matters.'
                     ],
                     [
-                        'svg' => 'assets/images/icons/focus.svg',
+                        'svg' => '../assets/images/icons/focus.svg',
                         'title' => 'Client Focus',
                         'description' => 'Personalized attention and dedicated service.'
                     ]
@@ -396,12 +396,12 @@ $current_page = "services";
         </div>
     </section>
 
-<?php include 'includes/footer.php'; ?>
+<?php include '../includes/footer.php'; ?>
 
     <!-- Bootstrap JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Custom JS -->
-    <script src="assets/js/main.js"></script>
+    <script src="../assets/js/main.js"></script>
     <script>
     document.addEventListener('DOMContentLoaded', function() {
         var btn = document.getElementById('viewMoreBtn');

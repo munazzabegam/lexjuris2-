@@ -3,7 +3,7 @@ session_start();
 
 // Check if disclaimer has been accepted
 if (!isset($_SESSION['disclaimer_accepted']) || $_SESSION['disclaimer_accepted'] !== true) {
-    header("Location: disclaimer.php");
+    header("Location: disclaimer/index.php");
     exit();
 }
 
@@ -1150,7 +1150,7 @@ require_once 'config/database.php';
             </div>
             <div class="row mt-4">
                 <div class="col-12 text-center" data-aos="fade-up" data-aos-delay="200">
-                    <a href="our-teams.php" class="btn btn-warning btn-lg">More Teams</a>
+                    <a href="teams/" class="btn btn-warning btn-lg">More Teams</a>
                 </div>
             </div>
         </div>

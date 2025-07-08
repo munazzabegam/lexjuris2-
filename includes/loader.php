@@ -58,7 +58,7 @@ $loader_styles = "
 $loader_html = "
 <div class='page-loader'>
     <div class='loader-content'>
-        <img src='assets/images/logo.png' alt='Lex Juris Logo' class='loader-logo'>
+        <img src='" . (($current_page === 'home') ? 'assets/images/logo.png' : '../assets/images/logo.png') . "' alt='Lex Juris Logo' class='loader-logo'>
     </div>
 </div>
 ";

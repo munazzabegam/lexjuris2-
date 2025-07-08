@@ -39,7 +39,10 @@ function getLocationFromIP($ip) {
 }
 
 // Include database connection
-require_once 'config/database.php';
+require_once '../config/database.php';
+
+$project_folder = explode('/', $_SERVER['SCRIPT_NAME'])[1];
+$project_base = '/' . $project_folder . '/';
 
 // If disclaimer is accepted
 if (isset($_POST['accept_disclaimer'])) {
@@ -66,7 +69,7 @@ if (isset($_POST['accept_disclaimer'])) {
     $_SESSION['user_ip'] = $ip;
     
     // Redirect to main page
-    header("Location: index.php");
+    header("Location: " . $project_base . "index.php");
     exit();
 }
 ?>
@@ -79,17 +82,17 @@ if (isset($_POST['accept_disclaimer'])) {
     <meta name="keywords" content="legal disclaimer, terms of use, legal information, law firm disclaimer, legal terms, professional services">
     <title>Legal Disclaimer - LexJuris</title>
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="assets/images/favicon.png">
-    <link rel="apple-touch-icon" href="assets/images/favicon.png">
-    <link rel="manifest" href="assets/images/site.webmanifest">
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="icon" type="image/png" href="../assets/images/favicon.png">
+    <link rel="apple-touch-icon" href="../assets/images/favicon.png">
+    <link rel="manifest" href="../assets/images/site.webmanifest">
+    <link rel="stylesheet" href="../assets/css/style.css">
     <style>
         .disclaimer-container {
             max-width: 800px;
             margin: 50px auto;
             padding: 30px;
-            background: #fff;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            /* background: #fff; */
+            /* box-shadow: 0 0 20px rgba(0,0,0,0.1); */
             border-radius: 8px;
         }
         .disclaimer-text {
@@ -178,6 +181,32 @@ if (isset($_POST['accept_disclaimer'])) {
             background: #95a5a6;
             cursor: not-allowed;
         }
+        /* Mobile Responsive Styles */
+        @media (max-width: 600px) {
+            .disclaimer-container {
+                max-width: 98vw;
+                margin: 10px auto;
+                padding: 10px;
+                border-radius: 4px;
+            }
+            .disclaimer-text {
+                padding: 10px;
+                font-size: 14px;
+                max-height: 300px;
+            }
+            .disclaimer-text h1 {
+                font-size: 18px;
+            }
+            .btn {
+                padding: 10px 12px;
+                font-size: 14px;
+                margin: 0 4px 10px 4px;
+            }
+            .checkbox-container {
+                padding: 0 5px;
+                font-size: 13px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -190,11 +219,11 @@ if (isset($_POST['accept_disclaimer'])) {
             <p>By clicking "I AGREE", you expressly acknowledge and confirm the following:</p>
             
             <ul>
-                <li>You are visiting this site of your own free will to learn more about Lex Juris, its team, and the nature of its professional services.</li>
-                <li>The content on this website is meant to provide general information about the firm and does not, in any form, constitute legal advice or a legal opinion.</li>
-                <li>Any use of the material on this website is entirely at your own discretion and risk. We make no guarantees or warranties, express or implied, regarding the accuracy or completeness of the content.</li>
-                <li>Your viewing or use of this site does not create a client-attorney relationship between you and Lex Juris.</li>
-                <li>If you require legal assistance, you should seek it independently from a qualified professional suited to your specific circumstances.</li>
+                <li>You are visiting this site voluntarily to learn about Lex Juris and its services.</li>
+                <li>This website provides general information, not legal advice.</li>
+                <li>Use of this site is at your own risk; we do not guarantee accuracy or completeness.</li>
+                <li>Viewing this site does not create a client-attorney relationship.</li>
+                <li>For legal help, consult a qualified professional.</li>
             </ul>
 
             <p>Lex Juris bears no responsibility for any decision or action taken based on the information provided on this site.</p>

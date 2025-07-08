@@ -19,7 +19,7 @@ unset($_SESSION['old_data']);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add New Article - Admin Dashboard</title>
+    <title>Add New Blog - Admin Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="../assets/css/dashboard.css" rel="stylesheet">
@@ -64,9 +64,9 @@ unset($_SESSION['old_data']);
             <div class="row mb-4">
                 <div class="col-12">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h4 class="mb-0">Add New Article</h4>
+                        <h4 class="mb-0">Add New Blog</h4>
                         <a href="index.php" class="btn btn-secondary">
-                            <i class="fas fa-arrow-left me-2"></i>Back to Articles
+                            <i class="fas fa-arrow-left me-2"></i>Back to Blogs
                         </a>
                     </div>
                 </div>
@@ -74,25 +74,9 @@ unset($_SESSION['old_data']);
 
             <div class="add-article-form">
                 <div class="form-header">
-                    <h1 class="form-title">Add New Article</h1>
-                    <p class="form-subtitle">Enter the details for the new article below</p>
+                    <h1 class="form-title">Add New Blog</h1>
+                    <p class="form-subtitle">Enter the details for the new blog below</p>
                 </div>
-
-                <?php if (!empty($errors)): ?>
-                    <div class="alert alert-danger">
-                        <ul>
-                            <?php foreach ($errors as $error): ?>
-                                <li><?php echo htmlspecialchars($error); ?></li>
-                            <?php endforeach; ?>
-                        </ul>
-                    </div>
-                <?php endif; ?>
-
-                <?php if ($success): ?>
-                    <div class="alert alert-success">
-                        <?php echo htmlspecialchars($success); ?>
-                    </div>
-                <?php endif; ?>
 
                 <form action="actions/add.php" method="POST" enctype="multipart/form-data">
                     <div class="form-section">
@@ -118,7 +102,7 @@ unset($_SESSION['old_data']);
                         <div class="mb-3">
                             <label for="summary" class="form-label">Summary</label>
                             <textarea class="form-control" id="summary" name="summary" rows="3"><?php echo htmlspecialchars($old_data['summary'] ?? ''); ?></textarea>
-                            <div class="form-text">Brief summary of the article (optional).</div>
+                            <div class="form-text">Brief summary of the blog (optional).</div>
                         </div>
                     </div>
 
@@ -205,7 +189,7 @@ unset($_SESSION['old_data']);
                             <i class="fas fa-times"></i>Cancel
                         </a>
                         <button type="submit" class="btn btn-primary btn-action">
-                            <i class="fas fa-save"></i>Add Article
+                            <i class="fas fa-save"></i>Add Blog
                         </button>
                     </div>
                 </form>

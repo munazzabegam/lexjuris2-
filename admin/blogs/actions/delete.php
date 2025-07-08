@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         $conn->commit();
-        $_SESSION['article_success'] = "Article deleted successfully";
+        $_SESSION['blog_success'] = "Blog deleted successfully";
     } catch (Exception $e) {
         $conn->rollback();
         error_log("Article deletion error: " . $e->getMessage());

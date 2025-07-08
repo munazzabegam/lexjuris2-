@@ -238,7 +238,7 @@ try {
                 <div class="quick-actions-card">
                     <div class="quick-actions-title">Quick Actions</div>
                     <div class="quick-actions-list">
-                        <a href="../articles/add.php" class="quick-action-btn"><i class="fas fa-plus"></i>New Article</a>
+                        <a href="../blogs/add.php" class="quick-action-btn"><i class="fas fa-plus"></i>New Blog</a>
                         <a href="../users/create.php" class="quick-action-btn"><i class="fas fa-user-plus"></i>New User</a>
                         <a href="../testimonials/create.php" class="quick-action-btn"><i class="fas fa-star"></i>New Testimonial</a>
                         <a href="../team_members/create.php" class="quick-action-btn"><i class="fas fa-users-cog"></i>Add Team Member</a>

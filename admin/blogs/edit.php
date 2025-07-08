@@ -50,13 +50,16 @@ $old_data = $_SESSION['old_data'] ?? [];
 $form_data = !empty($old_data) ? $old_data : $article;
 $form_data['social_links'] = $social_links;
 
+$project_folder = explode('/', $_SERVER['SCRIPT_NAME'])[1];
+$project_base = '/' . $project_folder . '/';
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Article - Admin Dashboard</title>
+    <title>Edit Blog - Admin Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="../assets/css/dashboard.css" rel="stylesheet">
@@ -212,9 +215,9 @@ $form_data['social_links'] = $social_links;
             <div class="row mb-4">
                 <div class="col-12">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h4 class="mb-0">Edit Article</h4>
+                        <h4 class="mb-0">Edit Blog</h4>
                         <a href="view.php?id=<?php echo $article_id; ?>" class="btn btn-secondary">
-                            <i class="fas fa-arrow-left me-2"></i>Back to Article
+                            <i class="fas fa-arrow-left me-2"></i>Back to Blogs
                         </a>
                     </div>
                 </div>
@@ -222,25 +225,9 @@ $form_data['social_links'] = $social_links;
 
             <div class="edit-article-form">
                 <div class="form-header">
-                    <h1 class="form-title">Edit Article</h1>
-                    <p class="form-subtitle">Update the article details below</p>
+                    <h1 class="form-title">Edit Blog</h1>
+                    <p class="form-subtitle">Update the blog details below</p>
                 </div>
-
-                <?php if (!empty($errors)): ?>
-                    <div class="alert alert-danger">
-                        <ul>
-                            <?php foreach ($errors as $error): ?>
-                                <li><?php echo htmlspecialchars($error); ?></li>
-                            <?php endforeach; ?>
-                        </ul>
-                    </div>
-                <?php endif; ?>
-
-                <?php if ($success): ?>
-                    <div class="alert alert-success">
-                        <?php echo htmlspecialchars($success); ?>
-                    </div>
-                <?php endif; ?>
 
                 <form action="actions/update.php" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="article_id" value="<?php echo $article_id; ?>">
@@ -268,7 +255,7 @@ $form_data['social_links'] = $social_links;
                         <div class="mb-3">
                             <label for="summary" class="form-label">Summary</label>
                             <textarea class="form-control" id="summary" name="summary" rows="3"><?php echo htmlspecialchars($form_data['summary']); ?></textarea>
-                            <div class="form-text">Brief summary of the article (optional).</div>
+                            <div class="form-text">Brief summary of the blog (optional).</div>
                         </div>
                     </div>
 
@@ -305,8 +292,8 @@ $form_data['social_links'] = $social_links;
                             <label for="video">Video (MP4 format)</label>
                             <?php if (!empty($form_data['video_url'])): ?>
                                 <div class="mb-2">
-                                    <video controls class="img-thumbnail" style="max-height: 200px;">
-                                        <source src="../../<?php echo htmlspecialchars($form_data['video_url']); ?>" type="video/mp4">
+                                    <video controls style="max-width: 100%; height: auto;">
+                                        <source src="<?php echo $project_base . htmlspecialchars($form_data['video_url']); ?>" type="video/mp4">
                                         Your browser does not support the video tag.
                                     </video>
                                 </div>
@@ -369,7 +356,7 @@ $form_data['social_links'] = $social_links;
                             <i class="fas fa-times"></i>Cancel
                         </a>
                         <button type="submit" class="btn btn-primary btn-action">
-                            <i class="fas fa-save"></i>Update Article
+                            <i class="fas fa-save"></i>Update Blog
                         </button>
                     </div>
                 </form>
