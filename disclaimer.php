@@ -210,10 +210,7 @@ if (isset($_POST['accept_disclaimer'])) {
                 </label>
             </div>
             <input type="hidden" name="user_location" id="userLocationInput">
-
-            <!-- DECLINE first -->
             <button type="button" onclick="window.location.href='https://www.google.com'" class="btn btn-decline">I DECLINE</button>
-            <!-- ACCEPT second -->
             <button type="submit" name="accept_disclaimer" class="btn btn-accept" id="acceptButton" disabled>I AGREE</button>
         </form>
     </div>
@@ -262,4 +259,4 @@ if (isset($_POST['accept_disclaimer'])) {
         }
     </script>
 </body>
-</html>
+</html> 
